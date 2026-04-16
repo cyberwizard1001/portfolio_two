@@ -6,12 +6,15 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Flutter
@@ -19,7 +22,7 @@ jobs:
         with:
           channel: stable
 
-      - name: Enable Flutter web
+      - name: Enable web
         run: flutter config --enable-web
 
       - name: Install dependencies
@@ -28,8 +31,9 @@ jobs:
       - name: Build web
         run: flutter build web --release --base-href /portfolio_two/
 
-      - name: Deploy to GitHub Pages
-        uses: bluefireteam/flutter-gh-pages@v7
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          baseHref: /portfolio_two/
-          webFolder: build/web
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/web
+          publish_branch: gh-pages
