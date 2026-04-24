@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:portfolio_2/widgets/site/site_footer.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,7 +11,6 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../../widgets/common/responsive_section.dart';
-import '../../widgets/site/site_footer.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
@@ -46,85 +46,84 @@ class ContactPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
                   child: ResponsiveBuilder(
-                builder: (context, info) {
-                  final twoColumn = !info.isMobile;
-          
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextButton.icon(
-                        onPressed: () => context.goNamed('home'),
-                        icon: const Icon(Icons.arrow_back_rounded),
-                        label: const Text('Back home'),
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: AppSpacing.xl),
-                      Text(
-                        'Contact',
-                        style: textTheme.displayLarge?.copyWith(
-                          color: AppColors.accent,
-                          fontSize: info.isMobile ? 52 : 82,
-                          height: 0.95,
-                        ),
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 760),
-                        child: Text(
-                          'No forms, no friction. If my work resonates, send me an email, scan the QR, or find me on LinkedIn.',
-                          style: textTheme.bodyLarge?.copyWith(
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: AppSpacing.xxl),
-                      twoColumn
-                          ? Row(
+                    builder: (context, info) {
+                      final twoColumn = !info.isMobile;
+
+                      return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            flex: 7,
-                            child: _ContactInfoPanel(
-                              onOpenCv: () => _openUrl(cvUrl),
-                              onOpenLinkedIn: () => _openUrl(linkedInUrl),
-                              onOpenMedium: () => _openUrl(mediumUrl),
-                              onOpenMail: () => _openUrl(mailtoLink),
-                              email: email,
+                          TextButton.icon(
+                            onPressed: () => context.goNamed('home'),
+                            icon: const Icon(Icons.arrow_back_rounded),
+                            label: const Text('Back home'),
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.white,
                             ),
-                          ),
-                          const SizedBox(width: AppSpacing.xl),
-                          Expanded(
-                            flex: 5,
-                            child: _ContactVisualPanel(
-                              mailtoLink: mailtoLink,
-                            ),
-                          ),
-                        ],
-                      )
-                          : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _ContactInfoPanel(
-                            onOpenCv: () => _openUrl(cvUrl),
-                            onOpenLinkedIn: () => _openUrl(linkedInUrl),
-                            onOpenMedium: () => _openUrl(mediumUrl),
-                            onOpenMail: () => _openUrl(mailtoLink),
-                            email: email,
                           ),
                           const SizedBox(height: AppSpacing.xl),
-                          _ContactVisualPanel(
-                            mailtoLink: mailtoLink,
+                          Text(
+                            'Contact',
+                            style: textTheme.displayLarge?.copyWith(
+                              color: AppColors.accent,
+                              fontSize: info.isMobile ? 52 : 82,
+                              height: 0.95,
+                            ),
                           ),
+                          const SizedBox(height: AppSpacing.md),
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 760),
+                            child: Text(
+                              'No forms, no friction. If my work resonates, send me an email, scan the QR, or find me on LinkedIn.',
+                              style: textTheme.bodyLarge?.copyWith(
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: AppSpacing.xxl),
+                          twoColumn
+                              ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 7,
+                                      child: _ContactInfoPanel(
+                                        onOpenCv: () => _openUrl(cvUrl),
+                                        onOpenLinkedIn: () =>
+                                            _openUrl(linkedInUrl),
+                                        onOpenMedium: () => _openUrl(mediumUrl),
+                                        onOpenMail: () => _openUrl(mailtoLink),
+                                        email: email,
+                                      ),
+                                    ),
+                                    const SizedBox(width: AppSpacing.xl),
+                                    Expanded(
+                                      flex: 5,
+                                      child: _ContactVisualPanel(
+                                        mailtoLink: mailtoLink,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _ContactInfoPanel(
+                                      onOpenCv: () => _openUrl(cvUrl),
+                                      onOpenLinkedIn: () =>
+                                          _openUrl(linkedInUrl),
+                                      onOpenMedium: () => _openUrl(mediumUrl),
+                                      onOpenMail: () => _openUrl(mailtoLink),
+                                      email: email,
+                                    ),
+                                    const SizedBox(height: AppSpacing.xl),
+                                    _ContactVisualPanel(mailtoLink: mailtoLink),
+                                  ],
+                                ),
                         ],
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ),
+                      );
+                    },
+                  ),
+                ),
               ),
               const SiteFooter(),
             ],
@@ -160,32 +159,22 @@ class _ContactInfoPanel extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(AppRadii.xl),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.08),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Let’s talk',
-            style: textTheme.headlineLarge?.copyWith(
-              color: Colors.white,
-            ),
+            style: textTheme.headlineLarge?.copyWith(color: Colors.white),
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
             'Best for collaborations, design roles, product conversations, or just a good systems-and-UX chat.',
-            style: textTheme.bodyLarge?.copyWith(
-              color: Colors.white70,
-            ),
+            style: textTheme.bodyLarge?.copyWith(color: Colors.white70),
           ),
           const SizedBox(height: AppSpacing.xl),
-          _ContactLinkTile(
-            title: 'Email',
-            subtitle: email,
-            onTap: onOpenMail,
-          ),
+          _ContactLinkTile(title: 'Email', subtitle: email, onTap: onOpenMail),
           const SizedBox(height: AppSpacing.md),
           _ContactLinkTile(
             title: 'LinkedIn',
@@ -211,9 +200,7 @@ class _ContactInfoPanel extends StatelessWidget {
 }
 
 class _ContactVisualPanel extends StatelessWidget {
-  const _ContactVisualPanel({
-    required this.mailtoLink,
-  });
+  const _ContactVisualPanel({required this.mailtoLink});
 
   final String mailtoLink;
 
@@ -229,16 +216,12 @@ class _ContactVisualPanel extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.04),
             borderRadius: BorderRadius.circular(AppRadii.xl),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.08),
-            ),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
           ),
           child: Center(
             child: Text(
               'Image space',
-              style: textTheme.bodyLarge?.copyWith(
-                color: Colors.white38,
-              ),
+              style: textTheme.bodyLarge?.copyWith(color: Colors.white38),
             ),
           ),
         ),
@@ -262,9 +245,7 @@ class _ContactVisualPanel extends StatelessWidget {
               const SizedBox(height: AppSpacing.md),
               Text(
                 'Scan to email me',
-                style: textTheme.titleLarge?.copyWith(
-                  color: AppColors.ink,
-                ),
+                style: textTheme.titleLarge?.copyWith(color: AppColors.ink),
               ),
             ],
           ),
@@ -330,9 +311,7 @@ class _ContactLinkTileState extends State<_ContactLinkTile>
     final hoverBorder = AppColors.accent.withValues(alpha: 0.85);
 
     final titleColor = _hovered ? AppColors.accent : Colors.white;
-    final subtitleColor = _hovered
-        ? const Color(0xFFE5D6CB)
-        : Colors.white70;
+    final subtitleColor = _hovered ? const Color(0xFFE5D6CB) : Colors.white70;
     final iconColor = _hovered ? AppColors.accent : Colors.white;
 
     return MouseRegion(
@@ -355,12 +334,12 @@ class _ContactLinkTileState extends State<_ContactLinkTile>
             ),
             boxShadow: _hovered
                 ? [
-              BoxShadow(
-                color: AppColors.accent.withValues(alpha: 0.10),
-                blurRadius: 22,
-                spreadRadius: 0,
-              ),
-            ]
+                    BoxShadow(
+                      color: AppColors.accent.withValues(alpha: 0.10),
+                      blurRadius: 22,
+                      spreadRadius: 0,
+                    ),
+                  ]
                 : [],
           ),
           child: ClipRRect(
@@ -396,7 +375,9 @@ class _ContactLinkTileState extends State<_ContactLinkTile>
                                   Colors.transparent,
                                   AppColors.accent.withValues(alpha: 0.00),
                                   AppColors.accent.withValues(alpha: 0.05),
-                                  const Color(0xFFFFE7D6).withValues(alpha: 0.14),
+                                  const Color(
+                                    0xFFFFE7D6,
+                                  ).withValues(alpha: 0.14),
                                   AppColors.accent.withValues(alpha: 0.06),
                                   Colors.transparent,
                                 ],

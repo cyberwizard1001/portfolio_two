@@ -5,25 +5,25 @@ import 'app_colors.dart';
 
 class AppTextStyles {
   static TextTheme textTheme = TextTheme(
-    displayLarge: GoogleFonts.inter(
+    displayLarge: GoogleFonts.nobile(
       fontSize: 86,
       height: 0.95,
       fontWeight: FontWeight.w500,
       color: AppColors.ink,
     ),
-    displayMedium: GoogleFonts.inter(
+    displayMedium: GoogleFonts.nobile(
       fontSize: 64,
       height: 0.98,
       fontWeight: FontWeight.w500,
       color: AppColors.ink,
     ),
-    headlineLarge: GoogleFonts.inter(
+    headlineLarge: GoogleFonts.fustat(
       fontSize: 40,
       height: 1.05,
       fontWeight: FontWeight.w500,
       color: AppColors.ink,
     ),
-    headlineMedium: GoogleFonts.inter(
+    headlineMedium: GoogleFonts.fustat(
       fontSize: 28,
       height: 1.1,
       fontWeight: FontWeight.w500,
@@ -35,13 +35,13 @@ class AppTextStyles {
       fontWeight: FontWeight.w500,
       color: AppColors.ink,
     ),
-    bodyLarge: GoogleFonts.inter(
+    bodyLarge: GoogleFonts.fustat(
       fontSize: 18,
       height: 1.6,
       fontWeight: FontWeight.w400,
       color: AppColors.ink,
     ),
-    bodyMedium: GoogleFonts.inter(
+    bodyMedium: GoogleFonts.fustat(
       fontSize: 16,
       height: 1.6,
       fontWeight: FontWeight.w400,

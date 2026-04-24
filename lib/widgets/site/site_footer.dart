@@ -99,7 +99,7 @@ class _FooterBrand extends StatelessWidget {
             'UX designer focused on clear, thoughtful digital experiences across product, service, and web journeys.',
             style: textTheme.bodyLarge?.copyWith(
               color: Colors.white70,
-              height: 1.7,
+              height: 1.4,
             ),
           ),
         ],
@@ -300,7 +300,7 @@ class _FooterLinkState extends State<_FooterLink> {
             color: _isHovered && isInteractive
                 ? const Color(0xFFFB6000)
                 : Colors.white70,
-            height: 1.6,
+            height: 1,
           ),
           child: Text(widget.item.label),
         ),
