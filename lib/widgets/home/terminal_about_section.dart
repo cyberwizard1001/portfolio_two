@@ -33,7 +33,9 @@ class TerminalAboutSection extends StatelessWidget {
               children: [
                 Text(
                   'About me',
-                  style: textTheme.headlineMedium,
+                  style: textTheme.headlineMedium?.copyWith(
+                    color: AppColors.ink,
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 Container(
@@ -157,13 +159,13 @@ class _AboutChip extends StatelessWidget {
         vertical: AppSpacing.xs,
       ),
       decoration: BoxDecoration(
-        color: AppColors.accent.withValues(alpha: 0.12),
+        color: const Color(0xFF1E1E1E),
         borderRadius: BorderRadius.circular(AppRadii.pill),
-        border: Border.all(color: AppColors.accent.withValues(alpha: 0.2)),
+        border: Border.all(color: const Color(0xFF3A3A3A)),
       ),
       child: Text(
         label,
-        style: textTheme.bodySmall?.copyWith(color: Colors.white),
+        style: textTheme.bodySmall?.copyWith(color: const Color(0xFF28C840)),
       ),
     );
   }

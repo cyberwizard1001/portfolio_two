@@ -301,20 +301,21 @@ class _HeroActionButtonState extends State<_HeroActionButton> {
           duration: const Duration(milliseconds: 180),
           curve: Curves.easeOutCubic,
           padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.md,
-            vertical: AppSpacing.md,
+            horizontal: AppSpacing.lg,
+            vertical: AppSpacing.sm + 2,
           ),
           decoration: BoxDecoration(
             color: widget.isPrimary
                 ? (_hovered ? const Color(0xFFFF7A29) : AppColors.accent)
                 : (_hovered
-                ? Colors.white.withValues(alpha: 0.10)
-                : Colors.white.withValues(alpha: 0.04)),
+                ? AppColors.accent.withValues(alpha: 0.14)
+                : AppColors.accent.withValues(alpha: 0.10)),
             borderRadius: BorderRadius.circular(AppRadii.pill),
             border: Border.all(
               color: widget.isPrimary
-                  ? Colors.transparent
-                  : Colors.white.withValues(alpha: 0.12),
+                  ? (_hovered ? const Color(0xFFFF7A29) : AppColors.accent)
+                  : AppColors.accent.withValues(alpha: 0.35),
+              width: 1.5,
             ),
           ),
           child: Row(
@@ -330,6 +331,7 @@ class _HeroActionButtonState extends State<_HeroActionButton> {
                 widget.label,
                 style: textTheme.bodySmall?.copyWith(
                   color: Colors.white,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
