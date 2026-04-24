@@ -5,13 +5,18 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../../widgets/common/responsive_section.dart';
+import '../../widgets/project/project_accessibility_audit_block.dart';
 import '../../widgets/project/project_before_after_block.dart';
+import '../../widgets/project/project_callout_block.dart';
+import '../../widgets/project/project_decision_log_block.dart';
 import '../../widgets/project/project_findings_grid_block.dart';
+import '../../widgets/project/project_how_might_we_block.dart';
 import '../../widgets/project/project_image_gallery_block.dart';
 import '../../widgets/project/project_intro_block.dart';
 import '../../widgets/project/project_learnings_block.dart';
 import '../../widgets/project/project_meta_strip_block.dart';
 import '../../widgets/project/project_metrics_band_block.dart';
+import '../../widgets/project/project_persona_block.dart';
 import '../../widgets/project/project_problem_key_info_block.dart';
 import '../../widgets/project/project_process_steps_block.dart';
 import '../../widgets/project/project_quote_block.dart';
@@ -308,6 +313,183 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               ),
             ),
 
+            // ── New UX blocks ────────────────────────────────────────────────
+
+            const ProjectDemoBlockLabel(
+              fileName: 'widgets/project/project_how_might_we_block.dart',
+              className: 'ProjectHowMightWeBlock',
+              usageNote:
+              'Use in the define or ideate phase to surface opportunity questions. Each card anchors a design direction or sprint theme.',
+              child: ProjectHowMightWeBlock(
+                themeConfig: softTheme,
+                title: 'How might we\u2026',
+                intro: 'Opportunity questions distilled from research synthesis.',
+                items: [
+                  ProjectHmwItem(
+                    question: 'How might we help users understand their progress without overwhelming them with data?',
+                    theme: 'Clarity',
+                  ),
+                  ProjectHmwItem(
+                    question: 'How might we reduce anxiety at the point of commitment so users feel confident, not pressured?',
+                    theme: 'Trust',
+                  ),
+                  ProjectHmwItem(
+                    question: 'How might we surface the right action at the right moment without disrupting flow?',
+                    theme: 'Timing',
+                  ),
+                  ProjectHmwItem(
+                    question: 'How might we make error recovery feel like guidance rather than failure?',
+                    theme: 'Recovery',
+                  ),
+                  ProjectHmwItem(
+                    question: 'How might we help first-time users build a mental model quickly without a tutorial?',
+                    theme: 'Onboarding',
+                  ),
+                  ProjectHmwItem(
+                    question: 'How might we reduce cognitive load on the most complex step of the journey?',
+                    theme: 'Simplicity',
+                  ),
+                ],
+              ),
+            ),
+
+            const ProjectDemoBlockLabel(
+              fileName: 'widgets/project/project_persona_block.dart',
+              className: 'ProjectPersonaBlock',
+              usageNote:
+              'Use to ground the case study in a real user archetype. Place early in the narrative, after research findings and before ideation.',
+              child: ProjectPersonaBlock(
+                themeConfig: darkTheme,
+                eyebrow: 'User persona',
+                name: 'Aisha Rahman',
+                role: 'Senior operations manager, mid-size logistics firm',
+                quote: 'I just need the system to get out of my way and let me do my job. Every extra click is time I do not have.',
+                goals: [
+                  'Complete daily tasks without switching between tools',
+                  'Have confidence that the data she sees is accurate and current',
+                  'Delegate clearly without losing visibility',
+                  'Reduce time spent in meetings caused by miscommunication',
+                ],
+                frustrations: [
+                  'Too many notification channels with overlapping information',
+                  'Status updates that require manual chasing across teams',
+                  'UI that assumes she has more context than she does',
+                  'Onboarding flows that never accounted for her actual workflow',
+                ],
+                context: 'Aisha works across three time zones, manages a team of eleven, and relies heavily on mobile during morning standups. She is not averse to technology but has low tolerance for friction.',
+                contextTags: ['Mobile-first', 'Power user', 'Time-pressured', 'Delegation-heavy'],
+              ),
+            ),
+
+            const ProjectDemoBlockLabel(
+              fileName: 'widgets/project/project_decision_log_block.dart',
+              className: 'ProjectDecisionLogBlock',
+              usageNote:
+              'Use to document key design decisions, the rationale behind them, and what actually happened. Demonstrates rigour and self-awareness.',
+              child: ProjectDecisionLogBlock(
+                themeConfig: lightTheme,
+                title: 'Decision log',
+                intro: 'Key choices made during the project and what we learned from them.',
+                decisions: [
+                  ProjectDecisionItem(
+                    decision: 'Use a single-page form instead of a multi-step wizard',
+                    rationale: 'User testing showed that the wizard created a false sense of progress and increased drop-off at step 3.',
+                    outcome: 'Task completion improved by 18% in the follow-up test round.',
+                    outcomeType: DecisionOutcomeType.positive,
+                  ),
+                  ProjectDecisionItem(
+                    decision: 'Defer the notification preferences screen to post-onboarding',
+                    rationale: 'Stakeholders wanted it up front. We argued it added friction before users had context to make meaningful choices.',
+                    outcome: 'Shipped with compromise: one opt-in toggle at step one, full settings deferred. Both sides partially satisfied.',
+                    outcomeType: DecisionOutcomeType.neutral,
+                  ),
+                  ProjectDecisionItem(
+                    decision: 'Introduced an inline confirmation pattern instead of a modal',
+                    rationale: 'Modals were blocking flow and causing accidental dismissal on mobile. Inline felt lower stakes.',
+                    outcome: 'Reduced perceived friction but required more implementation effort than estimated. Worth it for mobile, borderline on desktop.',
+                    outcomeType: DecisionOutcomeType.tradeoff,
+                  ),
+                  ProjectDecisionItem(
+                    decision: 'Prioritised loading skeletons over a global spinner',
+                    rationale: 'Global spinners gave no spatial context. Skeletons reduced perceived wait time in earlier usability tests.',
+                    outcome: 'Users reported the interface felt faster. Engineering flagged complexity of per-component skeleton states.',
+                    outcomeType: DecisionOutcomeType.positive,
+                  ),
+                ],
+              ),
+            ),
+
+            const ProjectDemoBlockLabel(
+              fileName: 'widgets/project/project_accessibility_audit_block.dart',
+              className: 'ProjectAccessibilityAuditBlock',
+              usageNote:
+              'Use to show accessibility issues found during an audit. Severity chips and WCAG references make this suitable for stakeholder reviews and handoff docs.',
+              child: ProjectAccessibilityAuditBlock(
+                themeConfig: softTheme,
+                title: 'Accessibility audit',
+                intro: 'Issues identified during a WCAG 2.1 AA audit of the current product.',
+                issues: [
+                  ProjectA11yIssue(
+                    issue: 'Insufficient colour contrast on body text',
+                    description: 'Secondary text on card backgrounds renders at 3.1:1, below the 4.5:1 minimum for normal text.',
+                    severity: A11ySeverity.critical,
+                    wcagCriterion: '1.4.3 Contrast (Minimum)',
+                    fix: 'Darken secondary text token from #9E9E9E to #767676 or use a darker background.',
+                  ),
+                  ProjectA11yIssue(
+                    issue: 'Form inputs have no visible focus indicator',
+                    description: 'Focus state is removed globally via outline: none with no custom replacement, making keyboard navigation invisible.',
+                    severity: A11ySeverity.critical,
+                    wcagCriterion: '2.4.7 Focus Visible',
+                    fix: 'Add a 2px solid focus ring using the brand accent colour with sufficient contrast.',
+                  ),
+                  ProjectA11yIssue(
+                    issue: 'Icon-only buttons lack accessible labels',
+                    description: 'Seven action buttons in the toolbar use icons with no aria-label or title attribute.',
+                    severity: A11ySeverity.serious,
+                    wcagCriterion: '4.1.2 Name, Role, Value',
+                    fix: 'Add aria-label or Tooltip with visible label to each icon button.',
+                  ),
+                  ProjectA11yIssue(
+                    issue: 'Modal dialog does not trap focus',
+                    description: 'Keyboard focus escapes the modal overlay and reaches background content, disorienting screen reader users.',
+                    severity: A11ySeverity.serious,
+                    wcagCriterion: '2.1.1 Keyboard',
+                    fix: 'Implement a focus trap on modal open; restore focus to trigger element on close.',
+                  ),
+                  ProjectA11yIssue(
+                    issue: 'Error messages not associated with inputs',
+                    description: 'Validation messages appear visually below inputs but are not programmatically linked via aria-describedby.',
+                    severity: A11ySeverity.moderate,
+                    wcagCriterion: '3.3.1 Error Identification',
+                    fix: 'Add aria-describedby on each input pointing to its error message element.',
+                  ),
+                  ProjectA11yIssue(
+                    issue: 'Animation not respecting prefers-reduced-motion',
+                    description: 'Hero entrance animations and card hover transitions run regardless of system motion preference.',
+                    severity: A11ySeverity.minor,
+                    wcagCriterion: '2.3.3 Animation from Interactions (AAA)',
+                    fix: 'Wrap animations in @media (prefers-reduced-motion: reduce) and disable or reduce motion.',
+                  ),
+                ],
+              ),
+            ),
+
+            const ProjectDemoBlockLabel(
+              fileName: 'widgets/project/project_callout_block.dart',
+              className: 'ProjectCalloutBlock',
+              usageNote:
+              'Use to elevate a single key insight, design principle, or warning that should not be missed. Works well between dense sections as a visual breath.',
+              child: ProjectCalloutBlock(
+                themeConfig: darkTheme,
+                style: CalloutStyle.insight,
+                label: 'Key insight',
+                icon: Icons.lightbulb_outline_rounded,
+                body:
+                'Users did not struggle with the complexity of the task itself \u2014 they struggled with not knowing where they were in the process. Every significant usability failure we observed mapped back to a missing or ambiguous progress signal.',
+              ),
+            ),
+
             const _DemoFooterNote(),
           ],
         ),
@@ -400,6 +582,11 @@ class _DemoIndex extends StatelessWidget {
     'Metrics band',
     'Gallery',
     'Learnings',
+    'How might we',
+    'Persona',
+    'Decision log',
+    'Accessibility audit',
+    'Callout',
   ];
 
   @override
@@ -430,7 +617,7 @@ class _DemoIndex extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'What’s on this page',
+                'What\u2019s on this page',
                 style: textTheme.headlineSmall?.copyWith(
                   color: const Color(0xFF141414),
                 ),
