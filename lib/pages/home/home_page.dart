@@ -21,16 +21,57 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _aboutKey = GlobalKey();
   final GlobalKey _footerKey = GlobalKey();
 
+  // Whether we've already snapped past the hero on the first downward scroll
+  bool _heroSnapped = false;
+
   Future<void> _scrollTo(GlobalKey key) async {
-    final context = key.currentContext;
-    if (context == null) return;
+    final ctx = key.currentContext;
+    if (ctx == null) return;
 
     await Scrollable.ensureVisible(
-      context,
+      ctx,
       duration: const Duration(milliseconds: 750),
       curve: Curves.easeInOutCubic,
       alignment: 0.02,
     );
+  }
+
+  /// Returns the rendered height of the hero section (approx viewport height).
+  double get _heroHeight {
+    final ctx = _heroKey.currentContext;
+    if (ctx == null) return 0;
+    final box = ctx.findRenderObject() as RenderBox?;
+    return box?.size.height ?? 0;
+  }
+
+  void _onScrollNotification(ScrollNotification notification) {
+    if (_heroSnapped) return;
+    if (notification is! ScrollUpdateNotification) return;
+    if (notification.scrollDelta == null || notification.scrollDelta! <= 0) return;
+
+    // Only snap if still mostly within the hero section
+    final offset = _scrollController.offset;
+    if (offset < _heroHeight * 0.5) {
+      _heroSnapped = true;
+      _scrollTo(_workKey);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      // Reset snap flag when user scrolls back to top
+      if (_scrollController.offset < 20) {
+        _heroSnapped = false;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -38,34 +79,42 @@ class _HomePageState extends State<HomePage> {
     return AppShell(
       child: Stack(
         children: [
-          CustomScrollView(
-            controller: _scrollController,
-            slivers: [
-              SliverToBoxAdapter(
-                child: KeyedSubtree(
-                  key: _heroKey,
-                  child: const HeroSection(),
+          NotificationListener<ScrollNotification>(
+            onNotification: (notification) {
+              _onScrollNotification(notification);
+              return false; // don't absorb — allow normal scroll too
+            },
+            child: CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: KeyedSubtree(
+                    key: _heroKey,
+                    child: HeroSection(
+                      onScrollToWork: () => _scrollTo(_workKey),
+                    ),
+                  ),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: KeyedSubtree(
-                  key: _workKey,
-                  child: const ProjectStackSection(),
+                SliverToBoxAdapter(
+                  child: KeyedSubtree(
+                    key: _workKey,
+                    child: const ProjectStackSection(),
+                  ),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: KeyedSubtree(
-                  key: _aboutKey,
-                  child: const TerminalAboutSection(),
+                SliverToBoxAdapter(
+                  child: KeyedSubtree(
+                    key: _aboutKey,
+                    child: const TerminalAboutSection(),
+                  ),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: KeyedSubtree(
-                  key: _footerKey,
-                  child: const SiteFooter(),
+                SliverToBoxAdapter(
+                  child: KeyedSubtree(
+                    key: _footerKey,
+                    child: const SiteFooter(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           HomeNavBar(
             onHeroTap: () => _scrollTo(_heroKey),
