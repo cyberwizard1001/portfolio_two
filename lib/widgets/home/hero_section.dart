@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../responsive/responsive_builder.dart';
@@ -13,9 +14,11 @@ class HeroSection extends StatelessWidget {
   const HeroSection({
     super.key,
     this.onScrollToWork,
+    this.onScrollToAbout,
   });
 
   final VoidCallback? onScrollToWork;
+  final VoidCallback? onScrollToAbout;
 
   @override
   Widget build(BuildContext context) {
@@ -106,29 +109,8 @@ class HeroSection extends StatelessWidget {
                               const SizedBox(height: AppSpacing.lg),
                               const DynamicHeadline(),
                               const SizedBox(height: AppSpacing.xxl),
-                              ConstrainedBox(
-                                constraints: const BoxConstraints(maxWidth: 680),
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      const TextSpan(
-                                        text: 'A UX designer who builds. Scroll down to see my work, or head to the ',
-                                      ),
-                                      TextSpan(
-                                        text: 'About me',
-                                        style: TextStyle(
-                                          color: AppColors.accent,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      const TextSpan(text: ' section for CV and links.'),
-                                    ],
-                                  ),
-                                  style: textTheme.bodyMedium?.copyWith(
-                                    color: Colors.white70,
-                                    height: 1.5,
-                                  ),
-                                ),
+                              _HeroSubtext(
+                                onScrollToAbout: onScrollToAbout,
                               ),
                             ],
                           ),
@@ -174,6 +156,73 @@ class HeroSection extends StatelessWidget {
                 ),
               );
             },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Hero subtext with clickable 'About me' ─────────────────────────────────
+
+class _HeroSubtext extends StatefulWidget {
+  const _HeroSubtext({this.onScrollToAbout});
+  final VoidCallback? onScrollToAbout;
+
+  @override
+  State<_HeroSubtext> createState() => _HeroSubtextState();
+}
+
+class _HeroSubtextState extends State<_HeroSubtext> {
+  bool _hovered = false;
+  late final TapGestureRecognizer _recognizer;
+
+  @override
+  void initState() {
+    super.initState();
+    _recognizer = TapGestureRecognizer()
+      ..onTap = () => widget.onScrollToAbout?.call();
+  }
+
+  @override
+  void dispose() {
+    _recognizer.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 680),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.basic,
+        child: Text.rich(
+          TextSpan(
+            children: [
+              const TextSpan(
+                text: 'A UX designer who builds. Scroll down to see my work, or head to the ',
+              ),
+              TextSpan(
+                text: 'About me',
+                recognizer: _recognizer,
+                mouseCursor: SystemMouseCursors.click,
+                onEnter: (_) => setState(() => _hovered = true),
+                onExit: (_) => setState(() => _hovered = false),
+                style: TextStyle(
+                  color: AppColors.accent,
+                  fontWeight: FontWeight.w600,
+                  decoration: _hovered ? TextDecoration.underline : TextDecoration.none,
+                  decorationColor: AppColors.accent,
+                ),
+              ),
+              const TextSpan(text: ' section for CV and links.'),
+            ],
+          ),
+          style: textTheme.bodyMedium?.copyWith(
+            color: Colors.white70,
+            height: 1.5,
           ),
         ),
       ),

@@ -21,8 +21,11 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _aboutKey = GlobalKey();
   final GlobalKey _footerKey = GlobalKey();
 
-  // Whether we've already snapped past the hero on the first downward scroll
   bool _heroSnapped = false;
+
+  /// True while the scroll position is still inside the hero section,
+  /// so the nav bar uses its dark/glass style.
+  bool _navIsDark = true;
 
   Future<void> _scrollTo(GlobalKey key) async {
     final ctx = key.currentContext;
@@ -36,7 +39,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// Returns the rendered height of the hero section (approx viewport height).
   double get _heroHeight {
     final ctx = _heroKey.currentContext;
     if (ctx == null) return 0;
@@ -44,12 +46,25 @@ class _HomePageState extends State<HomePage> {
     return box?.size.height ?? 0;
   }
 
+  void _onScroll() {
+    final offset = _scrollController.offset;
+    final heroH = _heroHeight;
+
+    // Switch nav theme: dark while within hero, light once past it
+    final shouldBeDark = heroH == 0 || offset < heroH - 80;
+    if (shouldBeDark != _navIsDark) {
+      setState(() => _navIsDark = shouldBeDark);
+    }
+
+    // Reset snap flag when back at top
+    if (offset < 20) _heroSnapped = false;
+  }
+
   void _onScrollNotification(ScrollNotification notification) {
     if (_heroSnapped) return;
     if (notification is! ScrollUpdateNotification) return;
     if (notification.scrollDelta == null || notification.scrollDelta! <= 0) return;
 
-    // Only snap if still mostly within the hero section
     final offset = _scrollController.offset;
     if (offset < _heroHeight * 0.5) {
       _heroSnapped = true;
@@ -60,16 +75,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(() {
-      // Reset snap flag when user scrolls back to top
-      if (_scrollController.offset < 20) {
-        _heroSnapped = false;
-      }
-    });
+    _scrollController.addListener(_onScroll);
   }
 
   @override
   void dispose() {
+    _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
     super.dispose();
   }
@@ -82,7 +93,7 @@ class _HomePageState extends State<HomePage> {
           NotificationListener<ScrollNotification>(
             onNotification: (notification) {
               _onScrollNotification(notification);
-              return false; // don't absorb — allow normal scroll too
+              return false;
             },
             child: CustomScrollView(
               controller: _scrollController,
@@ -92,6 +103,7 @@ class _HomePageState extends State<HomePage> {
                     key: _heroKey,
                     child: HeroSection(
                       onScrollToWork: () => _scrollTo(_workKey),
+                      onScrollToAbout: () => _scrollTo(_aboutKey),
                     ),
                   ),
                 ),
@@ -117,6 +129,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           HomeNavBar(
+            isDark: _navIsDark,
             onHeroTap: () => _scrollTo(_heroKey),
             onWorkTap: () => _scrollTo(_workKey),
             onAboutTap: () => _scrollTo(_aboutKey),

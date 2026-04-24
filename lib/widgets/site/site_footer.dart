@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../theme/app_spacing.dart';
 import '../common/responsive_section.dart';
@@ -149,9 +150,10 @@ class _FooterLinksDesktop extends StatelessWidget {
           child: _FooterLinkGroup(
             title: 'Elsewhere',
             links: [
-              FooterLinkItem(label: 'LinkedIn'),
-              FooterLinkItem(label: 'CV'),
-              FooterLinkItem(label: 'Email'),
+              FooterLinkItem(label: 'LinkedIn', externalUrl: 'https://linkedin.com/in/nirmalkarthikeyan'),
+              FooterLinkItem(label: 'Medium', externalUrl: 'https://nirmalkarthikeyan.medium.com/'),
+              FooterLinkItem(label: 'CV', externalUrl: 'https://cyberwizard.dev/cv'),
+              FooterLinkItem(label: 'Email', externalUrl: 'mailto:hello@cyberwizard.dev'),
             ],
           ),
         ),
@@ -194,9 +196,10 @@ class _FooterLinksMobile extends StatelessWidget {
         _FooterLinkGroup(
           title: 'Elsewhere',
           links: [
-            FooterLinkItem(label: 'LinkedIn'),
-            FooterLinkItem(label: 'CV'),
-            FooterLinkItem(label: 'Email'),
+            FooterLinkItem(label: 'LinkedIn', externalUrl: 'https://linkedin.com/in/nirmalkarthikeyan'),
+            FooterLinkItem(label: 'Medium', externalUrl: 'https://nirmalkarthikeyan.medium.com/'),
+            FooterLinkItem(label: 'CV', externalUrl: 'https://cyberwizard.dev/cv'),
+            FooterLinkItem(label: 'Email', externalUrl: 'mailto:hello@cyberwizard.dev'),
           ],
         ),
       ],
@@ -207,10 +210,12 @@ class _FooterLinksMobile extends StatelessWidget {
 class FooterLinkItem {
   final String label;
   final String? routeName;
+  final String? externalUrl;
 
   const FooterLinkItem({
     required this.label,
     this.routeName,
+    this.externalUrl,
   });
 }
 
@@ -263,17 +268,23 @@ class _FooterLink extends StatefulWidget {
 class _FooterLinkState extends State<_FooterLink> {
   bool _isHovered = false;
 
-  void _handleTap(BuildContext context) {
+  Future<void> _handleTap(BuildContext context) async {
     final routeName = widget.item.routeName;
+    final externalUrl = widget.item.externalUrl;
     if (routeName != null) {
       context.goNamed(routeName);
+    } else if (externalUrl != null) {
+      final uri = Uri.parse(externalUrl);
+      if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+        debugPrint('Could not open $externalUrl');
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final isInteractive = widget.item.routeName != null;
+    final isInteractive = widget.item.routeName != null || widget.item.externalUrl != null;
 
     return MouseRegion(
       cursor: isInteractive

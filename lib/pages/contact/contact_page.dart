@@ -10,12 +10,14 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../../widgets/common/responsive_section.dart';
+import '../../widgets/site/site_footer.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
 
   static const String email = 'hello@cyberwizard.dev';
   static const String linkedInUrl = 'https://linkedin.com/in/nirmalkarthikeyan';
+  static const String mediumUrl = 'https://nirmalkarthikeyan.medium.com/';
   static const String cvUrl = 'https://cyberwizard.dev/cv';
 
   String get mailtoLink =>
@@ -35,11 +37,15 @@ class ContactPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.ink,
       body: SafeArea(
+        bottom: false,
         child: SingleChildScrollView(
-          child: ResponsiveSection(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
-              child: ResponsiveBuilder(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ResponsiveSection(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
+                  child: ResponsiveBuilder(
                 builder: (context, info) {
                   final twoColumn = !info.isMobile;
           
@@ -83,6 +89,7 @@ class ContactPage extends StatelessWidget {
                             child: _ContactInfoPanel(
                               onOpenCv: () => _openUrl(cvUrl),
                               onOpenLinkedIn: () => _openUrl(linkedInUrl),
+                              onOpenMedium: () => _openUrl(mediumUrl),
                               onOpenMail: () => _openUrl(mailtoLink),
                               email: email,
                             ),
@@ -102,6 +109,7 @@ class ContactPage extends StatelessWidget {
                           _ContactInfoPanel(
                             onOpenCv: () => _openUrl(cvUrl),
                             onOpenLinkedIn: () => _openUrl(linkedInUrl),
+                            onOpenMedium: () => _openUrl(mediumUrl),
                             onOpenMail: () => _openUrl(mailtoLink),
                             email: email,
                           ),
@@ -117,6 +125,10 @@ class ContactPage extends StatelessWidget {
               ),
             ),
           ),
+              ),
+              const SiteFooter(),
+            ],
+          ),
         ),
       ),
     );
@@ -127,12 +139,14 @@ class _ContactInfoPanel extends StatelessWidget {
   const _ContactInfoPanel({
     required this.onOpenCv,
     required this.onOpenLinkedIn,
+    required this.onOpenMedium,
     required this.onOpenMail,
     required this.email,
   });
 
   final VoidCallback onOpenCv;
   final VoidCallback onOpenLinkedIn;
+  final VoidCallback onOpenMedium;
   final VoidCallback onOpenMail;
   final String email;
 
@@ -177,6 +191,12 @@ class _ContactInfoPanel extends StatelessWidget {
             title: 'LinkedIn',
             subtitle: 'linkedin.com/in/nirmalkarthikeyan',
             onTap: onOpenLinkedIn,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          _ContactLinkTile(
+            title: 'Medium',
+            subtitle: 'nirmalkarthikeyan.medium.com',
+            onTap: onOpenMedium,
           ),
           const SizedBox(height: AppSpacing.md),
           _ContactLinkTile(

@@ -136,7 +136,7 @@ class _TerminalBodyDesktop extends StatelessWidget {
         children: [
           // Left: ASCII art only
           Container(
-            width: 300,
+            width: 340,
             decoration: const BoxDecoration(
               border: Border(right: BorderSide(color: Color(0xFF2A2A2A))),
             ),
@@ -189,15 +189,17 @@ class _AsciiPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final green = GoogleFonts.ibmPlexMono(
-      fontSize: 8.5,
-      height: 1.35,
+      fontSize: 10.5,
+      height: 1.4,
       color: const Color(0xFF28C840),
+      fontWeight: FontWeight.w500,
       letterSpacing: 0,
     );
     final dimGreen = GoogleFonts.ibmPlexMono(
-      fontSize: 8,
-      height: 1.35,
-      color: const Color(0xFF28C840).withValues(alpha: 0.55),
+      fontSize: 9.5,
+      height: 1.4,
+      color: const Color(0xFF28C840).withValues(alpha: 0.85),
+      fontWeight: FontWeight.w500,
       letterSpacing: 0,
     );
 
