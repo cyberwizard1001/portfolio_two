@@ -65,6 +65,15 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
             // Replaces the empty _HeroImageBlock + ProjectIntroBlock + _HookAndBlurbBlock.
             const _CaseStudyHero(),
 
+            // ── 1b. HERO IMAGE ────────────────────────────────────────────────
+            // Full-bleed cinematic image block. No title — just atmosphere and
+            // a single caption to draw the reader in before the story begins.
+            // Swap imagePath for a real asset once available.
+            const _CaseStudyHeroImage(
+              caption:
+              'The Review Details page — where most users were quietly giving up',
+            ),
+
             // ── 2. VITALS ────────────────────────────────────────────────────
             // Quick-scan metadata so a reviewer immediately knows role, team,
             // timeline without reading prose.
@@ -754,6 +763,161 @@ class _SprintSummaryText extends StatelessWidget {
     );
   }
 }
+
+// ── HERO IMAGE BLOCK ──────────────────────────────────────────────────────────
+// A full-bleed cinematic image that opens the visual layer of the case study.
+// No title — the _CaseStudyHero above handles all text. This block exists purely
+// to set atmosphere and draw the reader in before the story starts.
+//
+// When a real screenshot or cover image is available, pass it via [imagePath]
+// as an asset path (e.g. 'assets/images/perfect_pet_hero.webp'). Until then
+// the dark gradient placeholder fills the role without breaking the layout.
+class _CaseStudyHeroImage extends StatelessWidget {
+  const _CaseStudyHeroImage({
+    this.imagePath,
+    required this.caption,
+  });
+
+  /// Optional asset path for the cover image, e.g.
+  /// 'assets/images/perfect_pet_hero.webp'
+  final String? imagePath;
+
+  /// Short evocative caption rendered bottom-left over a gradient scrim.
+  final String caption;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final imageHeight = screenWidth < 600 ? 280.0 : 480.0;
+
+    DecorationImage? decorationImage;
+    if (imagePath != null) {
+      decorationImage = DecorationImage(
+        image: AssetImage(imagePath!),
+        fit: BoxFit.cover,
+        alignment: Alignment.topCenter,
+      );
+    }
+
+    return Container(
+      width: double.infinity,
+      color: AppColors.ink,
+      // No ResponsiveSection — image bleeds edge-to-edge within the ink bg
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0),
+        child: SizedBox(
+          width: double.infinity,
+          height: imageHeight,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              // ── Base: image or gradient placeholder ──────────────────────
+              Container(
+                decoration: BoxDecoration(
+                  image: decorationImage,
+                  gradient: decorationImage == null
+                      ? const LinearGradient(
+                          colors: [
+                            Color(0xFF1C1814),
+                            Color(0xFF0E0C0A),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        )
+                      : null,
+                ),
+              ),
+
+              // ── Gradient scrim — always present, heavier at bottom ───────
+              // Ensures the caption is always legible regardless of the image.
+              Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0.0, 0.45, 1.0],
+                    colors: [
+                      Color(0x00000000),
+                      Color(0x26000000),
+                      Color(0xCC000000),
+                    ],
+                  ),
+                ),
+              ),
+
+              // ── Subtle left-edge accent strip ────────────────────────────
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: Container(
+                  width: 3,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0x00FB6000),
+                        Color(0x99FB6000),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              // ── Caption bottom-left ───────────────────────────────────────
+              Positioned(
+                left: AppSpacing.xl,
+                right: AppSpacing.xl,
+                bottom: AppSpacing.xl,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        caption,
+                        style: textTheme.bodySmall?.copyWith(
+                          color: Colors.white60,
+                          letterSpacing: 0.4,
+                          height: 1.5,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.lg),
+                    // Small image-placeholder badge — hidden once real image is provided
+                    if (imagePath == null)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.sm,
+                          vertical: AppSpacing.xxs,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.06),
+                          borderRadius: BorderRadius.circular(AppRadii.sm),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.12),
+                          ),
+                        ),
+                        child: Text(
+                          'Image placeholder',
+                          style: textTheme.labelSmall?.copyWith(
+                            color: Colors.white38,
+                            letterSpacing: 0.4,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 
 // ── IMAGE PLACEHOLDER ─────────────────────────────────────────────────────────
 class _CaseStudyImageCard extends StatelessWidget {
