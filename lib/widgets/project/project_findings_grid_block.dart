@@ -55,7 +55,7 @@ class ProjectFindingsGridBlock extends StatelessWidget {
                     crossAxisCount: crossAxisCount,
                     crossAxisSpacing: AppSpacing.md,
                     mainAxisSpacing: AppSpacing.md,
-                    childAspectRatio: info.isMobile ? 1.3 : 1.1,
+                    childAspectRatio: info.isMobile ? 0.9 : 1.1,
                   ),
                   itemBuilder: (context, index) {
                     final item = items[index];
