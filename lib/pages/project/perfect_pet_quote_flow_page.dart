@@ -115,115 +115,63 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
               ],
             ),
 
-            // ── 4a. RESEARCH: COMPETITOR ANALYSIS ─────────────────────────────
-            // Three aggregator-linked competitors reviewed to understand how
-            // leading brands guided mid-funnel users.
+            // ── 4a. RESEARCH: COMPETITOR ANALYSIS + HEURISTIC AUDIT ──────────
             const ProjectFindingsGridBlock(
               themeConfig: softTheme,
-              title: 'Competitor and aggregator analysis',
+              title: 'Competitor analysis and heuristic audit',
               items: [
                 ProjectFindingItem(
-                  title: 'Polished, branded design',
+                  title: 'Competitors front-loaded trust',
                   body:
-                  'All competitors used cohesive visual systems that aligned perfectly with their main brand sites, projecting reliability and professionalism at the point of purchase.',
+                  'Every aggregator-linked competitor reviewed used cohesive branding, explicit aggregator acknowledgement (\u201cYou came from Compare the Market\u201d), and prominent Trustpilot ratings before asking users to commit.',
                 ),
                 ProjectFindingItem(
-                  title: 'Clear aggregator acknowledgement',
+                  title: 'Policy information was scannable, not scrollable',
                   body:
-                  'Pages explicitly referenced the user\u2019s journey \u2014 for example, \u201cYou came from Compare the Market\u201d \u2014 building continuity and reassurance for mid-funnel arrivals.',
+                  'Competitors used comparison tables and concise summaries rather than long paragraphs. All critical content \u2014 terms, FAQs, policy detail \u2014 stayed within the flow, removing reasons to navigate away.',
                 ),
                 ProjectFindingItem(
-                  title: 'Strong trust and reassurance cues',
+                  title: 'Our landing screen buried what mattered',
                   body:
-                  'Prominent Trustpilot ratings, success metrics, and visual proof points were displayed early in the flow, before the user had to commit to anything.',
+                  'The existing quote page opened with uninterrupted paragraphs and no visual hierarchy. Key actions and cover details were buried in text. Core benefits hid behind low-contrast \u201cclick here\u201d links.',
                 ),
                 ProjectFindingItem(
-                  title: 'Scannable, structured layouts',
+                  title: 'Inconsistent UI eroded credibility',
                   body:
-                  'Policy details were presented with comparison tables and concise summaries rather than long paragraphs, reducing the effort required to assess what was included.',
-                ),
-                ProjectFindingItem(
-                  title: 'Minimised funnel exits',
-                  body:
-                  'All critical content \u2014 terms, FAQs, and policy details \u2014 was contained within the checkout experience, preventing drop-offs caused by navigation away from the flow.',
-                ),
-              ],
-            ),
-
-            // ── 4b. RESEARCH: HEURISTIC AUDIT ─────────────────────────────────
-            // Nielsen Norman framework applied to the existing flow.
-            const ProjectFindingsGridBlock(
-              themeConfig: lightTheme,
-              title: 'Heuristic audit of the existing flow',
-              items: [
-                ProjectFindingItem(
-                  title: 'Text-heavy landing screen',
-                  body:
-                  'The initial quote page contained large, uninterrupted paragraphs with no visual hierarchy. Key actions and coverage details were buried in text, forcing users to read extensively before understanding what was included.',
-                ),
-                ProjectFindingItem(
-                  title: 'Hidden essential information',
-                  body:
-                  'Core benefits and cover explanations were tucked behind low-contrast \u201cclick here\u201d text links \u2014 easy to overlook and frustrating to access, particularly on mobile.',
-                ),
-                ProjectFindingItem(
-                  title: 'Poorly formatted pop-up content',
-                  body:
-                  'Random capitalisation, irregular spacing, and uneven alignment made text blocks appear unprofessional and difficult to read \u2014 undermining brand perception and perceived trustworthiness.',
-                ),
-                ProjectFindingItem(
-                  title: 'Inconsistent visual language',
-                  body:
-                  'UI elements varied across the flow \u2014 some close buttons were purple and rectangular, others orange with rounded corners. These inconsistencies added clutter and eroded any sense of refinement.',
-                ),
-                ProjectFindingItem(
-                  title: 'Outdated styling out of step with the brand',
-                  body:
-                  'The overall aesthetic felt reminiscent of an early 2000s web form, inconsistent with the refreshed brand and modern site design. This mismatch risked raising doubts about the company\u2019s broader digital reliability.',
+                  'Close buttons varied across the flow \u2014 some purple and rectangular, others orange and rounded. Pop-ups had random capitalisation and uneven alignment. The overall aesthetic felt disconnected from the refreshed brand.',
                 ),
                 ProjectFindingItem(
                   title: 'Form and feedback gaps at critical moments',
                   body:
-                  'Mandatory fields were not clearly marked, error messages were sparse or poorly positioned, and the payment stage lacked visible progress indicators \u2014 leaving users uncertain if the process was functioning.',
+                  'Mandatory fields were not clearly marked, error messages were sparse, and the payment stage lacked progress indicators \u2014 leaving users uncertain whether the process was working.',
                 ),
               ],
             ),
 
-            // ── 4c. RESEARCH: BEHAVIOURAL INSIGHTS ────────────────────────────
-            // Hotjar session recordings + internal call-centre feedback.
+            // ── 4b. RESEARCH: BEHAVIOURAL INSIGHTS ────────────────────────────
             const ProjectFindingsGridBlock(
               themeConfig: darkTheme,
               title: 'Behavioural insights and internal feedback',
               items: [
                 ProjectFindingItem(
-                  title: 'Users spent 5\u20138 minutes scanning for basic answers',
+                  title: '5\u20138 minutes spent scanning for basic answers',
                   body:
-                  'Hotjar session recordings showed users repeatedly revisiting policy PDFs and scanning text-heavy sections trying to understand what was included in their cover before deciding to proceed.',
+                  'Hotjar session recordings showed users repeatedly revisiting policy PDFs and scrolling text-heavy sections, spending far longer than necessary just to understand what their cover included.',
                 ),
                 ProjectFindingItem(
-                  title: 'Users left the flow to find information elsewhere',
+                  title: 'Users left the flow to find clarity elsewhere',
                   body:
-                  'A significant number of users exited the quote journey and visited the main website to better understand their policy \u2014 indicating the review page itself was not providing sufficient clarity.',
+                  'A significant proportion exited the quote journey to visit the main website, then often didn\u2019t return. The review page itself was not providing sufficient information to support a decision.',
                 ),
                 ProjectFindingItem(
-                  title: 'Rage clicks and long pauses signalled confusion',
+                  title: 'Rage clicks and long pauses signalled overload',
                   body:
-                  'Repeated rage clicks on non-interactive elements and prolonged pauses at key decision points were consistent signals of cognitive overload and frustration rather than deliberate consideration.',
+                  'Repeated clicks on non-interactive elements and prolonged pauses at decision points were consistent indicators of confusion and frustration \u2014 not deliberation.',
                 ),
                 ProjectFindingItem(
-                  title: 'Decision paralysis was the most common failure mode',
+                  title: 'Call-centre and session data told the same story',
                   body:
-                  'Users frequently hesitated to proceed not because they were uninterested, but because they could not easily compare options or feel confident in their choice of cover.',
-                ),
-                ProjectFindingItem(
-                  title: 'Call-centre agents confirmed the same pain points',
-                  body:
-                  'Interviews with call-centre colleagues revealed recurring post-quote issues: difficulty locating cover details and uncertainty about next steps \u2014 exactly matching the patterns visible in the session recordings.',
-                ),
-                ProjectFindingItem(
-                  title: 'Qualitative and quantitative data aligned',
-                  body:
-                  'The internal feedback validated the behavioural evidence and guided prioritisation: content clarity and cognitive load were the primary problems, not visual polish or technical performance.',
+                  'Interviews with call-centre colleagues confirmed recurring patterns: difficulty locating cover details, uncertainty about next steps, and decision paralysis driven by an inability to compare options confidently.',
                 ),
               ],
             ),

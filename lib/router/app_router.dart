@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:portfolio_2/pages/project/perfect_pet_quote_flow_page.dart';
+import 'package:portfolio_2/pages/project/perro_onboarding_page.dart';
 
 import '../pages/contact/contact_page.dart';
 import '../pages/home/home_page.dart';
@@ -27,7 +28,7 @@ class AppRouter {
         builder: (context, state) => const SiteDocumentationPage(),
       ),
 
-      // Specific routes first
+      // Specific named project routes
       GoRoute(
         path: '/work/layout-demo',
         name: 'project-layout-demo',
@@ -38,8 +39,13 @@ class AppRouter {
         name: 'perfect-pet-quote-flow',
         builder: (context, state) => const PerfectPetQuoteFlowPage(),
       ),
+      GoRoute(
+        path: '/work/perro-onboarding-subscription',
+        name: 'perro-onboarding',
+        builder: (context, state) => const PerroOnboardingPage(),
+      ),
 
-      // Dynamic route after
+      // Dynamic catch-all route — must be last
       GoRoute(
         path: '/work/:slug',
         name: 'project',
