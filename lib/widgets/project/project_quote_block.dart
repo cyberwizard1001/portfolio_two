@@ -33,6 +33,7 @@ class ProjectQuoteBlock extends StatelessWidget {
             '“$quote”',
             style: textTheme.displayMedium?.copyWith(
               color: themeConfig.foregroundColor,
+              fontSize: 28,
               height: 1.15,
             ),
           ),

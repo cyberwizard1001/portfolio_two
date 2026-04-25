@@ -320,10 +320,13 @@ class _PersonaIdentityMobile extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Text(
-                  role,
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: themeConfig.accentColor,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Text(
+                    role,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: themeConfig.accentColor,
+                    ),
                   ),
                 ),
               ],
