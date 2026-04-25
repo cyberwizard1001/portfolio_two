@@ -18,41 +18,30 @@ class ProjectStackSection extends StatelessWidget {
   static const projects = [
     _ProjectData(
       year: '2026',
-      title: 'Insurance Quote Journey Refresh',
+      title: 'Pet Insurance Checkout Redesign',
       category: 'UI/UX',
       slug: 'perfect-pet-insurance-quote-flow',
+      routeName: 'perfect-pet-quote-flow',
       summary:
-      'Redesigned a high-friction quote flow to make decisions clearer, reduce abandonment, and build confidence through better structure and progressive disclosure.',
+      'The Review Details screen in Perfect Pet Insurance\u2019s quote flow was losing users at the point of conversion. A dense, inconsistent experience was replaced with a clearer, more trustworthy one.',
       highlights: [
-        'Simplified a complex multi-step flow',
-        'Improved accessibility and visual hierarchy',
-        'Focused on conversion and trust signals',
+        'Grounded in Hotjar session data and heuristic audit',
+        'Improved hierarchy, trust signals, and visual consistency',
+        'Designed within FCA compliance and MudBlazor constraints',
       ],
     ),
     _ProjectData(
       year: '2025',
-      title: 'Accessible Design System Audit',
-      category: 'Accessibility',
-      slug: 'accessible-design-system-audit',
+      title: 'Perro Onboarding & Subscription',
+      category: 'UX / Flutter',
+      slug: 'perro-onboarding-subscription',
+      routeName: 'perro-onboarding',
       summary:
-      'Audited patterns across product surfaces and translated accessibility gaps into a clearer, reusable design language for future product work.',
+      'Perro had a strong product. Users were dropping off during onboarding before they\u2019d seen any of it. A shorter, value-first flow reduced drop-offs, lifted subscription conversion, and contributed to the company\u2019s acquisition.',
       highlights: [
-        'Mapped usability and WCAG pain points',
-        'Created reusable guidance for components',
-        'Aligned design decisions with real user needs',
-      ],
-    ),
-    _ProjectData(
-      year: '2024',
-      title: 'Cross-platform Productivity Flow',
-      category: 'Product Design',
-      slug: 'cross-platform-productivity-flow',
-      summary:
-      'Explored a task and workflow experience that connected desktop-like system thinking with a calmer, more human interface for daily work.',
-      highlights: [
-        'Balanced systems thinking with usability',
-        'Designed for responsive cross-platform behavior',
-        'Created a clearer content and action hierarchy',
+        'Cut screens from 5 to 4, questions from 16 to 11',
+        'Replaced photo friction with an avatar system',
+        'Designed and implemented in Flutter within 2 weeks',
       ],
     ),
   ];
@@ -78,10 +67,7 @@ class ProjectStackSection extends StatelessWidget {
                 project: projects[index],
                 index: index,
                 onTap: () {
-                  context.goNamed(
-                    'project',
-                    pathParameters: {'slug': projects[index].slug},
-                  );
+                  context.goNamed(projects[index].routeName);
                 },
               ),
             ),
@@ -496,6 +482,7 @@ class _ProjectData {
     required this.title,
     required this.category,
     required this.slug,
+    required this.routeName,
     required this.summary,
     required this.highlights,
   });
@@ -504,6 +491,7 @@ class _ProjectData {
   final String title;
   final String category;
   final String slug;
+  final String routeName;
   final String summary;
   final List<String> highlights;
 }
