@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
@@ -37,16 +38,16 @@ class ProjectMetaStripBlock extends StatelessWidget {
           child: LayoutBuilder(
             builder: (context, constraints) {
               final isMobile = constraints.maxWidth < 720;
-              final itemWidth = isMobile
-                  ? constraints.maxWidth
-                  : (constraints.maxWidth - (AppSpacing.md * (items.length - 1))) / items.length;
+              final crossAxisCount = isMobile ? 1 : items.length;
+              final rowCount = (items.length / crossAxisCount).ceil();
 
-              return Wrap(
-                spacing: AppSpacing.md,
-                runSpacing: AppSpacing.md,
+              return LayoutGrid(
+                columnSizes: List.generate(crossAxisCount, (_) => 1.fr),
+                rowSizes: List.generate(rowCount, (_) => auto),
+                columnGap: AppSpacing.md,
+                rowGap: AppSpacing.md,
                 children: items.map((item) {
-                  return SizedBox(
-                    width: itemWidth,
+                  return SizedBox.expand(
                     child: Container(
                       constraints: const BoxConstraints(minHeight: 116),
                       padding: const EdgeInsets.all(AppSpacing.lg),

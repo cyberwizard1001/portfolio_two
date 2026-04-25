@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 import '../../responsive/responsive_builder.dart';
 import '../../theme/app_radii.dart';
@@ -37,6 +38,8 @@ class ProjectFindingsGridBlock extends StatelessWidget {
                 ? 2
                 : 3;
 
+            final rowCount = (items.length / crossAxisCount).ceil();
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -47,44 +50,40 @@ class ProjectFindingsGridBlock extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.xl),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: items.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    crossAxisSpacing: AppSpacing.md,
-                    mainAxisSpacing: AppSpacing.md,
-                    childAspectRatio: info.isMobile ? 0.9 : 1.1,
-                  ),
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    return Container(
-                      padding: const EdgeInsets.all(AppSpacing.lg),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppRadii.xl),
-                        border: Border.all(color: themeConfig.borderColor),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item.title,
-                            style: textTheme.titleLarge?.copyWith(
-                              color: themeConfig.accentColor,
+                LayoutGrid(
+                  columnSizes: List.generate(crossAxisCount, (_) => 1.fr),
+                  rowSizes: List.generate(rowCount, (_) => auto),
+                  columnGap: AppSpacing.md,
+                  rowGap: AppSpacing.md,
+                  children: [
+                    for (final item in items)
+                      Container(
+                        padding: const EdgeInsets.all(AppSpacing.lg),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppRadii.xl),
+                          border: Border.all(color: themeConfig.borderColor),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              item.title,
+                              style: textTheme.titleLarge?.copyWith(
+                                color: themeConfig.accentColor,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: AppSpacing.sm),
-                          Text(
-                            item.body,
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: themeConfig.effectiveMutedColor,
+                            const SizedBox(height: AppSpacing.sm),
+                            Text(
+                              item.body,
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: themeConfig.effectiveMutedColor,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    );
-                  },
+                  ],
                 ),
               ],
             );
