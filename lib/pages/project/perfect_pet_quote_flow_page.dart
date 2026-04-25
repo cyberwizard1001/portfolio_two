@@ -60,23 +60,16 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            // ── 1. HERO ──────────────────────────────────────────────────────
-            // Full-bleed opener: back nav, eyebrow, title, hook, sprint summary.
-            // Replaces the empty _HeroImageBlock + ProjectIntroBlock + _HookAndBlurbBlock.
+            // ── 1. HERO ───────────────────────────────────────────────────────
             const _CaseStudyHero(),
 
             // ── 1b. HERO IMAGE ────────────────────────────────────────────────
-            // Full-bleed cinematic image block. No title — just atmosphere and
-            // a single caption to draw the reader in before the story begins.
-            // Swap imagePath for a real asset once available.
             const _CaseStudyHeroImage(
               caption:
-              'The Review Details page — where most users were quietly giving up',
+              'The Review Details page \u2014 where most users were quietly giving up',
             ),
 
-            // ── 2. VITALS ────────────────────────────────────────────────────
-            // Quick-scan metadata so a reviewer immediately knows role, team,
-            // timeline without reading prose.
+            // ── 2. VITALS ─────────────────────────────────────────────────────
             const ProjectMetaStripBlock(
               themeConfig: softTheme,
               items: [
@@ -93,96 +86,162 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
               ],
             ),
 
-            // ── 3. PROBLEM ───────────────────────────────────────────────────
-            // State the problem before anything else. The reader needs to know
-            // what was broken and why it mattered before they care about personas,
-            // methods, or decisions.
+            // ── 3. PROBLEM ────────────────────────────────────────────────────
+            // Background + problem statement + team-agreed objective.
             const ProjectProblemKeyInfoBlock(
               themeConfig: lightTheme,
               problemTitle: 'The problem',
               problemBody:
-              'Perfect Pet Insurance\u2019s quote journey lets users select cover, review their policy, and continue to purchase. The Review Details stage \u2014 where a user actually decides whether to buy \u2014 was failing them. Dense text, weak hierarchy, and a near-total absence of reassurance cues meant users arrived at the most important moment in the flow without the clarity they needed to proceed confidently.',
+              'The existing quote flow for Perfect Pet Insurance felt disconnected from the brand\u2019s updated digital identity. It presented users with dense text blocks and minimal visual structure, making policy information difficult to scan or comprehend at a glance. The lack of trust signals and inconsistent visual language further diminished user confidence, resulting in lower conversion rates and a drop in perceived credibility.',
               contextBody:
-              'The existing experience was technically complete but practically unusable. For users arriving from aggregator journeys mid-funnel \u2014 encountering the brand for the first time with no prior context \u2014 the page asked too much. It buried the information that mattered, foregrounded compliance language, and provided no signal that the product was worth trusting. The redesign needed to fix that without stripping policy detail or breaking FCA requirements.',
+              'The redesign focused on the Review Details screen \u2014 the essential conversion touchpoint where a user actually decides whether to buy. For users arriving mid-funnel from comparison sites, encountering the brand for the first time with no prior context, the page demanded too much. It buried the information that mattered, foregrounded compliance language, and provided no signal that the product was worth trusting. The scope covered reworking this stage while maintaining functional continuity with the existing platform.',
               infoItems: [
                 ProjectMetaItem(
                   label: 'Objective',
-                  value: 'Improve clarity, trust, and completion',
-                ),
-                ProjectMetaItem(
-                  label: 'Users',
-                  value: 'Pet owners reviewing quotes online',
-                ),
-                ProjectMetaItem(
-                  label: 'Constraints',
-                  value: 'FCA compliance, legacy continuity, MudBlazor',
+                  value: 'Redesign the quote review experience to create a more intuitive, trustworthy, and conversion-friendly interface',
                 ),
                 ProjectMetaItem(
                   label: 'Success measure',
-                  value: 'Completion rate and user confidence',
+                  value: 'Improved quote completion rates and increased user confidence when reviewing policy details',
+                ),
+                ProjectMetaItem(
+                  label: 'Constraints',
+                  value: 'FCA compliance, legacy continuity, MudBlazor framework',
+                ),
+                ProjectMetaItem(
+                  label: 'Focus',
+                  value: 'Simplify information hierarchy, reduce cognitive load, mitigate decision paralysis',
                 ),
               ],
             ),
 
-            // ── 4. EVIDENCE ──────────────────────────────────────────────────
-            // How we know it was broken. Behavioural data, session recordings,
-            // internal feedback. Grounds the problem in observation rather than
-            // assumption.
+            // ── 4a. RESEARCH: COMPETITOR ANALYSIS ─────────────────────────────
+            // Three aggregator-linked competitors reviewed to understand how
+            // leading brands guided mid-funnel users.
             const ProjectFindingsGridBlock(
               themeConfig: softTheme,
-              title: 'What the evidence showed',
+              title: 'Competitor and aggregator analysis',
               items: [
                 ProjectFindingItem(
-                  title: 'Users were spending too long on review',
+                  title: 'Polished, branded design',
                   body:
-                  'Hotjar recordings showed users spending 5 to 8 minutes on the Review Details stage, repeatedly scanning the page and revisiting content before deciding whether to continue.',
+                  'All competitors used cohesive visual systems that aligned perfectly with their main brand sites, projecting reliability and professionalism at the point of purchase.',
                 ),
                 ProjectFindingItem(
-                  title: 'Users left the flow to find reassurance',
+                  title: 'Clear aggregator acknowledgement',
                   body:
-                  'Some users exited the quote journey entirely and visited the main website to understand what was included in their policy \u2014 the review page itself was not providing enough clarity.',
+                  'Pages explicitly referenced the user\u2019s journey \u2014 for example, \u201cYou came from Compare the Market\u201d \u2014 building continuity and reassurance for mid-funnel arrivals.',
                 ),
                 ProjectFindingItem(
-                  title: 'Behaviour signalled friction and overload',
+                  title: 'Strong trust and reassurance cues',
                   body:
-                  'Session recordings showed long pauses, repeated scrolling, and rage clicks on non-interactive elements \u2014 confusion rather than confident progression.',
+                  'Prominent Trustpilot ratings, success metrics, and visual proof points were displayed early in the flow, before the user had to commit to anything.',
                 ),
                 ProjectFindingItem(
-                  title: 'Competitors handled trust more effectively',
+                  title: 'Scannable, structured layouts',
                   body:
-                  'Competitor and aggregator-linked journeys used stronger brand alignment, more visible trust signals, and clearer policy summaries at comparable decision points.',
+                  'Policy details were presented with comparison tables and concise summaries rather than long paragraphs, reducing the effort required to assess what was included.',
                 ),
                 ProjectFindingItem(
-                  title: 'The interface lacked consistency',
+                  title: 'Minimised funnel exits',
                   body:
-                  'Buttons, pop-ups, close states, and text formatting varied across the flow, weakening the sense of polish and reliability.',
-                ),
-                ProjectFindingItem(
-                  title: 'Internal teams heard the same concerns',
-                  body:
-                  'Call-centre colleagues flagged recurring uncertainty around cover details and next steps, reinforcing what the behavioural analysis already showed.',
+                  'All critical content \u2014 terms, FAQs, and policy details \u2014 was contained within the checkout experience, preventing drop-offs caused by navigation away from the flow.',
                 ),
               ],
             ),
 
-            // ── 5. THE CORE INSIGHT ──────────────────────────────────────────
-            // A single crystallising statement before we introduce who was
-            // affected. Sets up the personas with purpose.
-            const ProjectQuoteBlock(
-              themeConfig: darkTheme,
-              quote:
-              'The issue was not a lack of demand. It was the amount of effort users had to expend to understand the product and feel confident proceeding.',
-              attribution:
-              'Summary of the core finding across research and internal feedback',
+            // ── 4b. RESEARCH: HEURISTIC AUDIT ─────────────────────────────────
+            // Nielsen Norman framework applied to the existing flow.
+            const ProjectFindingsGridBlock(
+              themeConfig: lightTheme,
+              title: 'Heuristic audit of the existing flow',
+              items: [
+                ProjectFindingItem(
+                  title: 'Text-heavy landing screen',
+                  body:
+                  'The initial quote page contained large, uninterrupted paragraphs with no visual hierarchy. Key actions and coverage details were buried in text, forcing users to read extensively before understanding what was included.',
+                ),
+                ProjectFindingItem(
+                  title: 'Hidden essential information',
+                  body:
+                  'Core benefits and cover explanations were tucked behind low-contrast \u201cclick here\u201d text links \u2014 easy to overlook and frustrating to access, particularly on mobile.',
+                ),
+                ProjectFindingItem(
+                  title: 'Poorly formatted pop-up content',
+                  body:
+                  'Random capitalisation, irregular spacing, and uneven alignment made text blocks appear unprofessional and difficult to read \u2014 undermining brand perception and perceived trustworthiness.',
+                ),
+                ProjectFindingItem(
+                  title: 'Inconsistent visual language',
+                  body:
+                  'UI elements varied across the flow \u2014 some close buttons were purple and rectangular, others orange with rounded corners. These inconsistencies added clutter and eroded any sense of refinement.',
+                ),
+                ProjectFindingItem(
+                  title: 'Outdated styling out of step with the brand',
+                  body:
+                  'The overall aesthetic felt reminiscent of an early 2000s web form, inconsistent with the refreshed brand and modern site design. This mismatch risked raising doubts about the company\u2019s broader digital reliability.',
+                ),
+                ProjectFindingItem(
+                  title: 'Form and feedback gaps at critical moments',
+                  body:
+                  'Mandatory fields were not clearly marked, error messages were sparse or poorly positioned, and the payment stage lacked visible progress indicators \u2014 leaving users uncertain if the process was functioning.',
+                ),
+              ],
             ),
 
-            // ── 6. WHO WE WERE DESIGNING FOR ─────────────────────────────────
-            // Personas land here, after the problem is established and the
-            // reader understands why these people matter. Both archetypes were
-            // failing: the first-timer lost in jargon, and the experienced buyer
-            // who couldn't trust what he was reading.
-            const ProjectPersonaBlock(
+            // ── 4c. RESEARCH: BEHAVIOURAL INSIGHTS ────────────────────────────
+            // Hotjar session recordings + internal call-centre feedback.
+            const ProjectFindingsGridBlock(
+              themeConfig: darkTheme,
+              title: 'Behavioural insights and internal feedback',
+              items: [
+                ProjectFindingItem(
+                  title: 'Users spent 5\u20138 minutes scanning for basic answers',
+                  body:
+                  'Hotjar session recordings showed users repeatedly revisiting policy PDFs and scanning text-heavy sections trying to understand what was included in their cover before deciding to proceed.',
+                ),
+                ProjectFindingItem(
+                  title: 'Users left the flow to find information elsewhere',
+                  body:
+                  'A significant number of users exited the quote journey and visited the main website to better understand their policy \u2014 indicating the review page itself was not providing sufficient clarity.',
+                ),
+                ProjectFindingItem(
+                  title: 'Rage clicks and long pauses signalled confusion',
+                  body:
+                  'Repeated rage clicks on non-interactive elements and prolonged pauses at key decision points were consistent signals of cognitive overload and frustration rather than deliberate consideration.',
+                ),
+                ProjectFindingItem(
+                  title: 'Decision paralysis was the most common failure mode',
+                  body:
+                  'Users frequently hesitated to proceed not because they were uninterested, but because they could not easily compare options or feel confident in their choice of cover.',
+                ),
+                ProjectFindingItem(
+                  title: 'Call-centre agents confirmed the same pain points',
+                  body:
+                  'Interviews with call-centre colleagues revealed recurring post-quote issues: difficulty locating cover details and uncertainty about next steps \u2014 exactly matching the patterns visible in the session recordings.',
+                ),
+                ProjectFindingItem(
+                  title: 'Qualitative and quantitative data aligned',
+                  body:
+                  'The internal feedback validated the behavioural evidence and guided prioritisation: content clarity and cognitive load were the primary problems, not visual polish or technical performance.',
+                ),
+              ],
+            ),
+
+            // ── 5. THE CORE FINDING ───────────────────────────────────────────
+            const ProjectQuoteBlock(
               themeConfig: softTheme,
+              quote:
+              'Across all research inputs, one message was clear: the quote flow lacked both clarity and trustworthiness. The content structure demanded too much cognitive effort, the interface looked disconnected from the broader brand experience, and system feedback failed to reassure or guide users through key tasks.',
+              attribution:
+              'Synthesis across competitor analysis, heuristic audit, and behavioural research',
+            ),
+
+            // ── 6. WHO WE WERE DESIGNING FOR ──────────────────────────────────
+            // Personas land here, after the evidence is laid out.
+            // Both archetypes were failing the existing flow for different reasons.
+            const ProjectPersonaBlock(
+              themeConfig: lightTheme,
               eyebrow: 'User persona',
               name: 'Chloe Watkins',
               role: 'First-time pet owner, recently adopted a Labrador puppy',
@@ -211,7 +270,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
             ),
 
             const ProjectPersonaBlock(
-              themeConfig: lightTheme,
+              themeConfig: darkTheme,
               eyebrow: 'User persona',
               name: 'David Okafor',
               role: 'Returning customer renewing cover for a 6-year-old Spaniel',
@@ -230,7 +289,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
                 'Friction caused by inconsistent UI that makes the journey feel less trustworthy',
               ],
               context:
-              'David is 42, works in finance, and approaches insurance decisions with careful scrutiny. He has had two claims in the past and is acutely aware of policy gaps. He bookmarked the quote and returned to it across two sessions. His behaviour on session recordings showed repeated toggling between the cover summary and the detailed terms panel, suggesting a need for side-by-side clarity that the existing layout did not support.',
+              'David is 42, works in finance, and approaches insurance decisions with careful scrutiny. He has had two claims in the past and is acutely aware of policy gaps. He bookmarked the quote and returned to it across two sessions. Session recordings showed repeated toggling between the cover summary and the detailed terms panel, suggesting a need for side-by-side clarity that the existing layout did not support.',
               contextTags: [
                 'Returning customer',
                 'High scrutiny',
@@ -239,11 +298,9 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
               ],
             ),
 
-            // ── 7. NORTH STAR ────────────────────────────────────────────────
-            // With the problem and the people clear, state the single principle
-            // that governed every subsequent decision before the method is shown.
+            // ── 7. NORTH STAR ─────────────────────────────────────────────────
             const ProjectCalloutBlock(
-              themeConfig: darkTheme,
+              themeConfig: softTheme,
               style: CalloutStyle.principle,
               label: 'Design principle',
               icon: Icons.compass_calibration_outlined,
@@ -251,51 +308,54 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
               'Every decision in this redesign was evaluated against one question: does this reduce the effort a user has to make in order to understand what they are reviewing? Visual polish, brand alignment, and FCA compliance all mattered \u2014 but none of them were the north star. Reducing interpretation burden was.',
             ),
 
-            // ── 8. METHOD ────────────────────────────────────────────────────
-            // How we approached the work. Five steps from evidence review
-            // through benchmarking, heuristic audit, constrained exploration,
-            // and internal validation.
+            // ── 8. METHOD ─────────────────────────────────────────────────────
+            // The real process from the snapshot: competitive review → BA/dev
+            // collaboration → internal usability testing → A/B test prep.
+            // Crucially: a parallel segment was already live, and its learnings
+            // directly informed this redesign.
             const ProjectProcessStepsBlock(
               themeConfig: lightTheme,
               title: 'How we approached it',
               steps: [
                 ProjectProcessStep(
-                  title: 'Reviewed behavioural evidence',
+                  title: 'Rapid competitive review',
                   body:
-                  'I began by reviewing session recordings, internal feedback, and the existing journey to ensure the redesign was grounded in user behaviour rather than visual preference alone.',
+                  'I began with a competitive review of leading pet insurance providers and aggregators to identify UX patterns that improved clarity, trust, and decision confidence at comparable mid-funnel touchpoints.',
                 ),
                 ProjectProcessStep(
-                  title: 'Benchmarked the category',
+                  title: 'Heuristic evaluation of the existing flow',
                   body:
-                  'I reviewed other pet insurance and aggregator-linked experiences to understand how comparable journeys used structure, reassurance, and branding to support decision-making.',
+                  'Using the Nielsen Norman framework, I systematically assessed the current experience against principles including visibility of system status, consistency, and aesthetic integrity \u2014 surfacing specific failure points to prioritise.',
                 ),
                 ProjectProcessStep(
-                  title: 'Conducted a heuristic audit',
+                  title: 'Behavioural analysis and internal interviews',
                   body:
-                  'Using Nielsen Norman heuristics, I evaluated the existing flow against established usability principles such as clarity, consistency, and visibility of system status.',
+                  'Hotjar session recordings from aggregator referral users were reviewed to identify patterns: where users paused, what they clicked, and where they abandoned. Call-centre interviews added qualitative depth.',
                 ),
                 ProjectProcessStep(
-                  title: 'Explored solutions within constraints',
+                  title: 'Collaborative layout exploration within constraints',
                   body:
-                  'Working with the BA and front-end developer, I developed layout directions that improved legibility and trust while remaining realistic within MudBlazor and compliant with required policy language.',
+                  'Working with the BA and front-end developer, I explored layout variations within MudBlazor\u2019s constraints, iterating through design reviews focused on hierarchy, readability, and clear trust signals.',
                 ),
                 ProjectProcessStep(
-                  title: 'Validated the redesign internally',
+                  title: 'Internal usability testing',
                   body:
-                  'Once the revised Review Details stage had been finalised, it went through internal usability testing to assess comprehension, confidence, and task completion before live experimentation.',
+                  'The redesigned Review Details flow went through internal usability testing to validate comprehension, trust, and task completion before being prepared for live experimentation.',
+                ),
+                ProjectProcessStep(
+                  title: 'Informed by a live parallel experiment',
+                  body:
+                  'In parallel, another segment of the redesigned quote flow was already deployed and tested with real users. Learnings from that experiment \u2014 particularly around visual density, information ordering, and user reassurance \u2014 directly informed the refinements applied to the Review Details stage.',
                 ),
               ],
             ),
 
-            // ── 9. OPPORTUNITY FRAMING ───────────────────────────────────────
-            // HMW questions bridge the research phase to the ideation phase.
-            // Placed after method, before solutions, they show the thinking
-            // that shaped the design direction.
+            // ── 9. OPPORTUNITY FRAMING ────────────────────────────────────────
             const ProjectHowMightWeBlock(
-              themeConfig: softTheme,
+              themeConfig: darkTheme,
               title: 'How might we\u2026',
               intro:
-              'Opportunity questions distilled from session recordings, internal feedback, and heuristic review.',
+              'Opportunity questions distilled from competitive analysis, heuristic audit, and behavioural research.',
               items: [
                 ProjectHmwItem(
                   question:
@@ -319,7 +379,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
                 ),
                 ProjectHmwItem(
                   question:
-                  'How might we design for users who are encountering the brand for the first time mid-journey, arriving with no prior context?',
+                  'How might we design for users who are encountering the brand for the first time mid-journey, arriving from a comparison site with no prior context?',
                   theme: 'Entry point',
                 ),
                 ProjectHmwItem(
@@ -330,22 +390,18 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
               ],
             ),
 
-            // ── 10. BEFORE / AFTER ───────────────────────────────────────────
-            // Show the direction of change at a high level before the decision
-            // log unpacks the reasoning behind specific choices.
+            // ── 10. BEFORE / AFTER ────────────────────────────────────────────
             const ProjectBeforeAfterBlock(
-              themeConfig: darkTheme,
+              themeConfig: softTheme,
               beforeTitle: 'Before',
               beforeBody:
-              'The previous experience presented important policy information in a way that was technically complete but difficult to process quickly. Dense paragraphs, weak emphasis, and inconsistent interface elements made the journey feel dated and harder to trust.',
+              'The previous experience was technically complete but practically unusable. Dense paragraphs, near-zero visual hierarchy, hidden essential information, and inconsistent UI components made the journey feel dated, untrustworthy, and disconnected from the refreshed brand identity.',
               afterTitle: 'After',
               afterBody:
-              'The redesigned version introduced clearer hierarchy, stronger sectioning, and more deliberate reassurance cues. The goal was not to reduce necessary information, but to structure it in a way that felt more readable, coherent, and aligned with the wider brand experience.',
+              'The redesigned version simplified information hierarchy, embedded reassurance cues, and modernised the visual experience within the constraints of MudBlazor and FCA compliance. The result was a flow that felt coherent, credible, and easier to navigate at the most critical moment in the journey.',
             ),
 
-            // ── 11. DECISIONS ────────────────────────────────────────────────
-            // The log of specific design choices: why each was made, what
-            // happened, and which were tradeoffs rather than clean wins.
+            // ── 11. KEY DECISIONS ─────────────────────────────────────────────
             const ProjectDecisionLogBlock(
               themeConfig: lightTheme,
               title: 'Key decisions',
@@ -356,16 +412,16 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
                   decision:
                   'Surfaced the three most critical cover details above the fold rather than placing them behind an accordion',
                   rationale:
-                  'Session data showed users repeatedly expanding and collapsing the same accordion sections. Forcing key information behind interaction added effort at exactly the point where users needed to feel certain.',
+                  'Session recordings showed users repeatedly expanding and collapsing the same accordion sections. Forcing key information behind interaction added effort at exactly the point where users needed certainty.',
                   outcome:
-                  'Internal testing showed significantly faster comprehension of cover scope. Users could answer \u201cwhat am I covered for\u201d within the first scroll pass.',
+                  'Internal testing showed significantly faster comprehension of cover scope. Users could answer \u201cwhat am I covered for?\u201d within the first scroll pass.',
                   outcomeType: DecisionOutcomeType.positive,
                 ),
                 ProjectDecisionItem(
                   decision:
                   'Retained all FCA-required policy language in full rather than replacing it with simplified summaries',
                   rationale:
-                  'Compliance requirement was non-negotiable. We explored simplified language panels as a secondary layer but the legal team required full wording to remain primary and unchanged.',
+                  'Compliance was non-negotiable. We explored simplified secondary panels but the legal team required full wording to remain primary and unchanged.',
                   outcome:
                   'Resolved through visual hierarchy rather than content reduction: legal language was retained but de-emphasised typographically so key information could be scanned first.',
                   outcomeType: DecisionOutcomeType.neutral,
@@ -374,52 +430,55 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
                   decision:
                   'Chose not to introduce a progress indicator on the Review Details page',
                   rationale:
-                  'Standard UX guidance favours visible progress in multi-step flows. However, testing suggested that showing \u201cstep 3 of 5\u201d created anxiety about how much was left rather than reassurance about how far they had come.',
+                  'Standard guidance favours visible progress in multi-step flows. However, testing suggested that showing \u201cstep 3 of 5\u201d created anxiety about how much remained rather than reassurance about how far users had come.',
                   outcome:
-                  'Omitting it reduced reported pressure in internal sessions. This may need to be revisited if A/B data suggests drop-off before the CTA.',
+                  'Omitting it reduced reported pressure in internal sessions. May need revisiting if A/B data shows drop-off before the CTA.',
                   outcomeType: DecisionOutcomeType.tradeoff,
                 ),
                 ProjectDecisionItem(
                   decision:
                   'Standardised all interactive component styles to a single consistent token set',
                   rationale:
-                  'Heuristic audit found at least four distinct button styles and three different expansion panel treatments across the flow, all inconsistent with each other and with the wider brand.',
+                  'The heuristic audit found at least four distinct button styles and three different expansion panel treatments \u2014 all inconsistent with each other and the wider brand.',
                   outcome:
-                  'Consistency was restored across buttons, tooltips, modals, and toggle states. Engineering estimated lower maintenance cost as a secondary benefit.',
+                  'Consistency restored across buttons, tooltips, modals, and toggle states. Engineering noted lower maintenance cost as a secondary benefit.',
+                  outcomeType: DecisionOutcomeType.positive,
+                ),
+                ProjectDecisionItem(
+                  decision:
+                  'Applied learnings from the live parallel experiment to the Review Details redesign',
+                  rationale:
+                  'A separate segment of the quote flow had already been deployed and tested with real users. Its findings around visual density, information ordering, and reassurance were directly applicable.',
+                  outcome:
+                  'Reduced iteration risk. Several layout decisions were validated by the parallel experiment before this stage reached internal testing.',
                   outcomeType: DecisionOutcomeType.positive,
                 ),
                 ProjectDecisionItem(
                   decision:
                   'Deferred mobile layout optimisation to a follow-up sprint',
                   rationale:
-                  'Two-week timeline and MudBlazor grid constraints made a full responsive overhaul impractical. Mobile represented roughly 35% of traffic but the majority of completions still happened on desktop.',
+                  'Two-week timeline and MudBlazor grid constraints made a full responsive overhaul impractical. Mobile represented roughly 35% of traffic but the majority of completions still occurred on desktop.',
                   outcome:
-                  'Known gap. A follow-up ticket exists to revisit the mobile layout once A/B results are available and engineering capacity allows.',
+                  'Known gap. A follow-up ticket exists to revisit once A/B results are available and engineering capacity allows.',
                   outcomeType: DecisionOutcomeType.tradeoff,
                 ),
               ],
             ),
 
-            // ── 12. THE REDESIGN ─────────────────────────────────────────────
-            // Now we show the solution. Reader has full context: the problem,
-            // the evidence, the people, the principle, the method, and the
-            // decisions. The redesign lands with meaning.
+            // ── 12. THE REDESIGN ──────────────────────────────────────────────
             ProjectTextImageBlock(
               themeConfig: darkTheme,
               eyebrow: 'Solution',
-              title: 'What the redesigned flow looks like',
+              title: 'What the redesigned flow delivers',
               body:
-              'Key policy information was surfaced earlier, related content was grouped more deliberately, and the layout was reworked to reduce visual density. Greater attention was given to trust cues and interface consistency so the journey felt credible and in keeping with the wider brand. The goal was not to simplify for the sake of it \u2014 it was to help users answer three questions quickly: what am I reviewing, what does it include, and what do I do next.',
+              'The redesign simplified information hierarchy, embedded reassurance cues, and modernised the visual experience while remaining compliant with FCA requirements and MudBlazor\u2019s constraints. Key policy information was surfaced earlier, related content was grouped deliberately, and inconsistencies in the component library were resolved. The goal was to help users answer three questions quickly: what am I reviewing, what does it include, and what do I do next \u2014 without requiring them to read extensively or leave the flow.',
               image: const _CaseStudyImageCard(
                 label: 'Replace with final redesigned Review Details screen',
                 height: 460,
               ),
             ),
 
-            // ── 13. ACCESSIBILITY ────────────────────────────────────────────
-            // Shows that the redesign went beyond visual. Placed after the
-            // solution image so the reader sees the output first, then the
-            // rigour behind it.
+            // ── 13. ACCESSIBILITY ─────────────────────────────────────────────
             const ProjectAccessibilityAuditBlock(
               themeConfig: softTheme,
               title: 'Accessibility considerations',
@@ -442,16 +501,16 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
                   severity: A11ySeverity.critical,
                   wcagCriterion: '2.1.1 Keyboard',
                   fix:
-                  'Keyboard accessibility was restored by ensuring the MudExpansionPanel component received focus correctly and responded to Enter and Space.',
+                  'Keyboard accessibility restored by ensuring MudExpansionPanel received focus correctly and responded to Enter and Space.',
                 ),
                 ProjectA11yIssue(
                   issue: 'Tooltip-only disclosure of exclusion detail',
                   description:
-                  'Several exclusion items showed their full description only on hover via a tooltip, providing no fallback for touch or keyboard users.',
+                  'Several exclusion items showed their full description only on hover via a tooltip, with no fallback for touch or keyboard users.',
                   severity: A11ySeverity.serious,
                   wcagCriterion: '1.3.3 Sensory Characteristics / 2.1.1 Keyboard',
                   fix:
-                  'Redesign moves exclusion detail into inline expandable rows rather than tooltips, accessible regardless of input method.',
+                  'Redesign moves exclusion detail into inline expandable rows accessible regardless of input method.',
                 ),
                 ProjectA11yIssue(
                   issue: 'CTA button label does not describe the action clearly',
@@ -460,7 +519,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
                   severity: A11ySeverity.serious,
                   wcagCriterion: '2.4.6 Headings and Labels',
                   fix:
-                  'Button label revised to \u201cContinue to payment\u201d with an aria-describedby linking to a brief summary of the selected policy.',
+                  'Button label revised to \u201cContinue to payment\u201d with aria-describedby linking to a brief summary of the selected policy.',
                 ),
                 ProjectA11yIssue(
                   issue: 'No visible focus ring on interactive elements',
@@ -472,20 +531,18 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
                   'MudBlazor focus styles re-enabled and customised to use the brand accent colour at 2px width, passing 3:1 contrast against all backgrounds.',
                 ),
                 ProjectA11yIssue(
-                  issue: 'Page title does not reflect current step',
+                  issue: 'Page title does not reflect the current step',
                   description:
                   'The document title remained \u201cPerfect Pet Insurance\u201d throughout the multi-step flow with no indication of the current stage.',
                   severity: A11ySeverity.moderate,
                   wcagCriterion: '2.4.2 Page Titled',
                   fix:
-                  'Title updated to include the current step name: \u201cReview your policy \u2014 Perfect Pet Insurance\u201d.',
+                  'Title updated to include the current step: \u201cReview your policy \u2014 Perfect Pet Insurance\u201d.',
                 ),
               ],
             ),
 
-            // ── 14. OUTCOMES ─────────────────────────────────────────────────
-            // What the redesign was expected to move. Qualitative outcomes
-            // while A/B data is still pending.
+            // ── 14. OUTCOMES ──────────────────────────────────────────────────
             const ProjectMetricsBandBlock(
               themeConfig: darkTheme,
               items: [
@@ -495,22 +552,20 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
                 ),
                 ProjectMetricItem(
                   value: 'Trust',
-                  label: 'Reassurance built into the journey',
+                  label: 'Reassurance built into the journey structure',
                 ),
                 ProjectMetricItem(
-                  value: 'Structure',
-                  label: 'Improved hierarchy and visual balance',
+                  value: 'Consistency',
+                  label: 'Unified component language across the flow',
                 ),
                 ProjectMetricItem(
-                  value: 'Progression',
-                  label: 'Designed to support completion',
+                  value: 'A/B ready',
+                  label: 'Scheduled for Amplitude live traffic experiment',
                 ),
               ],
             ),
 
-            // ── 15. DESIGNING FOR NON-EXPERTS ────────────────────────────────
-            // A reflective beat: most users are not insurance-literate.
-            // Sits after outcomes to add qualitative depth before the screens.
+            // ── 15. USER CONTEXT ──────────────────────────────────────────────
             ProjectTextImageBlock(
               themeConfig: lightTheme,
               eyebrow: 'User context',
@@ -524,7 +579,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
               ),
             ),
 
-            // ── 16. SCREENS ──────────────────────────────────────────────────
+            // ── 16. SCREENS ───────────────────────────────────────────────────
             ProjectImageGalleryBlock(
               themeConfig: softTheme,
               title: 'Screen gallery',
@@ -538,15 +593,16 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
               ],
             ),
 
-            // ── 17. WHAT'S NEXT ──────────────────────────────────────────────
+            // ── 17. WHAT'S NEXT ───────────────────────────────────────────────
             const ProjectLearningsBlock(
               themeConfig: lightTheme,
               title: 'What happens next',
               points: [
-                'Internal testing suggested the revised flow was easier to understand and felt more credible, particularly in terms of readability and structure.',
-                'The redesigned Review Details experience is now being prepared for A/B testing in Amplitude, with results expected over the next few weeks.',
-                'Once the experiment has run long enough to produce reliable findings, this case study will be updated with completion data and any broader behavioural changes.',
-                'The most important learning from the project: improving visual polish alone would not have been enough. The meaningful change came from reducing the effort required for users to understand what they were reviewing.',
+                'Internal testing suggested the revised flow was easier to understand and felt more credible, particularly in terms of readability, structure, and the reduction of visual inconsistency.',
+                'The redesigned Review Details experience is now scheduled for A/B testing in Amplitude alongside live traffic, to measure its impact on conversion and engagement metrics.',
+                'A parallel segment of the redesigned quote flow was already deployed and tested with real users during this project. Learnings from that experiment \u2014 around visual density, information ordering, and reassurance \u2014 directly shaped the decisions made here.',
+                'Once the A/B experiment has run long enough to produce reliable findings, this case study will be updated with completion rate data and any broader changes in user behaviour.',
+                'The most important takeaway: improving visual polish alone would not have moved the needle. The meaningful change came from reducing the cognitive effort required for users to understand what they were reviewing and feel confident enough to proceed.',
               ],
             ),
 
@@ -585,11 +641,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
   }
 }
 
-// ── HERO ─────────────────────────────────────────────────────────────────────
-// Replaces _HeroImageBlock (empty 420px black box) + ProjectIntroBlock
-// (duplicate title) + _HookAndBlurbBlock (floating context card).
-// All three are merged into one purposeful full-bleed section: back nav,
-// eyebrow tag, large title, and a two-part hook + sprint summary.
+// ── HERO ──────────────────────────────────────────────────────────────────────
 class _CaseStudyHero extends StatelessWidget {
   const _CaseStudyHero();
 
@@ -611,7 +663,6 @@ class _CaseStudyHero extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Back nav
               TextButton.icon(
                 onPressed: () => context.goNamed('home'),
                 icon: const Icon(Icons.arrow_back_rounded, size: 16),
@@ -627,7 +678,6 @@ class _CaseStudyHero extends StatelessWidget {
 
               SizedBox(height: isNarrow ? AppSpacing.xl : AppSpacing.xxl),
 
-              // Eyebrow
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSpacing.sm,
@@ -651,7 +701,6 @@ class _CaseStudyHero extends StatelessWidget {
 
               const SizedBox(height: AppSpacing.lg),
 
-              // Title
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 820),
                 child: Text(
@@ -670,16 +719,10 @@ class _CaseStudyHero extends StatelessWidget {
 
               SizedBox(height: isNarrow ? AppSpacing.lg : AppSpacing.xl),
 
-              // Divider
-              Container(
-                width: 40,
-                height: 2,
-                color: const Color(0xFFFB6000),
-              ),
+              Container(width: 40, height: 2, color: const Color(0xFFFB6000)),
 
               const SizedBox(height: AppSpacing.xl),
 
-              // Hook + sprint summary side by side on wide, stacked on narrow
               isNarrow
                   ? _HeroTextColumn(textTheme: textTheme)
                   : _HeroTextRow(textTheme: textTheme),
@@ -738,7 +781,7 @@ class _HookText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'A redesign of the critical conversion point in the pet insurance journey \u2014 making policy information easier to understand and the overall experience more trustworthy.',
+      'How do you help someone buy pet insurance when they can\u2019t understand what they\u2019re actually buying?',
       style: textTheme.titleLarge?.copyWith(
         color: Colors.white,
         height: 1.45,
@@ -755,7 +798,7 @@ class _SprintSummaryText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Over a two-week sprint, I reworked the Review Details stage of the quote flow to better align with the updated brand, reduce cognitive load, and support more confident decision-making. The work was shaped by behavioural evidence, competitive analysis, heuristic review, and practical constraints including FCA compliance and MudBlazor.',
+      'The existing quote flow felt disconnected from the brand\u2019s updated identity and presented users with dense text, minimal visual structure, and no meaningful trust signals \u2014 resulting in lower conversion and a drop in perceived credibility. Over two weeks, I researched, redesigned, and validated a new Review Details experience that aimed to fix all three.',
       style: textTheme.bodyMedium?.copyWith(
         color: Colors.white54,
         height: 1.7,
@@ -765,24 +808,13 @@ class _SprintSummaryText extends StatelessWidget {
 }
 
 // ── HERO IMAGE BLOCK ──────────────────────────────────────────────────────────
-// A full-bleed cinematic image that opens the visual layer of the case study.
-// No title — the _CaseStudyHero above handles all text. This block exists purely
-// to set atmosphere and draw the reader in before the story starts.
-//
-// When a real screenshot or cover image is available, pass it via [imagePath]
-// as an asset path (e.g. 'assets/images/perfect_pet_hero.webp'). Until then
-// the dark gradient placeholder fills the role without breaking the layout.
 class _CaseStudyHeroImage extends StatelessWidget {
   const _CaseStudyHeroImage({
     this.imagePath,
     required this.caption,
   });
 
-  /// Optional asset path for the cover image, e.g.
-  /// 'assets/images/perfect_pet_hero.webp'
   final String? imagePath;
-
-  /// Short evocative caption rendered bottom-left over a gradient scrim.
   final String caption;
 
   @override
@@ -803,121 +835,104 @@ class _CaseStudyHeroImage extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: AppColors.ink,
-      // No ResponsiveSection — image bleeds edge-to-edge within the ink bg
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 0),
-        child: SizedBox(
-          width: double.infinity,
-          height: imageHeight,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              // ── Base: image or gradient placeholder ──────────────────────
-              Container(
-                decoration: BoxDecoration(
-                  image: decorationImage,
-                  gradient: decorationImage == null
-                      ? const LinearGradient(
-                          colors: [
-                            Color(0xFF1C1814),
-                            Color(0xFF0E0C0A),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        )
-                      : null,
+      child: SizedBox(
+        width: double.infinity,
+        height: imageHeight,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: decorationImage,
+                gradient: decorationImage == null
+                    ? const LinearGradient(
+                        colors: [
+                          Color(0xFF1C1814),
+                          Color(0xFF0E0C0A),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      )
+                    : null,
+              ),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0.0, 0.45, 1.0],
+                  colors: [
+                    Color(0x00000000),
+                    Color(0x26000000),
+                    Color(0xCC000000),
+                  ],
                 ),
               ),
-
-              // ── Gradient scrim — always present, heavier at bottom ───────
-              // Ensures the caption is always legible regardless of the image.
-              Container(
+            ),
+            Positioned(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              child: Container(
+                width: 3,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    stops: [0.0, 0.45, 1.0],
-                    colors: [
-                      Color(0x00000000),
-                      Color(0x26000000),
-                      Color(0xCC000000),
-                    ],
+                    colors: [Color(0x00FB6000), Color(0x99FB6000)],
                   ),
                 ),
               ),
-
-              // ── Subtle left-edge accent strip ────────────────────────────
-              Positioned(
-                left: 0,
-                top: 0,
-                bottom: 0,
-                child: Container(
-                  width: 3,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0x00FB6000),
-                        Color(0x99FB6000),
-                      ],
+            ),
+            Positioned(
+              left: AppSpacing.xl,
+              right: AppSpacing.xl,
+              bottom: AppSpacing.xl,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Text(
+                      caption,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: Colors.white60,
+                        letterSpacing: 0.4,
+                        height: 1.5,
+                      ),
                     ),
                   ),
-                ),
-              ),
-
-              // ── Caption bottom-left ───────────────────────────────────────
-              Positioned(
-                left: AppSpacing.xl,
-                right: AppSpacing.xl,
-                bottom: AppSpacing.xl,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Expanded(
+                  const SizedBox(width: AppSpacing.lg),
+                  if (imagePath == null)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.sm,
+                        vertical: AppSpacing.xxs,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.06),
+                        borderRadius: BorderRadius.circular(AppRadii.sm),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.12),
+                        ),
+                      ),
                       child: Text(
-                        caption,
-                        style: textTheme.bodySmall?.copyWith(
-                          color: Colors.white60,
+                        'Image placeholder',
+                        style: textTheme.labelSmall?.copyWith(
+                          color: Colors.white38,
                           letterSpacing: 0.4,
-                          height: 1.5,
                         ),
                       ),
                     ),
-                    const SizedBox(width: AppSpacing.lg),
-                    // Small image-placeholder badge — hidden once real image is provided
-                    if (imagePath == null)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.sm,
-                          vertical: AppSpacing.xxs,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.06),
-                          borderRadius: BorderRadius.circular(AppRadii.sm),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.12),
-                          ),
-                        ),
-                        child: Text(
-                          'Image placeholder',
-                          style: textTheme.labelSmall?.copyWith(
-                            color: Colors.white38,
-                            letterSpacing: 0.4,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
-
 
 // ── IMAGE PLACEHOLDER ─────────────────────────────────────────────────────────
 class _CaseStudyImageCard extends StatelessWidget {
@@ -938,17 +953,12 @@ class _CaseStudyImageCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF2E2A26),
-            Color(0xFF171412),
-          ],
+          colors: [Color(0xFF2E2A26), Color(0xFF171412)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(AppRadii.xl),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.12),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
       ),
       child: Center(
         child: Padding(
