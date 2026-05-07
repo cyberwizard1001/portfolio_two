@@ -30,25 +30,25 @@ class PerroOnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const darkTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFF050505),
-      foregroundColor: Color(0xFFF5F2EA),
-      accentColor: Color(0xFFFB6000),
+      backgroundColor: Color(0xFF0A0812),
+      foregroundColor: Color(0xFFF2F0F8),
+      accentColor: Color(0xFF9B7FD4),
       borderColor: Color(0x26FFFFFF),
-      mutedColor: Color(0xB3F5F2EA),
+      mutedColor: Color(0xB3F2F0F8),
     );
     const lightTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFFE9E4DD),
-      foregroundColor: Color(0xFF111111),
-      accentColor: Color(0xFFB95317),
-      borderColor: Color(0x1A111111),
-      mutedColor: Color(0xCC111111),
+      backgroundColor: Color(0xFFE8E4F2),
+      foregroundColor: Color(0xFF120F1F),
+      accentColor: Color(0xFF6947B0),
+      borderColor: Color(0x1A120F1F),
+      mutedColor: Color(0xCC120F1F),
     );
     const softTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFFF7F3EC),
-      foregroundColor: Color(0xFF1A1816),
-      accentColor: Color(0xFFCD5A17),
-      borderColor: Color(0x221A1816),
-      mutedColor: Color(0xB31A1816),
+      backgroundColor: Color(0xFFF3F1FA),
+      foregroundColor: Color(0xFF1A1628),
+      accentColor: Color(0xFF7B5EA7),
+      borderColor: Color(0x221A1628),
+      mutedColor: Color(0xB31A1628),
     );
 
     return Scaffold(
@@ -643,16 +643,16 @@ class _PerroHero extends StatelessWidget {
                   vertical: AppSpacing.xxs,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFB6000).withValues(alpha: 0.15),
+                  color: const Color(0xFF9B7FD4).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(AppRadii.sm),
                   border: Border.all(
-                    color: const Color(0xFFFB6000).withValues(alpha: 0.3),
+                    color: const Color(0xFF9B7FD4).withValues(alpha: 0.3),
                   ),
                 ),
                 child: Text(
                   'Perro \u2014 Case study 02',
                   style: textTheme.labelSmall?.copyWith(
-                    color: const Color(0xFFFB6000),
+                    color: const Color(0xFF9B7FD4),
                     letterSpacing: 0.6,
                   ),
                 ),
@@ -674,7 +674,7 @@ class _PerroHero extends StatelessWidget {
                 ),
               ),
               SizedBox(height: isNarrow ? AppSpacing.lg : AppSpacing.xl),
-              Container(width: 40, height: 2, color: const Color(0xFFFB6000)),
+              Container(width: 40, height: 2, color: const Color(0xFF9B7FD4)),
               const SizedBox(height: AppSpacing.xl),
               isNarrow
                   ? _HeroTextColumn(textTheme: textTheme)
@@ -799,7 +799,7 @@ class _HeroImageBlock extends StatelessWidget {
                 image: decorationImage,
                 gradient: decorationImage == null
                     ? const LinearGradient(
-                        colors: [Color(0xFF1C1814), Color(0xFF0E0C0A)],
+                        colors: [Color(0xFF150F24), Color(0xFF0A0812)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       )
@@ -828,7 +828,7 @@ class _HeroImageBlock extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color(0x00FB6000), Color(0x99FB6000)],
+                    colors: [Color(0x009B7FD4), Color(0x999B7FD4)],
                   ),
                 ),
               ),
@@ -901,7 +901,7 @@ class _CaseStudyImageCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF2E2A26), Color(0xFF171412)],
+          colors: [Color(0xFF221B36), Color(0xFF130F1E)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
