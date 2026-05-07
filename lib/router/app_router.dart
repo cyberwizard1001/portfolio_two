@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:portfolio_2/pages/project/crafting_counselling_companions_page.dart';
 import 'package:portfolio_2/pages/project/perfect_pet_quote_flow_page.dart';
 import 'package:portfolio_2/pages/project/perro_onboarding_page.dart';
 
@@ -43,6 +44,12 @@ class AppRouter {
         path: '/work/perro-onboarding-subscription',
         name: 'perro-onboarding',
         builder: (context, state) => const PerroOnboardingPage(),
+      ),
+      GoRoute(
+        path: '/work/crafting-counselling-companions',
+        name: 'crafting-counselling-companions',
+        builder: (context, state) =>
+            const CraftingCounsellingCompanionsPage(),
       ),
 
       // Dynamic catch-all route — must be last

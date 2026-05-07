@@ -44,6 +44,20 @@ class ProjectStackSection extends StatelessWidget {
         'Designed and implemented in Flutter within 2 weeks',
       ],
     ),
+    _ProjectData(
+      year: '2024',
+      title: 'Crafting Counselling Companions',
+      category: 'UX Research / HCI',
+      slug: 'crafting-counselling-companions',
+      routeName: 'crafting-counselling-companions',
+      summary:
+      'My MSc dissertation in Human\u2013Computer Interaction. Seven practitioner interviews, a low-contact co-design workshop, and iterative Figma prototyping \u2014 leading to a validated concept for a practice dashboard that reduces admin overhead for mental health practitioners.',
+      highlights: [
+        '47 codes, 7 themes from reflexive thematic analysis',
+        'Low-contact co-design workshop with time-poor practitioners',
+        'RRI ethical review surfacing AI risk and consent boundaries',
+      ],
+    ),
   ];
 
   @override
