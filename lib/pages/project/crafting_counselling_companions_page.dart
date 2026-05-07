@@ -20,6 +20,7 @@ import '../../widgets/project/project_problem_key_info_block.dart';
 import '../../widgets/project/project_process_steps_block.dart';
 import '../../widgets/project/project_quote_block.dart';
 import '../../widgets/project/project_section_theme.dart';
+import '../../widgets/project/project_image_gallery_block.dart';
 import '../../widgets/project/project_text_image_block.dart';
 
 class CraftingCounsellingCompanionsPage extends StatelessWidget {
@@ -60,8 +61,9 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
             // ── 1. HERO ────────────────────────────────────────────────────
             const _CounsellingHero(),
 
-            // ── 1b. HERO IMAGE (poster placeholder) ───────────────────────
+            // ── 1b. HERO IMAGE ─────────────────────────────────────────────
             const _HeroImageBlock(
+              imagePath: 'assets/images/counselling/hero_ambient.jpg',
               caption:
                   'Mental health practitioners carry both the clinical and administrative weight of their practice \u2014 this project asked what digital tools could lift.',
             ),
@@ -329,8 +331,9 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
                   'A practitioner-centred practice dashboard',
               body:
                   'The proposed solution integrates with existing office suites (Google Workspace or Microsoft 365) to bring communication, scheduling, documentation, finances, and a resource library into a single coherent interface. A complementary voice assistant lets practitioners issue multi-step instructions in natural language \u2014 scheduling a follow-up, sending a worksheet, and setting a pre-session reminder in a single spoken command \u2014 with each action shown as an editable checklist item before anything is executed.',
-              image: const _CaseStudyImageCard(
-                label: 'Practice dashboard \u2014 home view\n(Figma prototype)',
+              image: _RealImageCard(
+                imagePath: 'assets/images/counselling/workshop_gmail.jpg',
+                caption: 'Co-design workshop: email drafts configured by a participant during Activity 2',
                 height: 460,
               ),
             ),
@@ -369,6 +372,44 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
                   title: 'Voice assistant',
                   body:
                       'A cross-screen overlay for multi-step natural-language instructions. The system parses requests into discrete, editable checklist items and executes only what the practitioner explicitly approves.',
+                ),
+              ],
+            ),
+
+            // ── 11b. CO-DESIGN GALLERY ────────────────────────────────────
+            ProjectImageGalleryBlock(
+              themeConfig: lightTheme,
+              title: 'Co-design workshop outputs',
+              images: [
+                _RealImageCard(
+                  imagePath: 'assets/images/counselling/codesign_activity_physical.jpg',
+                  caption: 'Activity 2 \u2014 participant working through email task with sticky-note annotations',
+                  height: 320,
+                ),
+                _RealImageCard(
+                  imagePath: 'assets/images/counselling/workshop_calendar_booking.jpg',
+                  caption: 'Google Calendar bookable appointment schedule \u2014 participant-configured session availability',
+                  height: 320,
+                ),
+                _RealImageCard(
+                  imagePath: 'assets/images/counselling/codesign_sheets_physical.jpg',
+                  caption: 'Activity 3 \u2014 Google Sheets session tracker with participant feedback: \u201cWell thought out. Easy to store all the details.\u201d',
+                  height: 320,
+                ),
+                _RealImageCard(
+                  imagePath: 'assets/images/counselling/workshop_sheets.jpg',
+                  caption: 'Session history sheet \u2014 client records, payment status, and session log',
+                  height: 320,
+                ),
+                _RealImageCard(
+                  imagePath: 'assets/images/counselling/workshop_drive.jpg',
+                  caption: 'Google Drive resource library \u2014 worksheets, reading materials, and client folders',
+                  height: 320,
+                ),
+                _RealImageCard(
+                  imagePath: 'assets/images/counselling/codesign_calendar_physical.jpg',
+                  caption: 'Activity 1 \u2014 participant note: \u201cFeels like an invisible non-living assistant\u201d',
+                  height: 320,
                 ),
               ],
             ),
@@ -850,43 +891,74 @@ class _HeroImageBlock extends StatelessWidget {
   }
 }
 
-// ── IMAGE PLACEHOLDER ─────────────────────────────────────────────────────────
-class _CaseStudyImageCard extends StatelessWidget {
-  const _CaseStudyImageCard({
-    required this.label,
-    required this.height,
+// ── REAL IMAGE CARD ───────────────────────────────────────────────────────────
+class _RealImageCard extends StatelessWidget {
+  const _RealImageCard({
+    required this.imagePath,
+    required this.caption,
+    this.height = 360,
   });
 
-  final String label;
+  final String imagePath;
+  final String caption;
   final double height;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      height: height,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF172824), Color(0xFF0C1614)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(AppRadii.xl),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
-      ),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.lg),
-          child: Text(
-            label,
-            style: textTheme.bodyLarge?.copyWith(
-              color: Colors.white60,
-              height: 1.5,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(AppRadii.xl),
+      child: SizedBox(
+        height: height,
+        width: double.infinity,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Container(
+                color: const Color(0xFF0C1614),
+                child: Center(
+                  child: Icon(
+                    Icons.image_not_supported_outlined,
+                    color: Colors.white24,
+                    size: 40,
+                  ),
+                ),
+              ),
             ),
-            textAlign: TextAlign.center,
-          ),
+            // Bottom caption scrim
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(
+                  AppSpacing.lg,
+                  AppSpacing.xxl,
+                  AppSpacing.lg,
+                  AppSpacing.md,
+                ),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0x00000000), Color(0xCC000000)],
+                  ),
+                ),
+                child: Text(
+                  caption,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: Colors.white70,
+                    height: 1.5,
+                    letterSpacing: 0.2,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
