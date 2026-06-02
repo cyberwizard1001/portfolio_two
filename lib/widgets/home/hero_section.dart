@@ -80,19 +80,22 @@ class HeroSection extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Top row: intro + collaboration badge
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Hey, I\'m Nirmal',
-                              style: textTheme.bodySmall?.copyWith(
-                                color: Colors.white70,
+                        if (info.isMobile)
+                          const CollaborationStatusBadge()
+                        else
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Hey, I\'m Nirmal',
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: Colors.white70,
+                                ),
                               ),
-                            ),
-                            const Spacer(),
-                            const CollaborationStatusBadge(),
-                          ],
-                        ),
+                              const Spacer(),
+                              const CollaborationStatusBadge(),
+                            ],
+                          ),
 
                         const SizedBox(height: AppSpacing.xxxl),
 
@@ -108,7 +111,7 @@ class HeroSection extends StatelessWidget {
                               ),
                               const SizedBox(height: AppSpacing.lg),
                               const DynamicHeadline(),
-                              const SizedBox(height: AppSpacing.xxl),
+                              SizedBox(height: info.isMobile ? AppSpacing.lg : AppSpacing.xxl),
                               _HeroSubtext(
                                 onScrollToAbout: onScrollToAbout,
                               ),
@@ -116,40 +119,74 @@ class HeroSection extends StatelessWidget {
                           ),
                         ),
 
-                        const SizedBox(height: AppSpacing.xxxl),
+                        SizedBox(height: info.isMobile ? AppSpacing.xl : AppSpacing.xxxl),
 
                         // Bottom row: descriptors + scroll button
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Wrap(
-                              spacing: AppSpacing.lg,
-                              runSpacing: AppSpacing.sm,
-                              children: [
-                                Text(
-                                  'Accessible UX designer',
-                                  style: textTheme.bodySmall?.copyWith(
-                                    color: Colors.white54,
+                        if (info.isMobile)
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Accessible UX designer',
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: Colors.white54,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'Former Flutter developer',
-                                  style: textTheme.bodySmall?.copyWith(
-                                    color: Colors.white54,
+                                  Text(
+                                    'Former Flutter developer',
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: Colors.white54,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'Systems thinker',
-                                  style: textTheme.bodySmall?.copyWith(
-                                    color: Colors.white54,
+                                  Text(
+                                    'Systems thinker',
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: Colors.white54,
+                                    ),
                                   ),
+                                ],
+                              ),
+                              _ScrollButton(onTap: onScrollToWork),
+                            ],
+                          )
+                        else
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Flexible(
+                                child: Wrap(
+                                  spacing: AppSpacing.lg,
+                                  runSpacing: AppSpacing.sm,
+                                  children: [
+                                    Text(
+                                      'Accessible UX designer',
+                                      style: textTheme.bodySmall?.copyWith(
+                                        color: Colors.white54,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Former Flutter developer',
+                                      style: textTheme.bodySmall?.copyWith(
+                                        color: Colors.white54,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Systems thinker',
+                                      style: textTheme.bodySmall?.copyWith(
+                                        color: Colors.white54,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            const Spacer(),
-                            _ScrollButton(onTap: onScrollToWork),
-                          ],
-                        ),
+                              ),
+                              const Spacer(),
+                              _ScrollButton(onTap: onScrollToWork),
+                            ],
+                          ),
                       ],
                     ),
                   ),
