@@ -414,6 +414,94 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
               ],
             ),
 
+            // ── 11c. THE FINAL PROTOTYPE ──────────────────────────────────
+            ProjectTextImageBlock(
+              themeConfig: softTheme,
+              eyebrow: 'The final prototype',
+              title: 'From a feel for it to the finished thing',
+              body:
+                  'The co-design workshop was really about getting a feel for things. I gave people a version of the tool stitched together out of Google Workspace so they could live in it for a week and tell me where it pinched, and once I had those findings I sat down and designed the thing properly in Figma. This is what came out of that. The home screen was the part I cared about most, because it is the first thing a practitioner sees before a session and it is where the fragmentation problem shows up worst. So I put the day’s sessions, the details of whoever is next, the running task list, and the inbox all on one screen. The idea was that you could glance at it for ten seconds before a client walks in and actually feel ready, instead of opening four tabs to piece the same picture together yourself.',
+              image: _RealImageCard(
+                imagePath: 'assets/images/counselling/Home.jpg',
+                caption: 'Home dashboard — the day’s sessions, the next client’s details, the task list, and the inbox on a single screen',
+                height: 480,
+              ),
+            ),
+
+            // ── 11d. SCHEDULE VIEWS ────────────────────────────────────────
+            ProjectImageGalleryBlock(
+              themeConfig: lightTheme,
+              title: 'The schedule, two ways to look at it',
+              images: [
+                _RealImageCard(
+                  imagePath: 'assets/images/counselling/Schedule week.jpg',
+                  caption: 'Week view — every session laid out against the working day, with cards that open into reschedule, contact the client, or notes from last time',
+                  height: 360,
+                ),
+                _RealImageCard(
+                  imagePath: 'assets/images/counselling/Schedule.jpg',
+                  caption: 'Month view — the same schedule zoomed out, so the weeks ahead can be read at a glance',
+                  height: 360,
+                ),
+              ],
+            ),
+
+            // ── 11e. CLIENT RECORD ─────────────────────────────────────────
+            ProjectTextImageBlock(
+              themeConfig: softTheme,
+              eyebrow: 'People',
+              title: 'The client record, and where the AI lives',
+              body:
+                  'Every client gets a profile, and this is where most of the AI questions from the interviews ended up living. There is the session history, the resources you have shared, a secure spot for consent forms, and an AI-written summary of where things stand. The part I kept coming back to is the toggle at the top. AI is off unless the practitioner turns it on, and they turn it on per client rather than once for the whole practice. Some of the people I spoke to were wary of AI in a room this sensitive and some were keen, and a single switch buried in settings did not respect either view. Letting them decide client by client felt a lot closer to how they actually think about consent and trust.',
+              image: _RealImageCard(
+                imagePath: 'assets/images/counselling/People.jpg',
+                caption: 'Client profile — session history, shared resources, consent storage, and a per-client toggle that keeps AI off until the practitioner turns it on',
+                height: 480,
+              ),
+            ),
+
+            // ── 11f. NOTES ─────────────────────────────────────────────────
+            ProjectTextImageBlock(
+              themeConfig: lightTheme,
+              eyebrow: 'Notes',
+              title: 'Notes that do not pull you out of the room',
+              body:
+                  'A lot of practitioners told me they still write their notes by hand, not because they love paper but because typing in front of a client breaks the eye contact the whole session depends on. So the notes screen had to hold both. You can type into a template or scan in the sheet you wrote during the session, then tag it, search across all of it, and look back through earlier versions when you need to. The AI summary sits off to the side as something you ask for, not something that quietly happens to your notes while you are not looking. That small distinction mattered more than I expected once people started using it.',
+              image: _RealImageCard(
+                imagePath: 'assets/images/counselling/Session notes.jpg',
+                caption: 'Session notes — typed templates or scanned handwriting, tagged and searchable, with an AI summary you ask for rather than one that happens to you',
+                height: 480,
+              ),
+            ),
+
+            // ── 11g. LIBRARY ────────────────────────────────────────────────
+            ProjectTextImageBlock(
+              themeConfig: softTheme,
+              eyebrow: 'Library',
+              title: 'One place for everything you share',
+              body:
+                  'Almost everyone I interviewed was quietly keeping their own little library of worksheets and articles and videos, scattered across Drive folders and email attachments and browser bookmarks, and nobody could find anything when they needed it. The library pulls all of that into one place you can filter by type and read inside the tool itself. I also sketched out a browser extension for clipping things off the web as you come across them, the way Zotero does for academic papers, though I should be honest that this stayed a concept rather than something I built.',
+              image: _RealImageCard(
+                imagePath: 'assets/images/counselling/Resources.jpg',
+                caption: 'Library — worksheets, articles, and media in one place, filterable by type and readable inside the tool',
+                height: 480,
+              ),
+            ),
+
+            // ── 11h. AI TRANSPARENCY ───────────────────────────────────────
+            ProjectTextImageBlock(
+              themeConfig: lightTheme,
+              eyebrow: 'Artificial intelligence',
+              title: 'Where the AI explains itself',
+              body:
+                  'This screen probably would not exist if I had not done the ethical review first. Once you have mapped out everywhere sensitive data could flow, it becomes obvious that the AI cannot just work quietly in the background and hope nobody asks. So there is a settings area that does nothing clever on its own. It tells you when AI has been used, it lets you review and approve any summary before it goes anywhere near a client record, and it shows you why a particular suggestion was made. None of that makes the tool smarter. It makes it legible, and for the people I spoke to that was the thing standing between being curious about it and actually trusting it.',
+              image: _RealImageCard(
+                imagePath: 'assets/images/counselling/Artificial Intelligence.jpg',
+                caption: 'AI transparency settings — usage notifications, review-and-approve before anything reaches a client record, and visibility into why a suggestion was made',
+                height: 480,
+              ),
+            ),
+
             // ── 12. KEY DECISIONS ─────────────────────────────────────────
             const ProjectDecisionLogBlock(
               themeConfig: darkTheme,
