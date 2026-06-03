@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../responsive/responsive_builder.dart';
 import '../../theme/app_colors.dart';
@@ -499,8 +500,12 @@ class _TerminalActionButtonState extends State<_TerminalActionButton> {
       onExit: (_) => setState(() => _hovered = false),
       child: InkWell(
         borderRadius: BorderRadius.circular(AppRadii.pill),
-        onTap: () =>
-            debugPrint(widget.label == 'View CV' ? 'Open CV' : 'Open LinkedIn'),
+        onTap: () {
+          final url = widget.label == 'View CV'
+              ? 'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf'
+              : 'https://linkedin.com/in/nirmalkarthikeyan';
+          launchUrl(Uri.parse(url), mode: LaunchMode.platformDefault);
+        },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),
           curve: Curves.easeOutCubic,

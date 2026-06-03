@@ -158,7 +158,7 @@ class _FooterLinksDesktop extends StatelessWidget {
             links: [
               FooterLinkItem(label: 'LinkedIn', externalUrl: 'https://linkedin.com/in/nirmalkarthikeyan'),
               FooterLinkItem(label: 'Medium', externalUrl: 'https://nirmalkarthikeyan.medium.com/'),
-              FooterLinkItem(label: 'CV', externalUrl: 'https://cyberwizard.dev/cv'),
+              FooterLinkItem(label: 'CV', externalUrl: 'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf'),
               FooterLinkItem(label: 'Email', externalUrl: 'mailto:hello@cyberwizard.dev'),
             ],
           ),
@@ -208,7 +208,7 @@ class _FooterLinksMobile extends StatelessWidget {
           links: [
             FooterLinkItem(label: 'LinkedIn', externalUrl: 'https://linkedin.com/in/nirmalkarthikeyan'),
             FooterLinkItem(label: 'Medium', externalUrl: 'https://nirmalkarthikeyan.medium.com/'),
-            FooterLinkItem(label: 'CV', externalUrl: 'https://cyberwizard.dev/cv'),
+            FooterLinkItem(label: 'CV', externalUrl: 'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf'),
             FooterLinkItem(label: 'Email', externalUrl: 'mailto:hello@cyberwizard.dev'),
           ],
         ),

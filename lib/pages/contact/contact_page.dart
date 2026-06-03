@@ -19,7 +19,7 @@ class ContactPage extends StatelessWidget {
   static const String email = 'hello@cyberwizard.dev';
   static const String linkedInUrl = 'https://linkedin.com/in/nirmalkarthikeyan';
   static const String mediumUrl = 'https://nirmalkarthikeyan.medium.com/';
-  static const String cvUrl = 'https://cyberwizard.dev/cv';
+  static const String cvUrl = 'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf';
 
   String get mailtoLink =>
       'mailto:$email?subject=Hello%20Nirmal&body=Hi%20Nirmal%2C%20I%27d%20love%20to%20chat.';
