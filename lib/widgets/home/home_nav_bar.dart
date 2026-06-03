@@ -111,14 +111,6 @@ class HomeNavBar extends StatelessWidget {
                         defaultColor: navLinkDefaultColor,
                         cursorNotifier: cursorNotifier,
                       ),
-                      const SizedBox(width: AppSpacing.sm),
-                      _NavLink(
-                        label: 'Contact',
-                        onTap: onContactTap,
-                        isDark: isDark,
-                        defaultColor: navLinkDefaultColor,
-                        cursorNotifier: cursorNotifier,
-                      ),
                       const SizedBox(width: AppSpacing.lg),
                     ],
                     InkWell(
@@ -134,7 +126,7 @@ class HomeNavBar extends StatelessWidget {
                           borderRadius: BorderRadius.circular(AppRadii.pill),
                         ),
                         child: Text(
-                          compact ? 'Contact' : 'Available for projects',
+                          'Get in touch',
                           style: textTheme.bodySmall?.copyWith(
                             color: isDark ? AppColors.ink : Colors.white,
                           ),
