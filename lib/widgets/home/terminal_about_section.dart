@@ -242,15 +242,16 @@ class _TypingTerminalState extends State<_TypingTerminal> {
   static const _lines = [
     _TerminalLine(prompt: '~\$ ', text: 'about --nirmal'),
     _TerminalLine(
-      text: 'CS grad and former Flutter developer now designing accessible UX. '
-          'Linux desktop customisation sparked my love for thoughtful, '
-          'human-centered design.',
+      text: 'CS grad who moved from building software to designing it. '
+          'I still write Flutter when the occasion calls for it. '
+          'Tinkering with Linux desktop environments as a teenager is probably where '
+          'the design obsession started, though I wouldn\'t have called it that at the time.',
       isOutput: true,
     ),
     _TerminalLine(prompt: '~\$ ', text: 'skills --list'),
     _TerminalLine(
-      text: 'Accessibility-first  ·  Systems thinker\n'
-          'Flutter background  ·  Linux enthusiast',
+      text: 'UX research  ·  UX design\n'
+          'Flutter developer  ·  Linux enthusiast',
       isOutput: true,
     ),
     _TerminalLine(prompt: '~\$ ', text: 'contact --open'),
@@ -327,6 +328,8 @@ class _TypingTerminalState extends State<_TypingTerminal> {
   }
 
   void _fadeInButtons() {
+    _cursorTimer?.cancel();
+    _cursorTimer = null;
     setState(() => _showButtons = true);
     // Slight delay then fade to full opacity
     Future.delayed(const Duration(milliseconds: 120), () {
@@ -376,17 +379,9 @@ class _TypingTerminalState extends State<_TypingTerminal> {
         if (_revealedLines >= _lines.length)
           Padding(
             padding: const EdgeInsets.only(top: AppSpacing.xs),
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(text: '~\$ ', style: promptStyle),
-                  if (_cursorVisible)
-                    TextSpan(
-                      text: '▋',
-                      style: commandStyle.copyWith(color: AppColors.accent),
-                    ),
-                ],
-              ),
+            child: _CursorBlink(
+              promptStyle: promptStyle,
+              cursorStyle: commandStyle.copyWith(color: AppColors.accent),
             ),
           ),
 
@@ -543,6 +538,56 @@ class _TerminalActionButtonState extends State<_TerminalActionButton> {
           ),
         ),
       ),
+    );
+  }
+}
+
+// ─── Isolated cursor blink widget (avoids full-tree setState) ─────────────────
+
+class _CursorBlink extends StatefulWidget {
+  const _CursorBlink({required this.promptStyle, required this.cursorStyle});
+  final TextStyle promptStyle;
+  final TextStyle cursorStyle;
+
+  @override
+  State<_CursorBlink> createState() => _CursorBlinkState();
+}
+
+class _CursorBlinkState extends State<_CursorBlink>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1060),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        final visible = _controller.value < 0.5;
+        return RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(text: '~\$ ', style: widget.promptStyle),
+              if (visible)
+                TextSpan(text: '▋', style: widget.cursorStyle),
+            ],
+          ),
+        );
+      },
     );
   }
 }
