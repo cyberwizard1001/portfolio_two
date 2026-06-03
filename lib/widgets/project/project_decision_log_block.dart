@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import '../../responsive/responsive_builder.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
+import 'themed_card.dart';
 
-/// A structured log of design decisions with the decision, rationale,
-/// and outcome. Useful for showing design thinking and tradeoffs.
-/// Renders as a table on desktop and as stacked cards on mobile.
 class ProjectDecisionLogBlock extends StatelessWidget {
   const ProjectDecisionLogBlock({
     super.key,
@@ -26,13 +25,8 @@ class ProjectDecisionLogBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.section,
-      ),
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
       child: ResponsiveBuilder(
         builder: (context, info) {
           return Column(
@@ -40,35 +34,17 @@ class ProjectDecisionLogBlock extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: (info.isMobile
-                        ? textTheme.headlineMedium
-                        : textTheme.headlineLarge)
-                    ?.copyWith(
-                  color: themeConfig.foregroundColor,
-                ),
+                style: themeConfig.sectionHeading(textTheme, isMobile: info.isMobile),
               ),
               if (intro != null) ...[
                 const SizedBox(height: AppSpacing.sm),
-                Text(
-                  intro!,
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: themeConfig.effectiveMutedColor,
-                    height: 1.6,
-                  ),
-                ),
+                Text(intro!, style: themeConfig.mutedBody(textTheme, height: 1.6)),
               ],
               const SizedBox(height: AppSpacing.xl),
-
               if (info.isMobile)
-                _DecisionCardList(
-                  decisions: decisions,
-                  themeConfig: themeConfig,
-                )
+                _DecisionCardList(decisions: decisions, themeConfig: themeConfig)
               else
-                _DecisionTable(
-                  decisions: decisions,
-                  themeConfig: themeConfig,
-                ),
+                _DecisionTable(decisions: decisions, themeConfig: themeConfig),
             ],
           );
         },
@@ -76,8 +52,6 @@ class ProjectDecisionLogBlock extends StatelessWidget {
     );
   }
 }
-
-// ─── Desktop table ────────────────────────────────────────────────────────────
 
 class _DecisionTable extends StatelessWidget {
   const _DecisionTable({
@@ -105,7 +79,6 @@ class _DecisionTable extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppRadii.xl),
         child: Column(
           children: [
-            // Header row
             Container(
               color: themeConfig.accentColor.withValues(alpha: 0.08),
               padding: const EdgeInsets.symmetric(
@@ -121,7 +94,6 @@ class _DecisionTable extends StatelessWidget {
               ),
             ),
             const Divider(height: 1),
-            // Data rows
             ...decisions.asMap().entries.map((entry) {
               final i = entry.key;
               final d = entry.value;
@@ -142,14 +114,12 @@ class _DecisionTable extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Index badge
                               Container(
                                 width: 26,
                                 height: 26,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: themeConfig.accentColor
-                                      .withValues(alpha: 0.12),
+                                  color: themeConfig.accentColor.withValues(alpha: 0.12),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Text(
@@ -179,10 +149,7 @@ class _DecisionTable extends StatelessWidget {
                           flex: 3,
                           child: Text(
                             d.rationale,
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: themeConfig.effectiveMutedColor,
-                              height: 1.5,
-                            ),
+                            style: themeConfig.mutedBody(textTheme),
                           ),
                         ),
                         const SizedBox(width: AppSpacing.md),
@@ -198,10 +165,7 @@ class _DecisionTable extends StatelessWidget {
                     ),
                   ),
                   if (!isLast)
-                    Divider(
-                      height: 1,
-                      color: themeConfig.borderColor,
-                    ),
+                    Divider(height: 1, color: themeConfig.borderColor),
                 ],
               );
             }),
@@ -211,8 +175,6 @@ class _DecisionTable extends StatelessWidget {
     );
   }
 }
-
-// ─── Mobile cards ─────────────────────────────────────────────────────────────
 
 class _DecisionCardList extends StatelessWidget {
   const _DecisionCardList({
@@ -234,12 +196,8 @@ class _DecisionCardList extends StatelessWidget {
 
         return Padding(
           padding: const EdgeInsets.only(bottom: AppSpacing.md),
-          child: Container(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppRadii.xl),
-              border: Border.all(color: themeConfig.borderColor),
-            ),
+          child: ThemedCard(
+            themeConfig: themeConfig,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -274,13 +232,7 @@ class _DecisionCardList extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: AppSpacing.sm),
-                Text(
-                  d.rationale,
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: themeConfig.effectiveMutedColor,
-                    height: 1.5,
-                  ),
-                ),
+                Text(d.rationale, style: themeConfig.mutedBody(textTheme)),
                 const SizedBox(height: AppSpacing.md),
                 _OutcomeChip(
                   outcome: d.outcome,
@@ -295,8 +247,6 @@ class _DecisionCardList extends StatelessWidget {
     );
   }
 }
-
-// ─── Outcome chip ─────────────────────────────────────────────────────────────
 
 class _OutcomeChip extends StatelessWidget {
   const _OutcomeChip({
@@ -359,8 +309,6 @@ class _OutcomeChip extends StatelessWidget {
     );
   }
 }
-
-// ─── Data models ──────────────────────────────────────────────────────────────
 
 enum DecisionOutcomeType {
   positive('Positive'),

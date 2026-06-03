@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 import '../../responsive/responsive_builder.dart';
-import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
+import 'themed_card.dart';
 
 class ProjectFindingsGridBlock extends StatelessWidget {
   const ProjectFindingsGridBlock({
@@ -22,76 +23,50 @@ class ProjectFindingsGridBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.xxl,
-          vertical: AppSpacing.section,
-        ),
-        child: ResponsiveBuilder(
-          builder: (context, info) {
-            final crossAxisCount = info.isMobile
-                ? 1
-                : info.isTablet
-                ? 2
-                : 3;
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
+      child: ResponsiveBuilder(
+        builder: (context, info) {
+          final crossAxisCount = info.isMobile ? 1 : info.isTablet ? 2 : 3;
+          final rowCount = (items.length / crossAxisCount).ceil();
 
-            final rowCount = (items.length / crossAxisCount).ceil();
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: (info.isMobile
-                          ? textTheme.headlineMedium
-                          : textTheme.headlineLarge)
-                      ?.copyWith(
-                    color: themeConfig.foregroundColor,
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.xl),
-                LayoutGrid(
-                  columnSizes: List.generate(crossAxisCount, (_) => 1.fr),
-                  rowSizes: List.generate(rowCount, (_) => auto),
-                  columnGap: AppSpacing.md,
-                  rowGap: AppSpacing.md,
-                  children: [
-                    for (final item in items)
-                      Container(
-                        padding: const EdgeInsets.all(AppSpacing.lg),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppRadii.xl),
-                          border: Border.all(color: themeConfig.borderColor),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              item.title,
-                              style: textTheme.titleLarge?.copyWith(
-                                color: themeConfig.accentColor,
-                              ),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: themeConfig.sectionHeading(textTheme, isMobile: info.isMobile),
+              ),
+              const SizedBox(height: AppSpacing.xl),
+              LayoutGrid(
+                columnSizes: List.generate(crossAxisCount, (_) => 1.fr),
+                rowSizes: List.generate(rowCount, (_) => auto),
+                columnGap: AppSpacing.md,
+                rowGap: AppSpacing.md,
+                children: [
+                  for (final item in items)
+                    ThemedCard(
+                      themeConfig: themeConfig,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            item.title,
+                            style: textTheme.titleLarge?.copyWith(
+                              color: themeConfig.accentColor,
                             ),
-                            const SizedBox(height: AppSpacing.sm),
-                            Text(
-                              item.body,
-                              style: textTheme.bodyMedium?.copyWith(
-                                color: themeConfig.effectiveMutedColor,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(height: AppSpacing.sm),
+                          Text(item.body, style: themeConfig.mutedBody(textTheme)),
+                        ],
                       ),
-                  ],
-                ),
-              ],
-            );
-          },
-        ),
+                    ),
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

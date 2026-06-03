@@ -17,4 +17,14 @@ class ProjectSectionTheme {
 
   Color get effectiveMutedColor =>
       mutedColor ?? foregroundColor.withValues(alpha: 0.72);
+
+  TextStyle? accentLabel(TextTheme t) =>
+      t.bodySmall?.copyWith(color: accentColor);
+
+  TextStyle? mutedBody(TextTheme t, {double? height}) =>
+      t.bodyLarge?.copyWith(color: effectiveMutedColor, height: height);
+
+  TextStyle? sectionHeading(TextTheme t, {bool isMobile = false}) =>
+      (isMobile ? t.headlineMedium : t.headlineLarge)
+          ?.copyWith(color: foregroundColor);
 }

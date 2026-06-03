@@ -13,7 +13,6 @@ class AppTextStyles {
     ),
     displayMedium: GoogleFonts.nobile(
       fontSize: 64,
-      height: 0.98,
       fontWeight: FontWeight.w500,
       color: AppColors.ink,
     ),
@@ -25,7 +24,7 @@ class AppTextStyles {
     ),
     headlineMedium: GoogleFonts.fustat(
       fontSize: 28,
-      height: 1.1,
+      height: 1.2,
       fontWeight: FontWeight.w500,
       color: AppColors.ink,
     ),

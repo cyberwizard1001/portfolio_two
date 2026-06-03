@@ -2,16 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
 
-/// A full-width callout for surfacing a key insight, design principle,
-/// or pivotal moment in the case study narrative. Think of it as a
-/// highlighted annotation — heavier than a quote, lighter than a section.
-///
-/// [style] controls the visual weight:
-/// - [CalloutStyle.insight]  — accent-bordered left strip with icon
-/// - [CalloutStyle.principle] — full accent-tinted background
-/// - [CalloutStyle.warning]   — amber-tinted caution callout
 class ProjectCalloutBlock extends StatelessWidget {
   const ProjectCalloutBlock({
     super.key,
@@ -59,13 +52,8 @@ class ProjectCalloutBlock extends StatelessWidget {
         break;
     }
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.section,
-      ),
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
       child: Container(
         decoration: BoxDecoration(
           color: bg,
@@ -76,7 +64,6 @@ class ProjectCalloutBlock extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Left accent strip
               Container(
                 width: 4,
                 decoration: BoxDecoration(
@@ -87,14 +74,12 @@ class ProjectCalloutBlock extends StatelessWidget {
                   ),
                 ),
               ),
-              // Content
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(AppSpacing.xl),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Icon
                       if (icon != null) ...[
                         Container(
                           width: 40,
@@ -107,7 +92,6 @@ class ProjectCalloutBlock extends StatelessWidget {
                         ),
                         const SizedBox(width: AppSpacing.lg),
                       ],
-                      // Text
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

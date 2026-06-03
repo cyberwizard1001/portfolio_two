@@ -88,12 +88,14 @@ class _CursorOverlayState extends State<CursorOverlay>
                 if (_visible)
                   Positioned.fill(
                     child: IgnorePointer(
-                      child: CustomPaint(
-                        painter: _CursorPainter(
-                          mousePos: _mousePos,
-                          ringPos: _ringPos,
-                          ringRadius: _ringRadius,
-                          dotRadius: _kDotRadius,
+                      child: RepaintBoundary(
+                        child: CustomPaint(
+                          painter: _CursorPainter(
+                            mousePos: _mousePos,
+                            ringPos: _ringPos,
+                            ringRadius: _ringRadius,
+                            dotRadius: _kDotRadius,
+                          ),
                         ),
                       ),
                     ),

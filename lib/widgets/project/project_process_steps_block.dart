@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../responsive/responsive_builder.dart';
-import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
+import 'themed_card.dart';
 
 class ProjectProcessStepsBlock extends StatelessWidget {
   const ProjectProcessStepsBlock({
@@ -21,25 +22,15 @@ class ProjectProcessStepsBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.section,
-      ),
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ResponsiveBuilder(
             builder: (context, info) => Text(
               title,
-              style: (info.isMobile
-                      ? textTheme.headlineMedium
-                      : textTheme.headlineLarge)
-                  ?.copyWith(
-                color: themeConfig.foregroundColor,
-              ),
+              style: themeConfig.sectionHeading(textTheme, isMobile: info.isMobile),
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
@@ -48,12 +39,8 @@ class ProjectProcessStepsBlock extends StatelessWidget {
             final step = entry.value;
             return Padding(
               padding: const EdgeInsets.only(bottom: AppSpacing.md),
-              child: Container(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppRadii.xl),
-                  border: Border.all(color: themeConfig.borderColor),
-                ),
+              child: ThemedCard(
+                themeConfig: themeConfig,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -84,12 +71,7 @@ class ProjectProcessStepsBlock extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: AppSpacing.xs),
-                          Text(
-                            step.body,
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: themeConfig.effectiveMutedColor,
-                            ),
-                          ),
+                          Text(step.body, style: themeConfig.mutedBody(textTheme)),
                         ],
                       ),
                     ),

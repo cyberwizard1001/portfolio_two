@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../responsive/responsive_builder.dart';
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
 
 class ProjectLearningsBlock extends StatelessWidget {
@@ -20,30 +21,20 @@ class ProjectLearningsBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.section,
-      ),
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ResponsiveBuilder(
             builder: (context, info) => Text(
               title,
-              style: (info.isMobile
-                      ? textTheme.headlineMedium
-                      : textTheme.headlineLarge)
-                  ?.copyWith(
-                color: themeConfig.foregroundColor,
-              ),
+              style: themeConfig.sectionHeading(textTheme, isMobile: info.isMobile),
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
           ...points.map(
-                (point) => Padding(
+            (point) => Padding(
               padding: const EdgeInsets.only(bottom: AppSpacing.md),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,12 +50,7 @@ class ProjectLearningsBlock extends StatelessWidget {
                   ),
                   const SizedBox(width: AppSpacing.md),
                   Expanded(
-                    child: Text(
-                      point,
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: themeConfig.effectiveMutedColor,
-                      ),
-                    ),
+                    child: Text(point, style: themeConfig.mutedBody(textTheme)),
                   ),
                 ],
               ),

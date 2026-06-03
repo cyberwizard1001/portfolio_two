@@ -39,7 +39,7 @@ class PerroOnboardingPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F1FA),
+      backgroundColor: Colors.white,
       body: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

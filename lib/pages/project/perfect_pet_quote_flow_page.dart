@@ -38,7 +38,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F3EC),
+      backgroundColor: Colors.white,
       body: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

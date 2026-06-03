@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../responsive/responsive_builder.dart';
-import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
+import 'themed_card.dart';
 
 class ProjectBeforeAfterBlock extends StatelessWidget {
   const ProjectBeforeAfterBlock({
@@ -26,21 +27,12 @@ class ProjectBeforeAfterBlock extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     Widget panel(String label, String title, String body) {
-      return Container(
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppRadii.xl),
-          border: Border.all(color: themeConfig.borderColor),
-        ),
+      return ThemedCard(
+        themeConfig: themeConfig,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              label,
-              style: textTheme.bodySmall?.copyWith(
-                color: themeConfig.accentColor,
-              ),
-            ),
+            Text(label, style: themeConfig.accentLabel(textTheme)),
             const SizedBox(height: AppSpacing.sm),
             Text(
               title,
@@ -49,24 +41,14 @@ class ProjectBeforeAfterBlock extends StatelessWidget {
               ),
             ),
             const SizedBox(height: AppSpacing.sm),
-            Text(
-              body,
-              style: textTheme.bodyMedium?.copyWith(
-                color: themeConfig.effectiveMutedColor,
-              ),
-            ),
+            Text(body, style: themeConfig.mutedBody(textTheme)),
           ],
         ),
       );
     }
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.section,
-      ),
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
       child: ResponsiveBuilder(
         builder: (context, info) {
           if (info.isMobile) {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
-import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../common/responsive_section.dart';
 import 'project_section_theme.dart';
+import 'themed_card.dart';
 
 class ProjectMetaItem {
   final String label;
@@ -48,13 +48,9 @@ class ProjectMetaStripBlock extends StatelessWidget {
                 rowGap: AppSpacing.md,
                 children: items.map((item) {
                   return SizedBox.expand(
-                    child: Container(
+                    child: ThemedCard(
+                      themeConfig: themeConfig,
                       constraints: const BoxConstraints(minHeight: 116),
-                      padding: const EdgeInsets.all(AppSpacing.lg),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppRadii.xl),
-                        border: Border.all(color: themeConfig.borderColor),
-                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,

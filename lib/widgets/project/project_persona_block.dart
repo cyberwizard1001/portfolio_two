@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../responsive/responsive_builder.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
 
 /// A user persona card with name, role, quote, goals, frustrations,
@@ -36,13 +37,8 @@ class ProjectPersonaBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.section,
-      ),
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
       child: ResponsiveBuilder(
         builder: (ctx, info) {
           return Column(
@@ -78,18 +74,12 @@ class ProjectPersonaBlock extends StatelessWidget {
                           bottom: BorderSide(color: themeConfig.borderColor),
                         ),
                       ),
-                      child: info.isMobile
-                          ? _PersonaIdentityMobile(
+                      child: _PersonaIdentity(
                               name: name,
                               role: role,
                               quote: quote,
                               themeConfig: themeConfig,
-                            )
-                          : _PersonaIdentityDesktop(
-                              name: name,
-                              role: role,
-                              quote: quote,
-                              themeConfig: themeConfig,
+                              isMobile: info.isMobile,
                             ),
                     ),
 
@@ -215,143 +205,95 @@ class ProjectPersonaBlock extends StatelessWidget {
   }
 }
 
-// ─── Identity strip variants ─────────────────────────────────────────────────
+// ─── Identity strip ───────────────────────────────────────────────────────────
 
-class _PersonaIdentityDesktop extends StatelessWidget {
-  const _PersonaIdentityDesktop({
+class _PersonaIdentity extends StatelessWidget {
+  const _PersonaIdentity({
     required this.name,
     required this.role,
     required this.quote,
     required this.themeConfig,
+    required this.isMobile,
   });
 
   final String name;
   final String role;
   final String quote;
   final ProjectSectionTheme themeConfig;
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
+    final quoteBox = Container(
+      padding: EdgeInsets.all(isMobile ? AppSpacing.md : AppSpacing.lg),
+      decoration: BoxDecoration(
+        color: themeConfig.accentColor.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(AppRadii.lg),
+        border: Border.all(color: themeConfig.accentColor.withValues(alpha: 0.14)),
+      ),
+      child: Text(
+        '"$quote"',
+        style: (isMobile ? textTheme.bodyMedium : textTheme.bodyLarge)?.copyWith(
+          color: themeConfig.foregroundColor,
+          fontStyle: FontStyle.italic,
+          height: 1.5,
+        ),
+      ),
+    );
+
+    final nameCol = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          name,
+          style: (isMobile ? textTheme.headlineSmall : textTheme.headlineMedium)?.copyWith(
+            color: themeConfig.foregroundColor,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        if (isMobile)
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.4,
+            child: Text(
+              role,
+              style: textTheme.bodyMedium?.copyWith(color: themeConfig.accentColor),
+            ),
+          )
+        else
+          Text(
+            role,
+            style: textTheme.bodyLarge?.copyWith(color: themeConfig.accentColor),
+          ),
+      ],
+    );
+
+    if (isMobile) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              _PersonaAvatar(name: name, themeConfig: themeConfig),
+              const SizedBox(width: AppSpacing.md),
+              nameCol,
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          quoteBox,
+        ],
+      );
+    }
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Avatar
         _PersonaAvatar(name: name, themeConfig: themeConfig),
         const SizedBox(width: AppSpacing.xl),
-        // Name + role
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: textTheme.headlineMedium?.copyWith(
-                color: themeConfig.foregroundColor,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Text(
-              role,
-              style: textTheme.bodyLarge?.copyWith(
-                color: themeConfig.accentColor,
-              ),
-            ),
-          ],
-        ),
+        Flexible(fit: FlexFit.loose, child: nameCol),
         const SizedBox(width: AppSpacing.xxl),
-        // Quote
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            decoration: BoxDecoration(
-              color: themeConfig.accentColor.withValues(alpha: 0.06),
-              borderRadius: BorderRadius.circular(AppRadii.lg),
-              border: Border.all(
-                color: themeConfig.accentColor.withValues(alpha: 0.14),
-              ),
-            ),
-            child: Text(
-              '"$quote"',
-              style: textTheme.bodyLarge?.copyWith(
-                color: themeConfig.foregroundColor,
-                fontStyle: FontStyle.italic,
-                height: 1.5,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _PersonaIdentityMobile extends StatelessWidget {
-  const _PersonaIdentityMobile({
-    required this.name,
-    required this.role,
-    required this.quote,
-    required this.themeConfig,
-  });
-
-  final String name;
-  final String role;
-  final String quote;
-  final ProjectSectionTheme themeConfig;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            _PersonaAvatar(name: name, themeConfig: themeConfig),
-            const SizedBox(width: AppSpacing.md),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: textTheme.headlineSmall?.copyWith(
-                    color: themeConfig.foregroundColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  child: Text(
-                    role,
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: themeConfig.accentColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(height: AppSpacing.md),
-        Container(
-          padding: const EdgeInsets.all(AppSpacing.md),
-          decoration: BoxDecoration(
-            color: themeConfig.accentColor.withValues(alpha: 0.06),
-            borderRadius: BorderRadius.circular(AppRadii.lg),
-            border: Border.all(
-              color: themeConfig.accentColor.withValues(alpha: 0.14),
-            ),
-          ),
-          child: Text(
-            '"$quote"',
-            style: textTheme.bodyMedium?.copyWith(
-              color: themeConfig.foregroundColor,
-              fontStyle: FontStyle.italic,
-              height: 1.5,
-            ),
-          ),
-        ),
+        Expanded(child: quoteBox),
       ],
     );
   }

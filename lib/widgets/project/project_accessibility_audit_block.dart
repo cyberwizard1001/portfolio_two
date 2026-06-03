@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import '../../responsive/responsive_builder.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
 
-/// A list of accessibility issues with severity indicators, WCAG criterion
-/// references, and a fix description. Ideal for accessibility-focused case
-/// studies or design audits.
 class ProjectAccessibilityAuditBlock extends StatelessWidget {
   const ProjectAccessibilityAuditBlock({
     super.key,
@@ -26,29 +24,18 @@ class ProjectAccessibilityAuditBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    // Group by severity for summary chips
-    final criticalCount =
-        issues.where((i) => i.severity == A11ySeverity.critical).length;
-    final seriousCount =
-        issues.where((i) => i.severity == A11ySeverity.serious).length;
-    final moderateCount =
-        issues.where((i) => i.severity == A11ySeverity.moderate).length;
-    final minorCount =
-        issues.where((i) => i.severity == A11ySeverity.minor).length;
+    final criticalCount = issues.where((i) => i.severity == A11ySeverity.critical).length;
+    final seriousCount = issues.where((i) => i.severity == A11ySeverity.serious).length;
+    final moderateCount = issues.where((i) => i.severity == A11ySeverity.moderate).length;
+    final minorCount = issues.where((i) => i.severity == A11ySeverity.minor).length;
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.section,
-      ),
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
       child: ResponsiveBuilder(
         builder: (context, info) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -64,13 +51,7 @@ class ProjectAccessibilityAuditBlock extends StatelessWidget {
                         ),
                         if (intro != null) ...[
                           const SizedBox(height: AppSpacing.sm),
-                          Text(
-                            intro!,
-                            style: textTheme.bodyLarge?.copyWith(
-                              color: themeConfig.effectiveMutedColor,
-                              height: 1.6,
-                            ),
-                          ),
+                          Text(intro!, style: themeConfig.mutedBody(textTheme, height: 1.6)),
                         ],
                       ],
                     ),
@@ -78,8 +59,6 @@ class ProjectAccessibilityAuditBlock extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: AppSpacing.lg),
-
-              // Severity summary bar
               Wrap(
                 spacing: AppSpacing.sm,
                 runSpacing: AppSpacing.sm,
@@ -111,8 +90,6 @@ class ProjectAccessibilityAuditBlock extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: AppSpacing.xl),
-
-              // Issues list
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(AppRadii.xl),
@@ -134,10 +111,7 @@ class ProjectAccessibilityAuditBlock extends StatelessWidget {
                             isMobile: info.isMobile,
                           ),
                           if (!isLast)
-                            Divider(
-                              height: 1,
-                              color: themeConfig.borderColor,
-                            ),
+                            Divider(height: 1, color: themeConfig.borderColor),
                         ],
                       );
                     }).toList(),
@@ -152,8 +126,6 @@ class ProjectAccessibilityAuditBlock extends StatelessWidget {
   }
 }
 
-// ─── Issue row ────────────────────────────────────────────────────────────────
-
 class _A11yIssueRow extends StatelessWidget {
   const _A11yIssueRow({
     required this.issue,
@@ -167,7 +139,6 @@ class _A11yIssueRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final severityColor = issue.severity.color;
 
     return Padding(
@@ -188,7 +159,6 @@ class _A11yIssueRow extends StatelessWidget {
           : Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Left: severity + issue name
                 Expanded(
                   flex: 4,
                   child: _IssueHeader(
@@ -198,7 +168,6 @@ class _A11yIssueRow extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: AppSpacing.lg),
-                // Right: description + fix
                 Expanded(
                   flex: 6,
                   child: _IssueDetails(issue: issue, themeConfig: themeConfig),
@@ -227,7 +196,6 @@ class _IssueHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Severity chip
         Container(
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.sm,
@@ -297,11 +265,7 @@ class _IssueDetails extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.build_outlined,
-                size: 14,
-                color: themeConfig.accentColor,
-              ),
+              Icon(Icons.build_outlined, size: 14, color: themeConfig.accentColor),
               const SizedBox(width: AppSpacing.xs),
               Expanded(
                 child: Text(
@@ -319,8 +283,6 @@ class _IssueDetails extends StatelessWidget {
     );
   }
 }
-
-// ─── Severity summary chip ────────────────────────────────────────────────────
 
 class _SeveritySummaryChip extends StatelessWidget {
   const _SeveritySummaryChip({
@@ -368,8 +330,6 @@ class _SeveritySummaryChip extends StatelessWidget {
     );
   }
 }
-
-// ─── Data models ──────────────────────────────────────────────────────────────
 
 enum A11ySeverity {
   critical('Critical', Color(0xFFDC2626)),

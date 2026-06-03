@@ -49,8 +49,10 @@ class HeroSection extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              Positioned.fill(
-                child: CustomPaint(painter: _DotGridPainter()),
+              const Positioned.fill(
+                child: RepaintBoundary(
+                  child: CustomPaint(painter: _DotGridPainter()),
+                ),
               ),
               ResponsiveBuilder(
             builder: (context, info) {
@@ -138,19 +140,19 @@ class HeroSection extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Accessible UX designer',
+                                    'UX researcher and designer',
                                     style: textTheme.bodySmall?.copyWith(
                                       color: Colors.white54,
                                     ),
                                   ),
                                   Text(
-                                    'Former Flutter developer',
+                                    'Flutter developer',
                                     style: textTheme.bodySmall?.copyWith(
                                       color: Colors.white54,
                                     ),
                                   ),
                                   Text(
-                                    'Systems thinker',
+                                    'Occasional writer',
                                     style: textTheme.bodySmall?.copyWith(
                                       color: Colors.white54,
                                     ),
@@ -170,19 +172,19 @@ class HeroSection extends StatelessWidget {
                                   runSpacing: AppSpacing.sm,
                                   children: [
                                     Text(
-                                      'Accessible UX designer',
+                                      'UX researcher and designer',
                                       style: textTheme.bodySmall?.copyWith(
                                         color: Colors.white54,
                                       ),
                                     ),
                                     Text(
-                                      'Former Flutter developer',
+                                      'Flutter developer',
                                       style: textTheme.bodySmall?.copyWith(
                                         color: Colors.white54,
                                       ),
                                     ),
                                     Text(
-                                      'Systems thinker',
+                                      'Occasional writer',
                                       style: textTheme.bodySmall?.copyWith(
                                         color: Colors.white54,
                                       ),

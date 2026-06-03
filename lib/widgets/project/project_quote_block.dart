@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
 
 class ProjectQuoteBlock extends StatelessWidget {
@@ -19,18 +20,13 @@ class ProjectQuoteBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.section,
-      ),
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '“$quote”',
+            '"$quote"',
             style: textTheme.displayMedium?.copyWith(
               color: themeConfig.foregroundColor,
               fontSize: 28,
@@ -39,12 +35,7 @@ class ProjectQuoteBlock extends StatelessWidget {
           ),
           if (attribution != null) ...[
             const SizedBox(height: AppSpacing.md),
-            Text(
-              attribution!,
-              style: textTheme.bodySmall?.copyWith(
-                color: themeConfig.accentColor,
-              ),
-            ),
+            Text(attribution!, style: themeConfig.accentLabel(textTheme)),
           ],
         ],
       ),

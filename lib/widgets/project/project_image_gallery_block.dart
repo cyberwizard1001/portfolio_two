@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../responsive/responsive_builder.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
 
 class ProjectImageGalleryBlock extends StatelessWidget {
@@ -21,13 +22,8 @@ class ProjectImageGalleryBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.section,
-      ),
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
       child: ResponsiveBuilder(
         builder: (context, info) {
           final crossAxisCount = info.isMobile ? 1 : 2;

@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _footerKey = GlobalKey();
 
   bool _heroSnapped = false;
+  double _cachedHeroHeight = 0;
 
   /// True while the scroll position is still inside the hero section,
   /// so the nav bar uses its dark/glass style.
@@ -42,16 +43,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  double get _heroHeight {
+  void _cacheHeroHeight() {
     final ctx = _heroKey.currentContext;
-    if (ctx == null) return 0;
+    if (ctx == null) return;
     final box = ctx.findRenderObject() as RenderBox?;
-    return box?.size.height ?? 0;
+    _cachedHeroHeight = box?.size.height ?? 0;
   }
 
   void _onScroll() {
     final offset = _scrollController.offset;
-    final heroH = _heroHeight;
+    final heroH = _cachedHeroHeight;
 
     // Switch nav theme: dark while within hero, light once past it
     final shouldBeDark = heroH == 0 || offset < heroH - 80;
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
     if (notification.scrollDelta == null || notification.scrollDelta! <= 0) return;
 
     final offset = _scrollController.offset;
-    if (offset >= 80 && offset < _heroHeight * 0.5) {
+    if (offset >= 80 && offset < _cachedHeroHeight * 0.5) {
       _heroSnapped = true;
       _scrollTo(_workKey);
     }
@@ -79,6 +80,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _cacheHeroHeight());
   }
 
   @override
@@ -173,9 +175,12 @@ class _HomePageState extends State<HomePage> {
                   SliverToBoxAdapter(
                     child: KeyedSubtree(
                       key: _heroKey,
-                      child: HeroSection(
-                        onScrollToWork: () => _scrollTo(_workKey),
-                        onScrollToAbout: () => _scrollTo(_aboutKey),
+                      child: TickerMode(
+                        enabled: _navIsDark,
+                        child: HeroSection(
+                          onScrollToWork: () => _scrollTo(_workKey),
+                          onScrollToAbout: () => _scrollTo(_aboutKey),
+                        ),
                       ),
                     ),
                   ),

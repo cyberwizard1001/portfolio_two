@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../responsive/responsive_builder.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import 'project_block_section.dart';
 import 'project_section_theme.dart';
+import 'themed_card.dart';
 
-/// A grid of "How might we…" questions, used in define / ideate phases.
-/// Each card shows the HMW statement and an optional theme tag.
 class ProjectHowMightWeBlock extends StatelessWidget {
   const ProjectHowMightWeBlock({
     super.key,
@@ -25,13 +25,8 @@ class ProjectHowMightWeBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      width: double.infinity,
-      color: themeConfig.backgroundColor,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.section,
-      ),
+    return ProjectBlockSection(
+      themeConfig: themeConfig,
       child: ResponsiveBuilder(
         builder: (context, info) {
           final columns = info.isMobile ? 1 : info.isTablet ? 2 : 3;
@@ -39,7 +34,6 @@ class ProjectHowMightWeBlock extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -49,22 +43,11 @@ class ProjectHowMightWeBlock extends StatelessWidget {
                       children: [
                         Text(
                           title,
-                          style: (info.isMobile
-                                  ? textTheme.headlineMedium
-                                  : textTheme.headlineLarge)
-                              ?.copyWith(
-                            color: themeConfig.foregroundColor,
-                          ),
+                          style: themeConfig.sectionHeading(textTheme, isMobile: info.isMobile),
                         ),
                         if (intro != null) ...[
                           const SizedBox(height: AppSpacing.sm),
-                          Text(
-                            intro!,
-                            style: textTheme.bodyLarge?.copyWith(
-                              color: themeConfig.effectiveMutedColor,
-                              height: 1.6,
-                            ),
-                          ),
+                          Text(intro!, style: themeConfig.mutedBody(textTheme, height: 1.6)),
                         ],
                       ],
                     ),
@@ -84,21 +67,13 @@ class ProjectHowMightWeBlock extends StatelessWidget {
                     ),
                     child: Text(
                       '${items.length} questions',
-                      style: textTheme.bodySmall?.copyWith(
-                        color: themeConfig.accentColor,
-                      ),
+                      style: themeConfig.accentLabel(textTheme),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: AppSpacing.xl),
-
-              // Grid
-              _HmwGrid(
-                items: items,
-                columns: columns,
-                themeConfig: themeConfig,
-              ),
+              _HmwGrid(items: items, columns: columns, themeConfig: themeConfig),
             ],
           );
         },
@@ -120,7 +95,6 @@ class _HmwGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final rows = <List<ProjectHmwItem>>[];
     for (var i = 0; i < items.length; i += columns) {
       rows.add(items.sublist(i, (i + columns).clamp(0, items.length)));
@@ -137,9 +111,7 @@ class _HmwGrid extends StatelessWidget {
               final isLast = e.key == row.length - 1;
               return Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(
-                    right: isLast ? 0 : AppSpacing.md,
-                  ),
+                  padding: EdgeInsets.only(right: isLast ? 0 : AppSpacing.md),
                   child: _HmwCard(item: item, themeConfig: themeConfig),
                 ),
               );
@@ -161,16 +133,11 @@ class _HmwCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppRadii.xl),
-        border: Border.all(color: themeConfig.borderColor),
-      ),
+    return ThemedCard(
+      themeConfig: themeConfig,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Accent quote mark
           Text(
             '"',
             style: textTheme.displayMedium?.copyWith(
@@ -198,12 +165,7 @@ class _HmwCard extends StatelessWidget {
                 color: themeConfig.accentColor.withValues(alpha: 0.10),
                 borderRadius: BorderRadius.circular(AppRadii.pill),
               ),
-              child: Text(
-                item.theme!,
-                style: textTheme.bodySmall?.copyWith(
-                  color: themeConfig.accentColor,
-                ),
-              ),
+              child: Text(item.theme!, style: themeConfig.accentLabel(textTheme)),
             ),
           ],
         ],

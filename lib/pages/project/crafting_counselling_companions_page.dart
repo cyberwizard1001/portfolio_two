@@ -38,7 +38,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F8F7),
+      backgroundColor: Colors.white,
       body: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
