@@ -114,7 +114,7 @@ class HomeNavBar extends StatelessWidget {
                       const SizedBox(width: AppSpacing.sm),
                       _NavLink(
                         label: 'Contact',
-                        onTap: () => context.goNamed('contact'),
+                        onTap: onContactTap,
                         isDark: isDark,
                         defaultColor: navLinkDefaultColor,
                         cursorNotifier: cursorNotifier,

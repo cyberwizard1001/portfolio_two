@@ -18,9 +18,7 @@ class SiteFooter extends StatelessWidget {
       color: const Color(0xFF050505),
       child: ResponsiveSection(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: AppSpacing.section,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.section),
           child: LayoutBuilder(
             builder: (context, constraints) {
               final isMobile = constraints.maxWidth < 960;
@@ -53,10 +51,7 @@ class SiteFooter extends StatelessWidget {
                         child: _FooterBrand(textTheme: textTheme),
                       ),
                       const SizedBox(width: 72),
-                      const Expanded(
-                        flex: 6,
-                        child: _FooterLinksDesktop(),
-                      ),
+                      const Expanded(flex: 6, child: _FooterLinksDesktop()),
                     ],
                   ),
                   const SizedBox(height: AppSpacing.xl),
@@ -74,9 +69,7 @@ class SiteFooter extends StatelessWidget {
 }
 
 class _FooterBrand extends StatelessWidget {
-  const _FooterBrand({
-    required this.textTheme,
-  });
+  const _FooterBrand({required this.textTheme});
 
   final TextTheme textTheme;
 
@@ -125,8 +118,14 @@ class _FooterLinksDesktop extends StatelessWidget {
             title: 'Navigate',
             links: [
               FooterLinkItem(label: 'Home', routeName: 'home'),
-              FooterLinkItem(label: 'Documentation', routeName: 'documentation'),
-              FooterLinkItem(label: 'Layout Demo', routeName: 'project-layout-demo'),
+              FooterLinkItem(
+                label: 'Documentation',
+                routeName: 'documentation',
+              ),
+              FooterLinkItem(
+                label: 'Layout Demo',
+                routeName: 'project-layout-demo',
+              ),
               FooterLinkItem(label: 'Contact', routeName: 'contact'),
             ],
           ),
@@ -156,10 +155,23 @@ class _FooterLinksDesktop extends StatelessWidget {
           child: _FooterLinkGroup(
             title: 'Elsewhere',
             links: [
-              FooterLinkItem(label: 'LinkedIn', externalUrl: 'https://linkedin.com/in/nirmalkarthikeyan'),
-              FooterLinkItem(label: 'Medium', externalUrl: 'https://nirmalkarthikeyan.medium.com/'),
-              FooterLinkItem(label: 'CV', externalUrl: 'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf'),
-              FooterLinkItem(label: 'Email', externalUrl: 'mailto:hello@cyberwizard.dev'),
+              FooterLinkItem(
+                label: 'LinkedIn',
+                externalUrl: 'https://linkedin.com/in/nirmalkarthikeyan',
+              ),
+              FooterLinkItem(
+                label: 'Medium',
+                externalUrl: 'https://nirmalkarthikeyan.medium.com/',
+              ),
+              FooterLinkItem(
+                label: 'CV',
+                externalUrl:
+                    'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf',
+              ),
+              FooterLinkItem(
+                label: 'Email',
+                externalUrl: 'mailto:hello@cyberwizard.dev',
+              ),
             ],
           ),
         ),
@@ -206,10 +218,23 @@ class _FooterLinksMobile extends StatelessWidget {
         _FooterLinkGroup(
           title: 'Elsewhere',
           links: [
-            FooterLinkItem(label: 'LinkedIn', externalUrl: 'https://linkedin.com/in/nirmalkarthikeyan'),
-            FooterLinkItem(label: 'Medium', externalUrl: 'https://nirmalkarthikeyan.medium.com/'),
-            FooterLinkItem(label: 'CV', externalUrl: 'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf'),
-            FooterLinkItem(label: 'Email', externalUrl: 'mailto:hello@cyberwizard.dev'),
+            FooterLinkItem(
+              label: 'LinkedIn',
+              externalUrl: 'https://linkedin.com/in/nirmalkarthikeyan',
+            ),
+            FooterLinkItem(
+              label: 'Medium',
+              externalUrl: 'https://nirmalkarthikeyan.medium.com/',
+            ),
+            FooterLinkItem(
+              label: 'CV',
+              externalUrl:
+                  'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf',
+            ),
+            FooterLinkItem(
+              label: 'Email',
+              externalUrl: 'mailto:hello@cyberwizard.dev',
+            ),
           ],
         ),
       ],
@@ -222,18 +247,11 @@ class FooterLinkItem {
   final String? routeName;
   final String? externalUrl;
 
-  const FooterLinkItem({
-    required this.label,
-    this.routeName,
-    this.externalUrl,
-  });
+  const FooterLinkItem({required this.label, this.routeName, this.externalUrl});
 }
 
 class _FooterLinkGroup extends StatelessWidget {
-  const _FooterLinkGroup({
-    required this.title,
-    required this.links,
-  });
+  const _FooterLinkGroup({required this.title, required this.links});
 
   final String title;
   final List<FooterLinkItem> links;
@@ -254,7 +272,7 @@ class _FooterLinkGroup extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.md),
         ...links.map(
-              (link) => Padding(
+          (link) => Padding(
             padding: const EdgeInsets.only(bottom: AppSpacing.sm),
             child: _FooterLink(item: link),
           ),
@@ -265,9 +283,7 @@ class _FooterLinkGroup extends StatelessWidget {
 }
 
 class _FooterLink extends StatefulWidget {
-  const _FooterLink({
-    required this.item,
-  });
+  const _FooterLink({required this.item});
 
   final FooterLinkItem item;
 
@@ -294,7 +310,8 @@ class _FooterLinkState extends State<_FooterLink> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final isInteractive = widget.item.routeName != null || widget.item.externalUrl != null;
+    final isInteractive =
+        widget.item.routeName != null || widget.item.externalUrl != null;
 
     return MouseRegion(
       cursor: isInteractive
@@ -333,9 +350,7 @@ class _FooterDivider extends StatelessWidget {
 }
 
 class _FooterBottomRow extends StatelessWidget {
-  const _FooterBottomRow({
-    required this.textTheme,
-  });
+  const _FooterBottomRow({required this.textTheme});
 
   final TextTheme textTheme;
 
@@ -349,16 +364,12 @@ class _FooterBottomRow extends StatelessWidget {
         children: [
           Text(
             '© 2026 Nirmal Karthikeyan',
-            style: textTheme.bodyMedium?.copyWith(
-              color: Colors.white54,
-            ),
+            style: textTheme.bodyMedium?.copyWith(color: Colors.white54),
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            'Designed and built in Flutter.',
-            style: textTheme.bodyMedium?.copyWith(
-              color: Colors.white54,
-            ),
+            'Designed and built in Flutter by Nirmal Karthikeyan.',
+            style: textTheme.bodyMedium?.copyWith(color: Colors.white54),
           ),
         ],
       );
@@ -368,16 +379,12 @@ class _FooterBottomRow extends StatelessWidget {
       children: [
         Text(
           '© 2026 Nirmal Karthikeyan',
-          style: textTheme.bodyMedium?.copyWith(
-            color: Colors.white54,
-          ),
+          style: textTheme.bodyMedium?.copyWith(color: Colors.white54),
         ),
         const Spacer(),
         Text(
-          'Designed and built in Flutter.',
-          style: textTheme.bodyMedium?.copyWith(
-            color: Colors.white54,
-          ),
+          'Designed and built in Flutter by Nirmal Karthikeyan.',
+          style: textTheme.bodyMedium?.copyWith(color: Colors.white54),
         ),
       ],
     );

@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _footerKey = GlobalKey();
 
   bool _heroSnapped = false;
+  bool _isProgrammaticScroll = false;
   double _cachedHeroHeight = 0;
 
   /// True while the scroll position is still inside the hero section,
@@ -35,12 +36,17 @@ class _HomePageState extends State<HomePage> {
     final ctx = key.currentContext;
     if (ctx == null) return;
 
-    await Scrollable.ensureVisible(
-      ctx,
-      duration: const Duration(milliseconds: 900),
-      curve: Curves.easeInOutQuart,
-      alignment: 0.02,
-    );
+    _isProgrammaticScroll = true;
+    try {
+      await Scrollable.ensureVisible(
+        ctx,
+        duration: const Duration(milliseconds: 900),
+        curve: Curves.easeInOutQuart,
+        alignment: 0.02,
+      );
+    } finally {
+      _isProgrammaticScroll = false;
+    }
   }
 
   void _cacheHeroHeight() {
@@ -65,7 +71,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onScrollNotification(ScrollNotification notification) {
-    if (_heroSnapped) return;
+    if (_heroSnapped || _isProgrammaticScroll) return;
     if (notification is! ScrollUpdateNotification) return;
     if (notification.scrollDelta == null || notification.scrollDelta! <= 0) return;
 
