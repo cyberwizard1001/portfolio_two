@@ -61,7 +61,7 @@ class ProjectIntroBlock extends StatelessWidget {
                   Text(
                     title,
                     style: (info.isMobile
-                        ? textTheme.headlineLarge
+                        ? textTheme.headlineMedium
                         : textTheme.displayLarge)
                         ?.copyWith(
                       color: themeConfig.foregroundColor,

@@ -27,32 +27,6 @@ class ProjectTextImageBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    final textBlock = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          eyebrow,
-          style: textTheme.bodySmall?.copyWith(
-            color: themeConfig.accentColor,
-          ),
-        ),
-        const SizedBox(height: AppSpacing.md),
-        Text(
-          title,
-          style: textTheme.displayMedium?.copyWith(
-            color: themeConfig.foregroundColor,
-          ),
-        ),
-        const SizedBox(height: AppSpacing.md),
-        Text(
-          body,
-          style: textTheme.bodyLarge?.copyWith(
-            color: themeConfig.effectiveMutedColor,
-          ),
-        ),
-      ],
-    );
-
     final imageBlock = ClipRRect(
       borderRadius: BorderRadius.circular(AppRadii.xl),
       child: image,
@@ -68,6 +42,35 @@ class ProjectTextImageBlock extends StatelessWidget {
         ),
         child: ResponsiveBuilder(
           builder: (context, info) {
+            final textBlock = Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  eyebrow,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: themeConfig.accentColor,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                Text(
+                  title,
+                  style: (info.isMobile
+                          ? textTheme.headlineMedium
+                          : textTheme.displayMedium)
+                      ?.copyWith(
+                    color: themeConfig.foregroundColor,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                Text(
+                  body,
+                  style: textTheme.bodyLarge?.copyWith(
+                    color: themeConfig.effectiveMutedColor,
+                  ),
+                ),
+              ],
+            );
+
             if (info.isMobile) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

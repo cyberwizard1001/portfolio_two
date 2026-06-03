@@ -45,7 +45,10 @@ class ProjectFindingsGridBlock extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: textTheme.headlineLarge?.copyWith(
+                  style: (info.isMobile
+                          ? textTheme.headlineMedium
+                          : textTheme.headlineLarge)
+                      ?.copyWith(
                     color: themeConfig.foregroundColor,
                   ),
                 ),

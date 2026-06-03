@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../responsive/responsive_builder.dart';
 import '../../theme/app_spacing.dart';
 import 'project_section_theme.dart';
 
@@ -29,10 +30,15 @@ class ProjectLearningsBlock extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: textTheme.headlineLarge?.copyWith(
-              color: themeConfig.foregroundColor,
+          ResponsiveBuilder(
+            builder: (context, info) => Text(
+              title,
+              style: (info.isMobile
+                      ? textTheme.headlineMedium
+                      : textTheme.headlineLarge)
+                  ?.copyWith(
+                color: themeConfig.foregroundColor,
+              ),
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
