@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   bool _heroSnapped = false;
   bool _isProgrammaticScroll = false;
   double _cachedHeroHeight = 0;
+  bool _terminalStarted = false;
 
   /// True while the scroll position is still inside the hero section,
   /// so the nav bar uses its dark/glass style.
@@ -68,6 +69,21 @@ class _HomePageState extends State<HomePage> {
 
     // Reset snap flag when back at top
     if (offset < 20) _heroSnapped = false;
+
+    // Start terminal animation once the about section enters the viewport
+    if (!_terminalStarted) {
+      final ctx = _aboutKey.currentContext;
+      if (ctx != null) {
+        final box = ctx.findRenderObject() as RenderBox?;
+        if (box != null) {
+          final topInViewport = box.localToGlobal(Offset.zero).dy;
+          final screenH = MediaQuery.of(context).size.height;
+          if (topInViewport < screenH * 0.85) {
+            setState(() => _terminalStarted = true);
+          }
+        }
+      }
+    }
   }
 
   void _onScrollNotification(ScrollNotification notification) {
@@ -201,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                   SliverToBoxAdapter(
                     child: KeyedSubtree(
                       key: _aboutKey,
-                      child: const TerminalAboutSection(),
+                      child: TerminalAboutSection(startAnimation: _terminalStarted),
                     ),
                   ),
                   SliverToBoxAdapter(

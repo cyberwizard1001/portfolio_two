@@ -28,7 +28,9 @@ const _asciiHandle = '  __                             _  _    \n'
 // ─── Full section ─────────────────────────────────────────────────────────────
 
 class TerminalAboutSection extends StatelessWidget {
-  const TerminalAboutSection({super.key});
+  const TerminalAboutSection({super.key, this.startAnimation = false});
+
+  final bool startAnimation;
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +78,8 @@ class TerminalAboutSection extends StatelessWidget {
                         children: [
                           _TerminalTitleBar(),
                           info.isMobile
-                              ? _TerminalBodyMobile()
-                              : _TerminalBodyDesktop(),
+                              ? _TerminalBodyMobile(startAnimation: startAnimation)
+                              : _TerminalBodyDesktop(startAnimation: startAnimation),
                         ],
                       ),
                     ),
@@ -129,6 +131,10 @@ class _TerminalTitleBar extends StatelessWidget {
 // ─── Desktop: ASCII left panel + terminal right ───────────────────────────────
 
 class _TerminalBodyDesktop extends StatelessWidget {
+  const _TerminalBodyDesktop({required this.startAnimation});
+
+  final bool startAnimation;
+
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
@@ -148,7 +154,7 @@ class _TerminalBodyDesktop extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
-              child: _TypingTerminal(),
+              child: _TypingTerminal(startAnimation: startAnimation),
             ),
           ),
         ],
@@ -160,6 +166,10 @@ class _TerminalBodyDesktop extends StatelessWidget {
 // ─── Mobile: ASCII top + terminal below ──────────────────────────────────────
 
 class _TerminalBodyMobile extends StatelessWidget {
+  const _TerminalBodyMobile({required this.startAnimation});
+
+  final bool startAnimation;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -175,7 +185,7 @@ class _TerminalBodyMobile extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(AppSpacing.md),
-          child: _TypingTerminal(),
+          child: _TypingTerminal(startAnimation: startAnimation),
         ),
       ],
     );
@@ -235,6 +245,10 @@ class _TerminalLine {
 // ─── Interactive typing terminal ──────────────────────────────────────────────
 
 class _TypingTerminal extends StatefulWidget {
+  const _TypingTerminal({required this.startAnimation});
+
+  final bool startAnimation;
+
   @override
   State<_TypingTerminal> createState() => _TypingTerminalState();
 }
@@ -279,7 +293,17 @@ class _TypingTerminalState extends State<_TypingTerminal> {
   void initState() {
     super.initState();
     _startCursorBlink();
-    Future.delayed(const Duration(milliseconds: 600), _typeNextChar);
+    if (widget.startAnimation) {
+      Future.delayed(const Duration(milliseconds: 300), _typeNextChar);
+    }
+  }
+
+  @override
+  void didUpdateWidget(_TypingTerminal old) {
+    super.didUpdateWidget(old);
+    if (widget.startAnimation && !old.startAnimation) {
+      Future.delayed(const Duration(milliseconds: 300), _typeNextChar);
+    }
   }
 
   void _startCursorBlink() {
