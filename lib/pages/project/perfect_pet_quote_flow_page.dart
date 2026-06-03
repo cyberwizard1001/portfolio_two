@@ -7,6 +7,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/scrollable_page_shell.dart';
 import '../../widgets/project/project_before_after_block.dart';
 import '../../widgets/project/project_callout_block.dart';
 import '../../widgets/project/project_decision_log_block.dart';
@@ -28,23 +29,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const darkTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFF050505),
-      foregroundColor: Color(0xFFF5F2EA),
-      accentColor: Color(0xFFFB6000),
-      borderColor: Color(0x26FFFFFF),
-      mutedColor: Color(0xB3F5F2EA),
-    );
-
-    const lightTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFFE9E4DD),
-      foregroundColor: Color(0xFF111111),
-      accentColor: Color(0xFFB95317),
-      borderColor: Color(0x1A111111),
-      mutedColor: Color(0xCC111111),
-    );
-
-    const softTheme = ProjectSectionTheme(
+    const baseTheme = ProjectSectionTheme(
       backgroundColor: Color(0xFFF7F3EC),
       foregroundColor: Color(0xFF1A1816),
       accentColor: Color(0xFFCD5A17),
@@ -53,8 +38,8 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.ink,
-      body: SingleChildScrollView(
+      backgroundColor: const Color(0xFFF7F3EC),
+      body: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -70,7 +55,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 2. VITALS ─────────────────────────────────────────────────────
             const ProjectMetaStripBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               items: [
                 ProjectMetaItem(label: 'Role', value: 'UX research and design'),
                 ProjectMetaItem(
@@ -87,7 +72,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 3. PROBLEM ────────────────────────────────────────────────────
             const ProjectProblemKeyInfoBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               problemTitle: 'The problem',
               problemBody:
               'The review page is the last thing someone sees before they hand over their payment details. And for the aggregator traffic that makes up most of Perfect Pet\'s sales, it\'s usually the first time they\'ve seen the brand at all. So it has an awkward double job: explain the product and earn trust at the same time, for a user who\'s never heard of the brand. Hotjar recordings showed people regularly spending upwards of five minutes on the page, opening policy PDFs mid-flow, and in quite a few cases wandering off to the main site for something and never making it back.',
@@ -111,7 +96,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 15. USER CONTEXT (moved here) ─────────────────────────────────
             ProjectTextImageBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               eyebrow: 'User context',
               title: 'Designing for people who aren\'t insurance experts',
               body:
@@ -125,7 +110,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 8. PROCESS ────────────────────────────────────────────────────
             const ProjectProcessStepsBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               title: 'How I approached it',
               steps: [
                 ProjectProcessStep(
@@ -153,7 +138,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 4a. COMPETITOR FINDINGS ───────────────────────────────────────
             const ProjectFindingsGridBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               title: 'What good looks like — competitor and heuristic review',
               items: [
                 ProjectFindingItem(
@@ -176,7 +161,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 4b. BEHAVIOURAL FINDINGS ──────────────────────────────────────
             const ProjectFindingsGridBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               title: 'What the research surfaced',
               items: [
                 ProjectFindingItem(
@@ -204,7 +189,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 5. THE CORE FINDING ───────────────────────────────────────────
             const ProjectQuoteBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               quote:
               'Claim-stage problems are pre-sold at quote stage. The people processing complaints and declined claims were asking, almost in unison, for sales-stage honesty about the things they see go wrong most often.',
               attribution:
@@ -213,7 +198,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 6c. PERSONA: MIA ──────────────────────────────────────────────
             const ProjectPersonaBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               eyebrow: 'Composite persona — derived from 11 SME interview sessions',
               name: 'Mia Chen',
               role: 'First-time pet owner, recently adopted a Labrador, arrived from a comparison aggregator',
@@ -244,7 +229,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 9. OPPORTUNITY FRAMING ────────────────────────────────────────
             const ProjectHowMightWeBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               title: 'How might we…',
               intro:
               'Three questions from the research, each pointing at a gap between what users think they\'ve bought and what the policy actually covers.',
@@ -269,7 +254,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 7. NORTH STAR ─────────────────────────────────────────────────
             const ProjectCalloutBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               style: CalloutStyle.principle,
               label: 'Design principle',
               icon: Icons.compass_calibration_outlined,
@@ -279,7 +264,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 10. BEFORE / AFTER ────────────────────────────────────────────
             const ProjectBeforeAfterBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               beforeTitle: 'Before',
               beforeBody:
               'A single scrolling page that piled marketing preferences, assumptions and declarations, cover details and payment into one view, mostly as paragraphs of text. The information was technically all there, but it expected you to read the whole thing — and gave you little reason to trust the brand before asking you to commit.',
@@ -290,7 +275,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 11. KEY DECISIONS ─────────────────────────────────────────────
             const ProjectDecisionLogBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               title: 'Key decisions',
               intro:
               'The calls that shaped the redesign, what drove them, and what we saw.',
@@ -341,7 +326,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 12. THE REDESIGN ──────────────────────────────────────────────
             ProjectTextImageBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               eyebrow: 'Solution',
               title: 'What the redesigned flow delivers',
               body:
@@ -354,7 +339,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 16. SCREENS ───────────────────────────────────────────────────
             ProjectImageGalleryBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               title: 'Screen gallery',
               images: const [
                 _CaseStudyImageCard(label: 'Entry — quote selection', height: 300),
@@ -368,7 +353,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 14. OUTCOMES ──────────────────────────────────────────────────
             const ProjectMetricsBandBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               items: [
                 ProjectMetricItem(
                   value: 'Conversion',
@@ -391,7 +376,7 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
 
             // ── 17. LEARNINGS ─────────────────────────────────────────────────
             const ProjectLearningsBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: 'What I took from it',
               points: [
                 'The most useful finding was that this isn\'t only a conversion problem. The review page is where the complaints and declined claims of six months\' time are quietly being set up — and getting it right has effects you\'ll never see in a completion rate. They show up much later, in call volumes and cancellations, long after anyone\'s looking at this page.',
@@ -401,27 +386,27 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
             ),
 
             const MoreProjectsBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               title: 'More projects',
               projects: [
                 RelatedProjectItem(
-                  title: 'Layout demo',
+                  title: 'Perro Onboarding & Subscription',
                   blurb:
-                  'A reference page for reusable case study blocks and section patterns used across the portfolio.',
-                  routeName: 'project-layout-demo',
-                  category: 'System / Portfolio',
+                  'A shorter, value-first onboarding and subscription redesign that reduced drop-offs and lifted conversion — implemented directly in Flutter.',
+                  routeName: 'perro-onboarding',
+                  category: 'UX / Flutter',
                 ),
                 RelatedProjectItem(
-                  title: 'Technical documentation',
+                  title: 'Crafting Counselling Companions',
                   blurb:
-                  'A documentation page covering framework, routing, theming, and the structure behind this portfolio site.',
-                  routeName: 'documentation',
-                  category: 'Documentation',
+                  'Co-designing a session-planning tool with counsellors — from research through prototype — to reduce the admin overhead that gets in the way of client work.',
+                  routeName: 'crafting-counselling-companions',
+                  category: 'UX Research',
                 ),
                 RelatedProjectItem(
-                  title: 'Contact page',
+                  title: 'Contact',
                   blurb:
-                  'A simple static contact page with direct paths to email, LinkedIn, and supporting materials.',
+                  'Direct paths to email, LinkedIn, and supporting materials.',
                   routeName: 'contact',
                   category: 'Profile',
                 ),

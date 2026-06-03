@@ -15,6 +15,7 @@ class HomeNavBar extends StatelessWidget {
     required this.onAboutTap,
     required this.onContactTap,
     this.isDark = true,
+    this.cursorNotifier,
   });
 
   final VoidCallback onHeroTap;
@@ -25,6 +26,7 @@ class HomeNavBar extends StatelessWidget {
   /// True when the nav is floating over the dark hero section.
   /// False when over the light scaffold background.
   final bool isDark;
+  final ValueNotifier<bool>? cursorNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +101,7 @@ class HomeNavBar extends StatelessWidget {
                         onTap: onWorkTap,
                         isDark: isDark,
                         defaultColor: navLinkDefaultColor,
+                        cursorNotifier: cursorNotifier,
                       ),
                       const SizedBox(width: AppSpacing.sm),
                       _NavLink(
@@ -106,6 +109,7 @@ class HomeNavBar extends StatelessWidget {
                         onTap: onAboutTap,
                         isDark: isDark,
                         defaultColor: navLinkDefaultColor,
+                        cursorNotifier: cursorNotifier,
                       ),
                       const SizedBox(width: AppSpacing.sm),
                       _NavLink(
@@ -113,6 +117,7 @@ class HomeNavBar extends StatelessWidget {
                         onTap: () => context.goNamed('contact'),
                         isDark: isDark,
                         defaultColor: navLinkDefaultColor,
+                        cursorNotifier: cursorNotifier,
                       ),
                       const SizedBox(width: AppSpacing.lg),
                     ],
@@ -125,13 +130,13 @@ class HomeNavBar extends StatelessWidget {
                           vertical: AppSpacing.sm,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.accent,
+                          color: isDark ? AppColors.accentOnDark : AppColors.accent,
                           borderRadius: BorderRadius.circular(AppRadii.pill),
                         ),
                         child: Text(
                           compact ? 'Contact' : 'Available for projects',
                           style: textTheme.bodySmall?.copyWith(
-                            color: Colors.white,
+                            color: isDark ? AppColors.ink : Colors.white,
                           ),
                         ),
                       ),
@@ -153,12 +158,14 @@ class _NavLink extends StatefulWidget {
     required this.onTap,
     required this.isDark,
     required this.defaultColor,
+    this.cursorNotifier,
   });
 
   final String label;
   final VoidCallback onTap;
   final bool isDark;
   final Color defaultColor;
+  final ValueNotifier<bool>? cursorNotifier;
 
   @override
   State<_NavLink> createState() => _NavLinkState();
@@ -177,8 +184,14 @@ class _NavLinkState extends State<_NavLink> {
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hovered = true),
-      onExit: (_) => setState(() => _hovered = false),
+      onEnter: (_) {
+        setState(() => _hovered = true);
+        widget.cursorNotifier?.value = true;
+      },
+      onExit: (_) {
+        setState(() => _hovered = false);
+        widget.cursorNotifier?.value = false;
+      },
       child: InkWell(
         borderRadius: BorderRadius.circular(AppRadii.pill),
         onTap: widget.onTap,
@@ -196,7 +209,7 @@ class _NavLinkState extends State<_NavLink> {
           child: Text(
             widget.label,
             style: textTheme.bodySmall?.copyWith(
-              color: _hovered ? AppColors.accent : widget.defaultColor,
+              color: _hovered ? (widget.isDark ? AppColors.accentOnDark : AppColors.accent) : widget.defaultColor,
             ),
           ),
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:portfolio_2/widgets/site/site_footer.dart';
 import '../../widgets/common/app_shell.dart';
+import '../../widgets/home/custom_cursor.dart';
 import '../../widgets/home/hero_section.dart';
 import '../../widgets/home/home_nav_bar.dart';
 import '../../widgets/home/project_stack_section.dart';
@@ -15,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
+  final ValueNotifier<bool> _cursorHovering = ValueNotifier(false);
 
   final GlobalKey _heroKey = GlobalKey();
   final GlobalKey _workKey = GlobalKey();
@@ -33,8 +36,8 @@ class _HomePageState extends State<HomePage> {
 
     await Scrollable.ensureVisible(
       ctx,
-      duration: const Duration(milliseconds: 750),
-      curve: Curves.easeInOutCubic,
+      duration: const Duration(milliseconds: 900),
+      curve: Curves.easeInOutQuart,
       alignment: 0.02,
     );
   }
@@ -66,7 +69,7 @@ class _HomePageState extends State<HomePage> {
     if (notification.scrollDelta == null || notification.scrollDelta! <= 0) return;
 
     final offset = _scrollController.offset;
-    if (offset < _heroHeight * 0.5) {
+    if (offset >= 80 && offset < _heroHeight * 0.5) {
       _heroSnapped = true;
       _scrollTo(_workKey);
     }
@@ -82,60 +85,134 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
+    _cursorHovering.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return AppShell(
-      child: Stack(
-        children: [
-          NotificationListener<ScrollNotification>(
-            onNotification: (notification) {
-              _onScrollNotification(notification);
-              return false;
-            },
-            child: CustomScrollView(
-              controller: _scrollController,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: KeyedSubtree(
-                    key: _heroKey,
-                    child: HeroSection(
-                      onScrollToWork: () => _scrollTo(_workKey),
-                      onScrollToAbout: () => _scrollTo(_aboutKey),
+      child: CursorOverlay(
+        hoveringNotifier: _cursorHovering,
+        child: Stack(
+          children: [
+            Focus(
+              autofocus: true,
+              onKeyEvent: (node, event) {
+                if (event is! KeyDownEvent && event is! KeyRepeatEvent) {
+                  return KeyEventResult.ignored;
+                }
+                if (!_scrollController.hasClients) return KeyEventResult.ignored;
+                final key = event.logicalKey;
+                const double step = 120.0;
+                final double page =
+                    _scrollController.position.viewportDimension;
+
+                if (key == LogicalKeyboardKey.arrowDown ||
+                    key == LogicalKeyboardKey.arrowRight) {
+                  _scrollController.animateTo(
+                    _scrollController.offset + step,
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeOut,
+                  );
+                  return KeyEventResult.handled;
+                }
+                if (key == LogicalKeyboardKey.arrowUp ||
+                    key == LogicalKeyboardKey.arrowLeft) {
+                  _scrollController.animateTo(
+                    _scrollController.offset - step,
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeOut,
+                  );
+                  return KeyEventResult.handled;
+                }
+                if (key == LogicalKeyboardKey.space ||
+                    key == LogicalKeyboardKey.pageDown) {
+                  _scrollController.animateTo(
+                    _scrollController.offset + page,
+                    duration: const Duration(milliseconds: 350),
+                    curve: Curves.easeInOutCubic,
+                  );
+                  return KeyEventResult.handled;
+                }
+                if (key == LogicalKeyboardKey.pageUp) {
+                  _scrollController.animateTo(
+                    _scrollController.offset - page,
+                    duration: const Duration(milliseconds: 350),
+                    curve: Curves.easeInOutCubic,
+                  );
+                  return KeyEventResult.handled;
+                }
+                if (key == LogicalKeyboardKey.home) {
+                  _scrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeInOutCubic,
+                  );
+                  return KeyEventResult.handled;
+                }
+                if (key == LogicalKeyboardKey.end) {
+                  _scrollController.animateTo(
+                    _scrollController.position.maxScrollExtent,
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeInOutCubic,
+                  );
+                  return KeyEventResult.handled;
+                }
+                return KeyEventResult.ignored;
+              },
+              child: NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                _onScrollNotification(notification);
+                return false;
+              },
+              child: CustomScrollView(
+                controller: _scrollController,
+                physics: const ClampingScrollPhysics(),
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: KeyedSubtree(
+                      key: _heroKey,
+                      child: HeroSection(
+                        onScrollToWork: () => _scrollTo(_workKey),
+                        onScrollToAbout: () => _scrollTo(_aboutKey),
+                      ),
                     ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: KeyedSubtree(
-                    key: _workKey,
-                    child: const ProjectStackSection(),
+                  SliverToBoxAdapter(
+                    child: KeyedSubtree(
+                      key: _workKey,
+                      child: ProjectStackSection(
+                        cursorNotifier: _cursorHovering,
+                      ),
+                    ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: KeyedSubtree(
-                    key: _aboutKey,
-                    child: const TerminalAboutSection(),
+                  SliverToBoxAdapter(
+                    child: KeyedSubtree(
+                      key: _aboutKey,
+                      child: const TerminalAboutSection(),
+                    ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: KeyedSubtree(
-                    key: _footerKey,
-                    child: const SiteFooter(),
+                  SliverToBoxAdapter(
+                    child: KeyedSubtree(
+                      key: _footerKey,
+                      child: const SiteFooter(),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          HomeNavBar(
-            isDark: _navIsDark,
-            onHeroTap: () => _scrollTo(_heroKey),
-            onWorkTap: () => _scrollTo(_workKey),
-            onAboutTap: () => _scrollTo(_aboutKey),
-            onContactTap: () => _scrollTo(_footerKey),
-          ),
-        ],
+            ),
+            HomeNavBar(
+              isDark: _navIsDark,
+              cursorNotifier: _cursorHovering,
+              onHeroTap: () => _scrollTo(_heroKey),
+              onWorkTap: () => _scrollTo(_workKey),
+              onAboutTap: () => _scrollTo(_aboutKey),
+              onContactTap: () => _scrollTo(_footerKey),
+            ),
+          ],
+        ),
       ),
     );
   }

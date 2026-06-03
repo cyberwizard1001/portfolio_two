@@ -5,6 +5,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/scrollable_page_shell.dart';
 
 class ProjectPage extends StatelessWidget {
   const ProjectPage({
@@ -32,7 +33,7 @@ class ProjectPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: ResponsiveSection(
+        child: ScrollablePageShell(child: ResponsiveSection(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
             child: Column(
@@ -86,7 +87,7 @@ class ProjectPage extends StatelessWidget {
               ],
             ),
           ),
-        ),
+        )),
       ),
     );
   }

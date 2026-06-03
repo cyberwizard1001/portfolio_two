@@ -7,6 +7,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/scrollable_page_shell.dart';
 import '../../widgets/project/project_accessibility_audit_block.dart';
 import '../../widgets/project/project_before_after_block.dart';
 import '../../widgets/project/project_callout_block.dart';
@@ -29,21 +30,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const darkTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFF0A0812),
-      foregroundColor: Color(0xFFF2F0F8),
-      accentColor: Color(0xFF9B7FD4),
-      borderColor: Color(0x26FFFFFF),
-      mutedColor: Color(0xB3F2F0F8),
-    );
-    const lightTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFFE8E4F2),
-      foregroundColor: Color(0xFF120F1F),
-      accentColor: Color(0xFF6947B0),
-      borderColor: Color(0x1A120F1F),
-      mutedColor: Color(0xCC120F1F),
-    );
-    const softTheme = ProjectSectionTheme(
+    const baseTheme = ProjectSectionTheme(
       backgroundColor: Color(0xFFF3F1FA),
       foregroundColor: Color(0xFF1A1628),
       accentColor: Color(0xFF7B5EA7),
@@ -52,8 +39,8 @@ class PerroOnboardingPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.ink,
-      body: SingleChildScrollView(
+      backgroundColor: const Color(0xFFF3F1FA),
+      body: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -69,7 +56,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 2. VITALS ─────────────────────────────────────────────────────
             const ProjectMetaStripBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               items: [
                 ProjectMetaItem(
                   label: 'Role',
@@ -92,7 +79,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 3. PROBLEM ────────────────────────────────────────────────────
             const ProjectProblemKeyInfoBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               problemTitle: 'The problem',
               problemBody:
               'Perro is a UK dog care and rewards app, and the value is real: activity tracking, enrichment and training content, household collaboration, and up to £500 of Woof benefits over time. The people who stuck around past the first session tended to like it. Getting them past that first session was the problem. The funnel data showed a large share of new users dropping off during onboarding, very often before they’d reached anything that showed them what Perro could do, and that fed straight into lower subscriptions and fewer people choosing longer-term plans.',
@@ -120,7 +107,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 4a. RESEARCH: BEHAVIOURAL DATA ────────────────────────────────
             const ProjectFindingsGridBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               title: 'What the data showed',
               items: [
                 ProjectFindingItem(
@@ -158,7 +145,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 4b. RESEARCH: HEURISTIC REVIEW ────────────────────────────────
             const ProjectFindingsGridBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               title: 'Heuristic review',
               items: [
                 ProjectFindingItem(
@@ -181,7 +168,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 4c. RESEARCH: COMPETITIVE ANALYSIS ────────────────────────────
             const ProjectFindingsGridBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: 'Market and competitor analysis',
               items: [
                 ProjectFindingItem(
@@ -204,7 +191,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 5. CORE FINDING ───────────────────────────────────────────────
             const ProjectQuoteBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               quote:
               'People weren’t leaving because Perro wasn’t good enough. They were leaving because onboarding asked too much, too early, before it had given anything back.',
               attribution: 'Synthesis across funnel data, heuristic review, and usability sessions',
@@ -212,7 +199,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 6. WHO WE WERE DESIGNING FOR ──────────────────────────────────
             const ProjectPersonaBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               eyebrow: 'User persona',
               name: 'Jess Harrington',
               role: 'New dog owner, recently rehomed a 2-year-old rescue Greyhound',
@@ -241,7 +228,7 @@ class PerroOnboardingPage extends StatelessWidget {
             ),
 
             const ProjectPersonaBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               eyebrow: 'User persona',
               name: 'Marcus Webb',
               role: 'Long-term dog owner, two Spaniels, active walker',
@@ -271,7 +258,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 7. NORTH STAR ─────────────────────────────────────────────────
             const ProjectCalloutBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               style: CalloutStyle.principle,
               label: 'Strategy',
               icon: Icons.route_outlined,
@@ -281,7 +268,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 8. METHOD ─────────────────────────────────────────────────────
             const ProjectProcessStepsBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: 'How I approached it',
               steps: [
                 ProjectProcessStep(
@@ -319,7 +306,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 9. OPPORTUNITY FRAMING ────────────────────────────────────────
             const ProjectHowMightWeBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               title: 'How might we…',
               intro:
               'The opportunity questions that shaped the design direction, most of them really about fairness.',
@@ -359,7 +346,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 10. BEFORE / AFTER ────────────────────────────────────────────
             const ProjectBeforeAfterBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               beforeTitle: 'Before',
               beforeBody:
               'Five screens, sixteen questions, a mandatory photo upload, abrupt system permission prompts, and no explanation anywhere of what Perro actually offered. It asked for a lot and gave very little back before the first moment that might have made someone care.',
@@ -370,7 +357,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 11. KEY DECISIONS ─────────────────────────────────────────────
             const ProjectDecisionLogBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               title: 'The decisions I’d defend',
               intro: 'The calls that shaped the redesign, what drove them, and what I saw.',
               decisions: [
@@ -433,7 +420,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 12. THE SOLUTION ──────────────────────────────────────────────
             ProjectTextImageBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               eyebrow: 'Solution',
               title: 'A shorter, value-first introduction to Perro',
               body:
@@ -446,7 +433,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 13. ACCESSIBILITY ─────────────────────────────────────────────
             const ProjectAccessibilityAuditBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: 'Accessibility considerations',
               intro:
               'Issues that came up during the heuristic review, fixed as part of the redesign rather than filed for later.',
@@ -501,7 +488,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 14. OUTCOMES ──────────────────────────────────────────────────
             const ProjectMetricsBandBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               items: [
                 ProjectMetricItem(
                   value: '↓ Drop-off',
@@ -524,7 +511,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 15. DESIGNING WITHIN CONSTRAINTS ─────────────────────────────
             ProjectTextImageBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               eyebrow: 'Constraints and craft',
               title: 'Designing and building inside a two-week Flutter sprint',
               body:
@@ -538,7 +525,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 16. SCREENS ───────────────────────────────────────────────────
             ProjectImageGalleryBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: 'Screen gallery',
               images: const [
                 _CaseStudyImageCard(label: 'Feature carousel — slide 1', height: 300),
@@ -552,7 +539,7 @@ class PerroOnboardingPage extends StatelessWidget {
 
             // ── 17. WHAT HAPPENED AFTER ───────────────────────────────────────
             const ProjectLearningsBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               title: 'What I took from it',
               points: [
                 'The post-launch funnel data showed a noticeable drop in abandonment across onboarding, and most clearly at the old photo upload and health information bottlenecks — exactly the places the research had flagged.',
@@ -564,7 +551,7 @@ class PerroOnboardingPage extends StatelessWidget {
             ),
 
             const MoreProjectsBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               title: 'More projects',
               projects: [
                 RelatedProjectItem(
@@ -575,11 +562,11 @@ class PerroOnboardingPage extends StatelessWidget {
                   category: 'UI/UX',
                 ),
                 RelatedProjectItem(
-                  title: 'Layout demo',
+                  title: 'Crafting Counselling Companions',
                   blurb:
-                  'A reference page for reusable case study blocks and section patterns used across the portfolio.',
-                  routeName: 'project-layout-demo',
-                  category: 'System',
+                  'Co-designing a session-planning tool with counsellors — from research through prototype — to reduce the admin overhead that gets in the way of client work.',
+                  routeName: 'crafting-counselling-companions',
+                  category: 'UX Research',
                 ),
                 RelatedProjectItem(
                   title: 'Contact',

@@ -10,6 +10,8 @@ import '../../theme/app_spacing.dart';
 import '../common/responsive_section.dart';
 import 'dynamic_headline.dart';
 
+const _heroBg = Color(0xFF0D0B18);
+
 class HeroSection extends StatelessWidget {
   const HeroSection({
     super.key,
@@ -42,10 +44,15 @@ class HeroSection extends StatelessWidget {
           constraints: BoxConstraints(
             minHeight: math.max(viewportHeight * 1.0, 650),
           ),
-          decoration: BoxDecoration(
-            color: AppColors.ink,
+          decoration: const BoxDecoration(
+            color: _heroBg,
           ),
-          child: ResponsiveBuilder(
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: CustomPaint(painter: _DotGridPainter()),
+              ),
+              ResponsiveBuilder(
             builder: (context, info) {
               final introStyle = info.isMobile
                   ? textTheme.headlineLarge?.copyWith(
@@ -194,6 +201,8 @@ class HeroSection extends StatelessWidget {
               );
             },
           ),
+            ],
+          ),
         ),
       ),
     );
@@ -248,10 +257,10 @@ class _HeroSubtextState extends State<_HeroSubtext> {
                 onEnter: (_) => setState(() => _hovered = true),
                 onExit: (_) => setState(() => _hovered = false),
                 style: TextStyle(
-                  color: AppColors.accent,
+                  color: AppColors.accentOnDark,
                   fontWeight: FontWeight.w600,
                   decoration: _hovered ? TextDecoration.underline : TextDecoration.none,
-                  decorationColor: AppColors.accent,
+                  decorationColor: AppColors.accentOnDark,
                 ),
               ),
               const TextSpan(text: ' section for CV and links.'),
@@ -413,11 +422,11 @@ class _CollaborationStatusBadgeState extends State<CollaborationStatusBadge>
                 width: 10 * _pulse.value,
                 height: 10 * _pulse.value,
                 decoration: BoxDecoration(
-                  color: AppColors.accent,
+                  color: AppColors.accentOnDark,
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.accent.withValues(alpha: 0.45),
+                      color: AppColors.accentOnDark.withValues(alpha: 0.45),
                       blurRadius: 12,
                       spreadRadius: 2,
                     ),
@@ -437,4 +446,28 @@ class _CollaborationStatusBadgeState extends State<CollaborationStatusBadge>
       ),
     );
   }
+}
+
+// ─── Dot grid background painter ─────────────────────────────────────────────
+
+class _DotGridPainter extends CustomPainter {
+  const _DotGridPainter();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const spacing = 32.0;
+    const radius = 1.25;
+    final paint = Paint()
+      ..color = Colors.white.withValues(alpha: 0.15)
+      ..style = PaintingStyle.fill;
+
+    for (double x = 0; x < size.width; x += spacing) {
+      for (double y = 0; y < size.height; y += spacing) {
+        canvas.drawCircle(Offset(x, y), radius, paint);
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(_DotGridPainter oldDelegate) => false;
 }

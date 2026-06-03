@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../common/responsive_section.dart';
 
@@ -125,6 +126,7 @@ class _FooterLinksDesktop extends StatelessWidget {
             links: [
               FooterLinkItem(label: 'Home', routeName: 'home'),
               FooterLinkItem(label: 'Documentation', routeName: 'documentation'),
+              FooterLinkItem(label: 'Layout Demo', routeName: 'project-layout-demo'),
               FooterLinkItem(label: 'Contact', routeName: 'contact'),
             ],
           ),
@@ -139,8 +141,12 @@ class _FooterLinksDesktop extends StatelessWidget {
                 routeName: 'perfect-pet-quote-flow',
               ),
               FooterLinkItem(
-                label: 'Layout demo',
-                routeName: 'project-layout-demo',
+                label: 'Perro Onboarding',
+                routeName: 'perro-onboarding',
+              ),
+              FooterLinkItem(
+                label: 'Crafting Counselling Companions',
+                routeName: 'crafting-counselling-companions',
               ),
             ],
           ),
@@ -187,8 +193,12 @@ class _FooterLinksMobile extends StatelessWidget {
               routeName: 'perfect-pet-quote-flow',
             ),
             FooterLinkItem(
-              label: 'Layout demo',
-              routeName: 'project-layout-demo',
+              label: 'Perro Onboarding',
+              routeName: 'perro-onboarding',
+            ),
+            FooterLinkItem(
+              label: 'Crafting Counselling Companions',
+              routeName: 'crafting-counselling-companions',
             ),
           ],
         ),
@@ -238,7 +248,7 @@ class _FooterLinkGroup extends StatelessWidget {
         Text(
           title,
           style: textTheme.labelLarge?.copyWith(
-            color: const Color(0xFFFB6000),
+            color: AppColors.accentOnDark,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -298,7 +308,7 @@ class _FooterLinkState extends State<_FooterLink> {
           duration: const Duration(milliseconds: 160),
           style: textTheme.bodyLarge!.copyWith(
             color: _isHovered && isInteractive
-                ? const Color(0xFFFB6000)
+                ? AppColors.accentOnDark
                 : Colors.white70,
             height: 1,
           ),

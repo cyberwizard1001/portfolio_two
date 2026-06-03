@@ -7,6 +7,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/scrollable_page_shell.dart';
 import '../../widgets/project/project_accessibility_audit_block.dart';
 import '../../widgets/project/project_callout_block.dart';
 import '../../widgets/project/project_decision_log_block.dart';
@@ -28,22 +29,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ── Colour palette: calm teal-green grounded in mental health care ──────
-    const darkTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFF07100F),
-      foregroundColor: Color(0xFFEEF5F4),
-      accentColor: Color(0xFF3DBFA8),
-      borderColor: Color(0x26FFFFFF),
-      mutedColor: Color(0xB3EEF5F4),
-    );
-    const lightTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFFE4EFED),
-      foregroundColor: Color(0xFF0D1F1C),
-      accentColor: Color(0xFF1D8F7B),
-      borderColor: Color(0x1A0D1F1C),
-      mutedColor: Color(0xCC0D1F1C),
-    );
-    const softTheme = ProjectSectionTheme(
+    const baseTheme = ProjectSectionTheme(
       backgroundColor: Color(0xFFF2F8F7),
       foregroundColor: Color(0xFF162220),
       accentColor: Color(0xFF25A08C),
@@ -52,8 +38,8 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.ink,
-      body: SingleChildScrollView(
+      backgroundColor: const Color(0xFFF2F8F7),
+      body: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -70,7 +56,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 2. VITALS ─────────────────────────────────────────────────
             const ProjectMetaStripBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               items: [
                 ProjectMetaItem(
                   label: 'Role',
@@ -94,7 +80,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 3. PROBLEM ────────────────────────────────────────────────
             const ProjectProblemKeyInfoBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               problemTitle: 'The problem',
               problemBody:
                   'Mental health practitioners are under intense pressure worldwide. In the UK and India, counsellors and therapists in solo or small practices rely on a patchwork of generic tools \u2014 email, WhatsApp, spreadsheets, Google Drive \u2014 to manage scheduling, client records, resources, and billing. None of these tools were designed for the clinical context, and the result is fragmented information, duplicated effort, and administrative overhead that can eat 15\u201320 minutes out of every 40-minute session.',
@@ -125,7 +111,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 4. RESEARCH OVERVIEW ──────────────────────────────────────
             const ProjectCalloutBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               style: CalloutStyle.principle,
               label: 'Research aim',
               icon: Icons.search_rounded,
@@ -135,7 +121,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 5. METHODS ────────────────────────────────────────────────
             const ProjectProcessStepsBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               title: 'How the research was structured',
               steps: [
                 ProjectProcessStep(
@@ -173,7 +159,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 6. KEY INSIGHTS ───────────────────────────────────────────
             const ProjectFindingsGridBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: '7 themes from the interviews',
               items: [
                 ProjectFindingItem(
@@ -216,7 +202,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 7. CORE INSIGHT ───────────────────────────────────────────
             const ProjectQuoteBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               quote:
                   '\u201cI mean, I feel like if it was digital, it would be a lot easier to find things.\u201d',
               attribution: 'Interview participant \u2014 on searching handwritten notes',
@@ -224,7 +210,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 8. WHO WE WERE DESIGNING FOR ─────────────────────────────
             const ProjectPersonaBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               eyebrow: 'Practitioner persona',
               name: 'Priya Mehta',
               role:
@@ -254,7 +240,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
             ),
 
             const ProjectPersonaBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               eyebrow: 'Practitioner persona',
               name: 'James Okafor',
               role:
@@ -285,7 +271,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 9. HOW MIGHT WE ───────────────────────────────────────────
             const ProjectHowMightWeBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               title: 'How might we\u2026',
               intro:
                   'Opportunity questions derived from research synthesis that shaped the design direction.',
@@ -325,7 +311,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 10. DESIGN SOLUTION ───────────────────────────────────────
             ProjectTextImageBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               eyebrow: 'Design solution',
               title:
                   'A practitioner-centred practice dashboard',
@@ -340,7 +326,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 11. CORE FEATURES ─────────────────────────────────────────
             const ProjectFindingsGridBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: 'Core features',
               items: [
                 ProjectFindingItem(
@@ -378,7 +364,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 11b. CO-DESIGN GALLERY ────────────────────────────────────
             ProjectImageGalleryBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: 'Co-design workshop outputs',
               images: [
                 _RealImageCard(
@@ -416,7 +402,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 11c. THE FINAL PROTOTYPE ──────────────────────────────────
             ProjectTextImageBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               eyebrow: 'The final prototype',
               title: 'From a feel for it to the finished thing',
               body:
@@ -430,7 +416,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 11d. SCHEDULE VIEWS ────────────────────────────────────────
             ProjectImageGalleryBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: 'The schedule, two ways to look at it',
               images: [
                 _RealImageCard(
@@ -448,7 +434,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 11e. CLIENT RECORD ─────────────────────────────────────────
             ProjectTextImageBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               eyebrow: 'People',
               title: 'The client record, and where the AI lives',
               body:
@@ -462,7 +448,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 11f. NOTES ─────────────────────────────────────────────────
             ProjectTextImageBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               eyebrow: 'Notes',
               title: 'Notes that do not pull you out of the room',
               body:
@@ -476,7 +462,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 11g. LIBRARY ────────────────────────────────────────────────
             ProjectTextImageBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               eyebrow: 'Library',
               title: 'One place for everything you share',
               body:
@@ -490,7 +476,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 11h. AI TRANSPARENCY ───────────────────────────────────────
             ProjectTextImageBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               eyebrow: 'Artificial intelligence',
               title: 'Where the AI explains itself',
               body:
@@ -504,7 +490,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 12. KEY DECISIONS ─────────────────────────────────────────
             const ProjectDecisionLogBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               title: 'Key design decisions',
               intro:
                   'Decisions shaped by the tension between capability and trust in a sensitive, high-stakes context.',
@@ -550,7 +536,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 13. ETHICAL REVIEW ────────────────────────────────────────
             const ProjectCalloutBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               style: CalloutStyle.warning,
               label: 'RRI ethical review',
               icon: Icons.shield_outlined,
@@ -560,7 +546,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 14. ACCESSIBILITY ─────────────────────────────────────────
             const ProjectAccessibilityAuditBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: 'Accessibility and usability issues found',
               intro:
                   'Issues surfaced during heuristic evaluation (Nielsen\u2019s ten heuristics) and addressed before practitioner testing.',
@@ -606,7 +592,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 15. WHAT THE PRACTITIONER SAID ───────────────────────────
             const ProjectQuoteBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               quote:
                   '\u201cThe dashboard would genuinely save me time before every session. If the AI summary is accurate and I can trust it, I would use it every day.\u201d',
               attribution:
@@ -615,7 +601,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 16. IMPACT AND METRICS ────────────────────────────────────
             const ProjectMetricsBandBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               items: [
                 ProjectMetricItem(
                   value: '7',
@@ -638,7 +624,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 17. LEARNINGS ─────────────────────────────────────────────
             const ProjectLearningsBlock(
-              themeConfig: lightTheme,
+              themeConfig: baseTheme,
               title: 'What I took away',
               points: [
                 'Low-contact co-design is a genuinely viable format for engaging time-poor professional groups \u2014 but it requires more scaffolding than in-person sessions. A short synchronous briefing call at the start would resolve most of the confusion participants experienced.',
@@ -651,7 +637,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
 
             // ── 18. LIMITATIONS ───────────────────────────────────────────
             const ProjectCalloutBlock(
-              themeConfig: darkTheme,
+              themeConfig: baseTheme,
               style: CalloutStyle.insight,
               label: 'Limitations and future work',
               icon: Icons.compass_calibration_outlined,
@@ -660,7 +646,7 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
             ),
 
             const MoreProjectsBlock(
-              themeConfig: softTheme,
+              themeConfig: baseTheme,
               title: 'More projects',
               projects: [
                 RelatedProjectItem(

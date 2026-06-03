@@ -11,9 +11,11 @@ class ProjectStackSection extends StatelessWidget {
   const ProjectStackSection({
     super.key,
     this.scrollController,
+    this.cursorNotifier,
   });
 
   final ScrollController? scrollController;
+  final ValueNotifier<bool>? cursorNotifier;
 
   static const projects = [
     _ProjectData(
@@ -80,6 +82,7 @@ class ProjectStackSection extends StatelessWidget {
               child: _InteractiveProjectCard(
                 project: projects[index],
                 index: index,
+                cursorNotifier: cursorNotifier,
                 onTap: () {
                   context.goNamed(projects[index].routeName);
                 },
@@ -98,11 +101,13 @@ class _InteractiveProjectCard extends StatefulWidget {
     required this.project,
     required this.index,
     required this.onTap,
+    this.cursorNotifier,
   });
 
   final _ProjectData project;
   final int index;
   final VoidCallback onTap;
+  final ValueNotifier<bool>? cursorNotifier;
 
   @override
   State<_InteractiveProjectCard> createState() => _InteractiveProjectCardState();
@@ -115,6 +120,7 @@ class _InteractiveProjectCardState extends State<_InteractiveProjectCard> {
   void _setHovered(bool value) {
     if (_isHovered == value) return;
     setState(() => _isHovered = value);
+    widget.cursorNotifier?.value = value;
   }
 
   void _setPressed(bool value) {
@@ -166,7 +172,7 @@ class _InteractiveProjectCardState extends State<_InteractiveProjectCard> {
                   offset: Offset(0, 24),
                 ),
                 BoxShadow(
-                  color: Color(0x14FB6000),
+                  color: Color(0x144F42B5),
                   blurRadius: 20,
                   offset: Offset(0, 10),
                 ),
@@ -337,7 +343,7 @@ class _DummyProjectVisual extends StatelessWidget {
                     gradient: LinearGradient(
                       colors: [
                         AppColors.accent.withValues(alpha: 0.94),
-                        const Color(0xFFFF8A3D),
+                        const Color(0xFF6B5EC8),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,

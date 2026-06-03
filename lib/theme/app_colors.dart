@@ -7,7 +7,8 @@ class AppColors {
   static const Color ink = Color(0xFF090909);
   static const Color inkMuted = Color(0xFF5A5A55);
   static const Color border = Color(0x1A090909);
-  static const Color accent = Color(0xFFFB6000);
-  static const Color accentSoft = Color(0xFFFFEFE4);
+  static const Color accent = Color(0xFF4F42B5);
+  static const Color accentSoft = Color(0xFFECEAFC);
+  static const Color accentOnDark = Color(0xFFA897F5);
   static const Color success = Color(0xFF1E9E61);
 }

@@ -30,7 +30,7 @@ class DynamicHeadline extends StatelessWidget {
         height: 1.02,
         fontWeight: FontWeight.w500,
         letterSpacing: -0.8,
-        color: AppColors.accent,
+        color: AppColors.accentOnDark,
       );
     }
 
@@ -40,7 +40,7 @@ class DynamicHeadline extends StatelessWidget {
         height: 1.0,
         fontWeight: FontWeight.w500,
         letterSpacing: -1.0,
-        color: AppColors.accent,
+        color: AppColors.accentOnDark,
       );
     }
 

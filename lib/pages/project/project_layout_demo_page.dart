@@ -5,6 +5,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/scrollable_page_shell.dart';
 import '../../widgets/project/project_accessibility_audit_block.dart';
 import '../../widgets/project/project_before_after_block.dart';
 import '../../widgets/project/project_callout_block.dart';
@@ -29,23 +30,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const darkTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFF050505),
-      foregroundColor: Color(0xFFF5F2EA),
-      accentColor: Color(0xFFFB6000),
-      borderColor: Color(0x26FFFFFF),
-      mutedColor: Color(0xB3F5F2EA),
-    );
-
-    const lightTheme = ProjectSectionTheme(
-      backgroundColor: Color(0xFFE9E4DD),
-      foregroundColor: Color(0xFF111111),
-      accentColor: Color(0xFFB95317),
-      borderColor: Color(0x1A111111),
-      mutedColor: Color(0xCC111111),
-    );
-
-    const softTheme = ProjectSectionTheme(
+    const baseTheme = ProjectSectionTheme(
       backgroundColor: Color(0xFFF7F3EC),
       foregroundColor: Color(0xFF1A1816),
       accentColor: Color(0xFFCD5A17),
@@ -54,8 +39,8 @@ class ProjectLayoutDemoPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFEEEAE3),
-      body: SingleChildScrollView(
+      backgroundColor: const Color(0xFFF7F3EC),
+      body: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -69,7 +54,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use for the opening of a case study: title, context-setting summary, and optional route or state label.',
               child: ProjectIntroBlock(
-                themeConfig: darkTheme,
+                themeConfig: baseTheme,
                 eyebrow: 'Layout demo',
                 title: 'Project case study blocks for UX storytelling',
                 summary:
@@ -84,7 +69,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use for compact project metadata such as role, scope, team, duration, deliverables, or platform.',
               child: ProjectMetaStripBlock(
-                themeConfig: softTheme,
+                themeConfig: baseTheme,
                 items: [
                   ProjectMetaItem(label: 'Role', value: 'UX / Product Design'),
                   ProjectMetaItem(label: 'Scope', value: 'Reusable case study system'),
@@ -100,7 +85,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use when you need to explain the problem space clearly while surfacing stakeholders, tools, timeframe, or category beside it.',
               child: ProjectProblemKeyInfoBlock(
-                themeConfig: lightTheme,
+                themeConfig: baseTheme,
                 problemTitle: 'Problem',
                 problemBody:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac sapien nec elit faucibus blandit. Duis in libero non lacus sodales mattis. Integer malesuada, augue nec gravida tempor, sapien mauris tincidunt orci, eu tincidunt justo augue sed enim. Curabitur fermentum justo id nisl interdum, in aliquet eros feugiat.',
@@ -127,7 +112,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use for narrative sections that pair explanation with a supporting image, board, wireframe, journey map, or artifact.',
               child: ProjectTextImageBlock(
-                themeConfig: darkTheme,
+                themeConfig: baseTheme,
                 eyebrow: 'Research',
                 title: 'Use text and image blocks for narrative sections',
                 body:
@@ -145,7 +130,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use to summarize recurring observations, themes, usability issues, or interview findings.',
               child: ProjectFindingsGridBlock(
-                themeConfig: softTheme,
+                themeConfig: baseTheme,
                 title: 'Findings grid',
                 items: [
                   ProjectFindingItem(
@@ -188,7 +173,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use for interview quotes, stakeholder pull-quotes, or a strong line that deserves visual emphasis.',
               child: ProjectQuoteBlock(
-                themeConfig: darkTheme,
+                themeConfig: baseTheme,
                 quote:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                 attribution: 'Interview participant',
@@ -201,7 +186,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use to show the shape of the work across phases such as audit, define, prototype, test, refine, or handoff.',
               child: ProjectProcessStepsBlock(
-                themeConfig: lightTheme,
+                themeConfig: baseTheme,
                 title: 'Process steps',
                 steps: [
                   ProjectProcessStep(
@@ -234,7 +219,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use when contrasting an old experience with a revised direction, especially for clarity, hierarchy, or trust improvements.',
               child: ProjectBeforeAfterBlock(
-                themeConfig: softTheme,
+                themeConfig: baseTheme,
                 beforeTitle: 'Dense and ambiguous',
                 beforeBody:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel odio vitae nibh pretium malesuada. Nam euismod tortor et fermentum iaculis.',
@@ -250,7 +235,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use for impact snapshots such as conversion, drop-off, confidence, speed, satisfaction, or adoption metrics.',
               child: ProjectMetricsBandBlock(
-                themeConfig: darkTheme,
+                themeConfig: baseTheme,
                 items: [
                   ProjectMetricItem(value: '+21%', label: 'Lorem ipsum conversion lift'),
                   ProjectMetricItem(value: '-34%', label: 'Dolor sit amet drop-off'),
@@ -266,7 +251,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use the reverse variant when you want visual pacing and do not want every narrative section to read the same way.',
               child: ProjectTextImageBlock(
-                themeConfig: lightTheme,
+                themeConfig: baseTheme,
                 eyebrow: 'Flows',
                 title: 'Reverse layouts for variety and pacing',
                 body:
@@ -285,7 +270,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use for showing multiple artifacts together such as wireframes, maps, interface iterations, or prototype frames.',
               child: ProjectImageGalleryBlock(
-                themeConfig: softTheme,
+                themeConfig: baseTheme,
                 title: 'Image gallery block',
                 images: const [
                   _DemoImageCard(label: 'Wireframe gallery item', height: 320),
@@ -302,7 +287,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use near the end of a case study to reflect on what changed, what was learned, and what you would improve next.',
               child: ProjectLearningsBlock(
-                themeConfig: darkTheme,
+                themeConfig: baseTheme,
                 title: 'Learnings and reflection',
                 points: [
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus erat non neque consequat, in tincidunt orci porta.',
@@ -321,7 +306,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use in the define or ideate phase to surface opportunity questions. Each card anchors a design direction or sprint theme.',
               child: ProjectHowMightWeBlock(
-                themeConfig: softTheme,
+                themeConfig: baseTheme,
                 title: 'How might we\u2026',
                 intro: 'Opportunity questions distilled from research synthesis.',
                 items: [
@@ -359,7 +344,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use to ground the case study in a real user archetype. Place early in the narrative, after research findings and before ideation.',
               child: ProjectPersonaBlock(
-                themeConfig: darkTheme,
+                themeConfig: baseTheme,
                 eyebrow: 'User persona',
                 name: 'Aisha Rahman',
                 role: 'Senior operations manager, mid-size logistics firm',
@@ -387,7 +372,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use to document key design decisions, the rationale behind them, and what actually happened. Demonstrates rigour and self-awareness.',
               child: ProjectDecisionLogBlock(
-                themeConfig: lightTheme,
+                themeConfig: baseTheme,
                 title: 'Decision log',
                 intro: 'Key choices made during the project and what we learned from them.',
                 decisions: [
@@ -425,7 +410,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use to show accessibility issues found during an audit. Severity chips and WCAG references make this suitable for stakeholder reviews and handoff docs.',
               child: ProjectAccessibilityAuditBlock(
-                themeConfig: softTheme,
+                themeConfig: baseTheme,
                 title: 'Accessibility audit',
                 intro: 'Issues identified during a WCAG 2.1 AA audit of the current product.',
                 issues: [
@@ -481,7 +466,7 @@ class ProjectLayoutDemoPage extends StatelessWidget {
               usageNote:
               'Use to elevate a single key insight, design principle, or warning that should not be missed. Works well between dense sections as a visual breath.',
               child: ProjectCalloutBlock(
-                themeConfig: darkTheme,
+                themeConfig: baseTheme,
                 style: CalloutStyle.insight,
                 label: 'Key insight',
                 icon: Icons.lightbulb_outline_rounded,

@@ -515,14 +515,14 @@ class _TerminalActionButtonState extends State<_TerminalActionButton> {
           ),
           decoration: BoxDecoration(
             color: widget.isPrimary
-                ? (_hovered ? const Color(0xFFFF7A29) : AppColors.accent)
+                ? (_hovered ? AppColors.accentOnDark : AppColors.accent)
                 : (_hovered
                     ? AppColors.accent.withValues(alpha: 0.14)
                     : AppColors.accent.withValues(alpha: 0.10)),
             borderRadius: BorderRadius.circular(AppRadii.pill),
             border: Border.all(
               color: widget.isPrimary
-                  ? (_hovered ? const Color(0xFFFF7A29) : AppColors.accent)
+                  ? (_hovered ? AppColors.accentOnDark : AppColors.accent)
                   : AppColors.accent.withValues(alpha: 0.35),
               width: 1.5,
             ),

@@ -18,6 +18,10 @@ class PortfolioScrollBehavior extends MaterialScrollBehavior {
   };
 
   @override
+  ScrollPhysics getScrollPhysics(BuildContext context) =>
+      const ClampingScrollPhysics();
+
+  @override
   Widget buildScrollbar(
       BuildContext context,
       Widget child,

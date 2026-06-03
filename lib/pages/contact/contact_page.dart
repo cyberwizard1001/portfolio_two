@@ -11,6 +11,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/scrollable_page_shell.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
@@ -38,7 +39,7 @@ class ContactPage extends StatelessWidget {
       backgroundColor: AppColors.ink,
       body: SafeArea(
         bottom: false,
-        child: SingleChildScrollView(
+        child: ScrollablePageShell(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
