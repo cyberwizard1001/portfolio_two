@@ -13,14 +13,16 @@ import '../common/responsive_section.dart';
 // ─── ASCII art strings ────────────────────────────────────────────────────────
 
 // "Nirmal" in figlet slant font
-const _asciiNirmal = '    _   ___                      __\n'
+const _asciiNirmal =
+    '    _   ___                      __\n'
     '   / | / (_)________ ___  ____ _/ /\n'
     '  /  |/ / / ___/ __ `__ \\/ __ `/ / \n'
     ' / /|  / / /  / / / / / / /_/ / /  \n'
     '/_/ |_/_/_/  /_/ /_/ /_/\\__,_/_/   ';
 
 // "@cyberwizard1001" in figlet mini font
-const _asciiHandle = '  __                             _  _    \n'
+const _asciiHandle =
+    '  __                             _  _    \n'
     ' /  \\ _  |_  _ ._   o_  _..__|/|/ \\/ \\/| \n'
     '| (|/(_\\/|_)(/_|\\/\\/|/_(_||(_| |\\_/\\_/ | \n'
     ' \\__   /                                 ';
@@ -78,8 +80,12 @@ class TerminalAboutSection extends StatelessWidget {
                         children: [
                           _TerminalTitleBar(),
                           info.isMobile
-                              ? _TerminalBodyMobile(startAnimation: startAnimation)
-                              : _TerminalBodyDesktop(startAnimation: startAnimation),
+                              ? _TerminalBodyMobile(
+                                  startAnimation: startAnimation,
+                                )
+                              : _TerminalBodyDesktop(
+                                  startAnimation: startAnimation,
+                                ),
                         ],
                       ),
                     ),
@@ -117,10 +123,7 @@ class _TerminalTitleBar extends StatelessWidget {
           const SizedBox(width: AppSpacing.md),
           Text(
             '~/about_me — bash',
-            style: GoogleFonts.ibmPlexMono(
-              fontSize: 12,
-              color: Colors.white38,
-            ),
+            style: GoogleFonts.ibmPlexMono(fontSize: 12, color: Colors.white38),
           ),
         ],
       ),
@@ -231,11 +234,7 @@ class _AsciiPanel extends StatelessWidget {
 // ─── Terminal line model ──────────────────────────────────────────────────────
 
 class _TerminalLine {
-  const _TerminalLine({
-    this.prompt,
-    required this.text,
-    this.isOutput = false,
-  });
+  const _TerminalLine({this.prompt, required this.text, this.isOutput = false});
 
   final String? prompt;
   final String text;
@@ -257,7 +256,8 @@ class _TypingTerminalState extends State<_TypingTerminal> {
   static const _lines = [
     _TerminalLine(prompt: '~\$ ', text: 'about --nirmal'),
     _TerminalLine(
-      text: 'CS grad who moved from building software to designing it. '
+      text:
+          'CS grad who moved from building software to designing it. '
           'I still write Flutter when the occasion calls for it. '
           'Tinkering with Linux desktop environments as a teenager is probably where '
           'the design obsession started, though I wouldn\'t have called it that at the time.',
@@ -265,15 +265,13 @@ class _TypingTerminalState extends State<_TypingTerminal> {
     ),
     _TerminalLine(prompt: '~\$ ', text: 'skills --list'),
     _TerminalLine(
-      text: 'UX research  ·  UX design\n'
+      text:
+          'UX research  ·  UX design\n'
           'Flutter developer  ·  Linux enthusiast',
       isOutput: true,
     ),
     _TerminalLine(prompt: '~\$ ', text: 'contact --open'),
-    _TerminalLine(
-      text: 'Opening links panel…  ✓  Ready.',
-      isOutput: true,
-    ),
+    _TerminalLine(text: 'Opening links panel…  ✓  Ready.', isOutput: true),
   ];
 
   int _revealedLines = 0;
@@ -338,8 +336,10 @@ class _TypingTerminalState extends State<_TypingTerminal> {
     final fullText = currentLine.text;
     if (_charIndex < fullText.length) {
       setState(() => _charIndex++);
-      _typeTimer =
-          Timer(const Duration(milliseconds: _charDelay), _typeNextChar);
+      _typeTimer = Timer(
+        const Duration(milliseconds: _charDelay),
+        _typeNextChar,
+      );
     } else {
       _typeTimer = Timer(const Duration(milliseconds: _lineDelay), () {
         if (!mounted) return;
@@ -434,8 +434,9 @@ class _TypingTerminalState extends State<_TypingTerminal> {
     final isCurrentLine = lineIndex == _revealedLines;
 
     if (line.isOutput) {
-      final visibleText =
-          isCurrentLine ? line.text.substring(0, _charIndex) : line.text;
+      final visibleText = isCurrentLine
+          ? line.text.substring(0, _charIndex)
+          : line.text;
       return Padding(
         padding: const EdgeInsets.only(bottom: AppSpacing.sm),
         child: Text(visibleText, style: outputStyle),
@@ -527,7 +528,7 @@ class _TerminalActionButtonState extends State<_TerminalActionButton> {
         onTap: () {
           final url = widget.label == 'View CV'
               ? 'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf'
-              : 'https://linkedin.com/in/nirmalkarthikeyan';
+              : 'https://linkedin.com/in/nirmal-karthikeyan';
           launchUrl(Uri.parse(url), mode: LaunchMode.platformDefault);
         },
         child: AnimatedContainer(
@@ -541,8 +542,8 @@ class _TerminalActionButtonState extends State<_TerminalActionButton> {
             color: widget.isPrimary
                 ? (_hovered ? AppColors.accentOnDark : AppColors.accent)
                 : (_hovered
-                    ? AppColors.accent.withValues(alpha: 0.14)
-                    : AppColors.accent.withValues(alpha: 0.10)),
+                      ? AppColors.accent.withValues(alpha: 0.14)
+                      : AppColors.accent.withValues(alpha: 0.10)),
             borderRadius: BorderRadius.circular(AppRadii.pill),
             border: Border.all(
               color: widget.isPrimary
@@ -611,8 +612,7 @@ class _CursorBlinkState extends State<_CursorBlink>
           text: TextSpan(
             children: [
               TextSpan(text: '~\$ ', style: widget.promptStyle),
-              if (visible)
-                TextSpan(text: '▋', style: widget.cursorStyle),
+              if (visible) TextSpan(text: '▋', style: widget.cursorStyle),
             ],
           ),
         );

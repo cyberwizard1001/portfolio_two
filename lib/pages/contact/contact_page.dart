@@ -17,9 +17,11 @@ class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
 
   static const String email = 'hello@cyberwizard.dev';
-  static const String linkedInUrl = 'https://linkedin.com/in/nirmalkarthikeyan';
+  static const String linkedInUrl =
+      'https://linkedin.com/in/nirmal-karthikeyan';
   static const String mediumUrl = 'https://nirmalkarthikeyan.medium.com/';
-  static const String cvUrl = 'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf';
+  static const String cvUrl =
+      'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf';
 
   String get mailtoLink =>
       'mailto:$email?subject=Hello%20Nirmal&body=Hi%20Nirmal%2C%20I%27d%20love%20to%20chat.';
@@ -179,7 +181,7 @@ class _ContactInfoPanel extends StatelessWidget {
           const SizedBox(height: AppSpacing.md),
           _ContactLinkTile(
             title: 'LinkedIn',
-            subtitle: 'linkedin.com/in/nirmalkarthikeyan',
+            subtitle: 'linkedin.com/in/nirmal-karthikeyan',
             onTap: onOpenLinkedIn,
           ),
           const SizedBox(height: AppSpacing.md),

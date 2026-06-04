@@ -157,7 +157,7 @@ class _FooterLinksDesktop extends StatelessWidget {
             links: [
               FooterLinkItem(
                 label: 'LinkedIn',
-                externalUrl: 'https://linkedin.com/in/nirmalkarthikeyan',
+                externalUrl: 'https://linkedin.com/in/nirmal-karthikeyan',
               ),
               FooterLinkItem(
                 label: 'Medium',
@@ -220,7 +220,7 @@ class _FooterLinksMobile extends StatelessWidget {
           links: [
             FooterLinkItem(
               label: 'LinkedIn',
-              externalUrl: 'https://linkedin.com/in/nirmalkarthikeyan',
+              externalUrl: 'https://linkedin.com/in/nirmal-karthikeyan',
             ),
             FooterLinkItem(
               label: 'Medium',
