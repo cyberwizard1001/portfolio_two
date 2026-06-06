@@ -165,7 +165,7 @@ class _InteractiveProjectCardState extends State<_InteractiveProjectCard> {
         final pressOffset = _isPressed ? 4.0 : 0.0;
 
         return MouseRegion(
-          cursor: SystemMouseCursors.click,
+          cursor: SystemMouseCursors.none,
           onEnter: (_) => _setHovered(true),
           onExit: (_) {
             _setHovered(false);
@@ -212,6 +212,7 @@ class _InteractiveProjectCardState extends State<_InteractiveProjectCard> {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
+                  mouseCursor: SystemMouseCursors.none,
                   onTap: widget.onTap,
                   onHover: _setHovered,
                   onHighlightChanged: _setPressed,

@@ -314,9 +314,7 @@ class _FooterLinkState extends State<_FooterLink> {
         widget.item.routeName != null || widget.item.externalUrl != null;
 
     return MouseRegion(
-      cursor: isInteractive
-          ? SystemMouseCursors.click
-          : SystemMouseCursors.basic,
+      cursor: SystemMouseCursors.none,
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(

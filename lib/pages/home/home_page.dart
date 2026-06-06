@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/gestures.dart';
 import 'package:portfolio_2/widgets/site/site_footer.dart';
 import '../../widgets/common/app_shell.dart';
 import '../../widgets/home/custom_cursor.dart';
@@ -190,10 +191,17 @@ class _HomePageState extends State<HomePage> {
                 _onScrollNotification(notification);
                 return false;
               },
-              child: CustomScrollView(
-                controller: _scrollController,
-                physics: const ClampingScrollPhysics(),
-                slivers: [
+              child: ScrollConfiguration(
+                behavior: ScrollConfiguration.of(context).copyWith(
+                  dragDevices: {
+                    PointerDeviceKind.touch,
+                    PointerDeviceKind.trackpad,
+                  },
+                ),
+                child: CustomScrollView(
+                  controller: _scrollController,
+                  physics: const ClampingScrollPhysics(),
+                  slivers: [
                   SliverToBoxAdapter(
                     child: KeyedSubtree(
                       key: _heroKey,
@@ -226,7 +234,8 @@ class _HomePageState extends State<HomePage> {
                       child: const SiteFooter(),
                     ),
                   ),
-                ],
+                  ],
+                ),
               ),
             ),
             ),

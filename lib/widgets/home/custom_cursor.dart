@@ -31,7 +31,7 @@ class _CursorOverlayState extends State<CursorOverlay>
   static const double _kNormalRadius = 22.0;
   static const double _kHoverRadius = 52.0;
   static const double _kDotRadius = 5.0;
-  static const double _kLerpPos = 0.12;
+  static const double _kLerpPos = 0.25;
   static const double _kLerpRadius = 0.15;
 
   @override

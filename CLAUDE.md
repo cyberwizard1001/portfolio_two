@@ -14,8 +14,8 @@ Flutter web portfolio. Static site. No backend, no forms. Deployed as a Flutter 
 - **qr_flutter** — QR code on contact page
 - **url_launcher** — outbound links (email, LinkedIn, CV)
 
-Run: `flutter run -d chrome`
-Build: `flutter build web`
+Run: `fvm flutter run -d chrome`
+Build: `fvm flutter build web`
 
 ---
 

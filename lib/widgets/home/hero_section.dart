@@ -245,7 +245,7 @@ class _HeroSubtextState extends State<_HeroSubtext> {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 680),
       child: MouseRegion(
-        cursor: SystemMouseCursors.basic,
+        cursor: SystemMouseCursors.none,
         child: Text.rich(
           TextSpan(
             children: [
@@ -255,7 +255,7 @@ class _HeroSubtextState extends State<_HeroSubtext> {
               TextSpan(
                 text: 'About me',
                 recognizer: _recognizer,
-                mouseCursor: SystemMouseCursors.click,
+                mouseCursor: SystemMouseCursors.none,
                 onEnter: (_) => setState(() => _hovered = true),
                 onExit: (_) => setState(() => _hovered = false),
                 style: TextStyle(
