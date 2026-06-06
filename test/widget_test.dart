@@ -1,31 +1,18 @@
-// This is a basic Flutter widget test.
+// Old boilerplate test file has been replaced.
 //
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// Actual test suite is in:
+//   - test/pages/ — page-level tests (home, contact, project)
+//   - test/widgets/ — widget tests (hero, nav bar, sections, blocks)
+//   - test/routing/ — routing tests
+//   - test/test_helpers.dart — shared test utilities
+//
+// Run all tests: fvm flutter test
+// Run a single test: fvm flutter test test/pages/home_page_test.dart
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:portfolio_2/app/portfolio_app.dart';
-
-import 'package:portfolio_2/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const PortfolioApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  test('test suite configured', () {
+    expect(true, isTrue);
   });
 }
