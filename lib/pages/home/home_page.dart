@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/gestures.dart';
 import 'package:portfolio_2/widgets/site/site_footer.dart';
+import '../../utils/home_scroll_memory.dart';
 import '../../widgets/common/app_shell.dart';
 import '../../widgets/home/custom_cursor.dart';
 import '../../widgets/home/hero_section.dart';
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     final heroH = _cachedHeroHeight;
 
     // Switch nav theme: dark while within hero, light once past it
-    final shouldBeDark = heroH == 0 || offset < heroH - 80;
+    final shouldBeDark = heroH == 0 || offset < heroH - 96 - 60;
     if (shouldBeDark != _navIsDark) {
       setState(() => _navIsDark = shouldBeDark);
     }
@@ -103,7 +104,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _cacheHeroHeight());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _cacheHeroHeight();
+      if (HomeScrollMemory.savedOffset > 0) {
+        _scrollController.jumpTo(HomeScrollMemory.savedOffset);
+        HomeScrollMemory.savedOffset = 0;
+      }
+    });
   }
 
   @override
@@ -219,6 +226,7 @@ class _HomePageState extends State<HomePage> {
                       key: _workKey,
                       child: ProjectStackSection(
                         cursorNotifier: _cursorHovering,
+                        scrollController: _scrollController,
                       ),
                     ),
                   ),

@@ -46,6 +46,7 @@ class PortfolioApp extends StatelessWidget {
       theme: AppTheme.light,
       routerConfig: AppRouter.router,
       scrollBehavior: const PortfolioScrollBehavior(),
+      builder: (context, child) => child ?? const SizedBox.shrink(),
     );
   }
 }

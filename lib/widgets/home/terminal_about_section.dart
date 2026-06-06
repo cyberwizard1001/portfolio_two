@@ -520,12 +520,12 @@ class _TerminalActionButtonState extends State<_TerminalActionButton> {
     final textTheme = Theme.of(context).textTheme;
 
     return MouseRegion(
-      cursor: SystemMouseCursors.none,
+      cursor: MouseCursor.defer,
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
       child: InkWell(
         borderRadius: BorderRadius.circular(AppRadii.pill),
-        mouseCursor: SystemMouseCursors.none,
+        mouseCursor: MouseCursor.defer,
         onTap: () {
           final url = widget.label == 'View CV'
               ? 'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf'

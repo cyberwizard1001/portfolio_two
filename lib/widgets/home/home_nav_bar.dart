@@ -78,7 +78,7 @@ class HomeNavBar extends StatelessWidget {
                   children: [
                     InkWell(
                       borderRadius: BorderRadius.circular(AppRadii.md),
-                      mouseCursor: SystemMouseCursors.none,
+                      mouseCursor: MouseCursor.defer,
                       onTap: onHeroTap,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -117,7 +117,7 @@ class HomeNavBar extends StatelessWidget {
                     InkWell(
                       onTap: () => context.goNamed('contact'),
                       borderRadius: BorderRadius.circular(AppRadii.pill),
-                      mouseCursor: SystemMouseCursors.none,
+                      mouseCursor: MouseCursor.defer,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: AppSpacing.md,
@@ -177,7 +177,7 @@ class _NavLinkState extends State<_NavLink> {
         : AppColors.accentSoft;
 
     return MouseRegion(
-      cursor: SystemMouseCursors.none,
+      cursor: MouseCursor.defer,
       onEnter: (_) {
         setState(() => _hovered = true);
         widget.cursorNotifier?.value = true;
@@ -188,7 +188,7 @@ class _NavLinkState extends State<_NavLink> {
       },
       child: InkWell(
         borderRadius: BorderRadius.circular(AppRadii.pill),
-        mouseCursor: SystemMouseCursors.none,
+        mouseCursor: MouseCursor.defer,
         onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),

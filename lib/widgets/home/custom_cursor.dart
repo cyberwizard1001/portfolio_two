@@ -71,7 +71,7 @@ class _CursorOverlayState extends State<CursorOverlay>
         if (info.isMobile) return widget.child;
 
         return MouseRegion(
-          cursor: SystemMouseCursors.none,
+          cursor: MouseCursor.defer,
           onEnter: (_) => setState(() => _visible = true),
           onExit: (_) => setState(() => _visible = false),
           child: Listener(

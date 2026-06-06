@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/fade_page_transitions_builder.dart';
 import 'app_colors.dart';
 import 'app_radii.dart';
 import 'app_text_styles.dart';
@@ -52,6 +53,15 @@ class AppTheme {
             borderRadius: BorderRadius.circular(AppRadii.md),
           ),
         ),
+      ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: FadePageTransitionsBuilder(),
+          TargetPlatform.iOS: FadePageTransitionsBuilder(),
+          TargetPlatform.macOS: FadePageTransitionsBuilder(),
+          TargetPlatform.windows: FadePageTransitionsBuilder(),
+          TargetPlatform.linux: FadePageTransitionsBuilder(),
+        },
       ),
     );
   }

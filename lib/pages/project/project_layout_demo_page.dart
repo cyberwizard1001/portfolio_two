@@ -5,6 +5,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
 import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/app_shell.dart';
 import '../../widgets/common/scrollable_page_shell.dart';
 import '../../widgets/project/project_accessibility_audit_block.dart';
 import '../../widgets/project/project_before_after_block.dart';
@@ -38,9 +39,9 @@ class ProjectLayoutDemoPage extends StatelessWidget {
       mutedColor: Color(0xB31A1816),
     );
 
-    return Scaffold(
+    return AppShell(
       backgroundColor: const Color(0xFFF7F3EC),
-      body: ScrollablePageShell(
+      child: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

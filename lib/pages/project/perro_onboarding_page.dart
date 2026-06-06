@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:portfolio_2/widgets/project/more_projects_block.dart';
 import 'package:portfolio_2/widgets/site/site_footer.dart';
 
-import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
-import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/app_shell.dart';
 import '../../widgets/common/scrollable_page_shell.dart';
 import '../../widgets/project/project_accessibility_audit_block.dart';
+import '../../widgets/project/project_case_study_hero.dart';
+import '../../widgets/project/project_hero_image_block.dart';
 import '../../widgets/project/project_before_after_block.dart';
 import '../../widgets/project/project_callout_block.dart';
 import '../../widgets/project/project_decision_log_block.dart';
@@ -38,20 +38,30 @@ class PerroOnboardingPage extends StatelessWidget {
       mutedColor: Color(0xB31A1628),
     );
 
-    return Scaffold(
+    return AppShell(
       backgroundColor: Colors.white,
-      body: ScrollablePageShell(
+      child: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
             // ── 1. HERO ───────────────────────────────────────────────────────
-            const _PerroHero(),
+            const ProjectCaseStudyHero(
+              eyebrowText: 'Perro — Case study 02',
+              eyebrowColor: Color(0xFF9B7FD4),
+              title: 'Perro onboarding and subscription redesign',
+              hookText:
+                  'Perro had a genuinely strong product. You could track your dog’s activity, work through enrichment and training content, set things up so the whole household could collaborate, and earn up to £500 of Woof benefits over time. The people who got past the first session tended to like it, which was rather the problem, because a large share of new users never got that far. They were leaving during onboarding, very often before they’d reached anything that showed them what Perro could actually do for them. Would you stick around for a setup flow that asks a lot and hands back nothing first? Most people didn’t, and that was costing real subscriptions.',
+              summaryText:
+                  'I had two weeks, part-time, and a tight set of constraints: Flutter only, no backend changes, and nothing that broke the experience for existing users. Rather than redesign on a hunch, I started from the Mixpanel funnels, watched usability sessions to understand the why behind each drop-off, and then redesigned the onboarding and subscription flow and built it directly in Flutter, since I was the developer too. It reduced drop-off, lifted completion, and increased subscription conversion, and the work was later cited as one of the product’s strengths when the company was acquired.',
+            ),
 
             // ── 1b. HERO IMAGE ────────────────────────────────────────────────
-            const _HeroImageBlock(
+            const ProjectHeroImageBlock(
               caption:
-              'Onboarding was where most people quietly left, before they had seen what Perro could do for them.',
+                  'Onboarding was where most people quietly left, before they had seen what Perro could do for them.',
+              gradientColors: [Color(0xFF150F24), Color(0xFF0A0812)],
+              accentColor: Color(0xFF9B7FD4),
             ),
 
             // ── 2. VITALS ─────────────────────────────────────────────────────
@@ -578,286 +588,6 @@ class PerroOnboardingPage extends StatelessWidget {
               ],
             ),
             const SiteFooter(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ── HERO ──────────────────────────────────────────────────────────────────────
-class _PerroHero extends StatelessWidget {
-  const _PerroHero();
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isNarrow = screenWidth < 720;
-
-    return Container(
-      width: double.infinity,
-      color: AppColors.ink,
-      child: ResponsiveSection(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: AppSpacing.xl,
-            bottom: AppSpacing.xxl,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextButton.icon(
-                onPressed: () => context.goNamed('home'),
-                icon: const Icon(Icons.arrow_back_rounded, size: 16),
-                label: const Text('Back home'),
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white54,
-                  textStyle: textTheme.bodySmall,
-                  padding: EdgeInsets.zero,
-                  minimumSize: Size.zero,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-              ),
-              SizedBox(height: isNarrow ? AppSpacing.xl : AppSpacing.xxl),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.sm,
-                  vertical: AppSpacing.xxs,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF9B7FD4).withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(AppRadii.sm),
-                  border: Border.all(
-                    color: const Color(0xFF9B7FD4).withValues(alpha: 0.3),
-                  ),
-                ),
-                child: Text(
-                  'Perro — Case study 02',
-                  style: textTheme.labelSmall?.copyWith(
-                    color: const Color(0xFF9B7FD4),
-                    letterSpacing: 0.6,
-                  ),
-                ),
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 820),
-                child: Text(
-                  'Perro onboarding and subscription redesign',
-                  style: (isNarrow
-                      ? textTheme.headlineLarge
-                      : textTheme.displayMedium)
-                      ?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    height: 1.08,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-              ),
-              SizedBox(height: isNarrow ? AppSpacing.lg : AppSpacing.xl),
-              Container(width: 40, height: 2, color: const Color(0xFF9B7FD4)),
-              const SizedBox(height: AppSpacing.xl),
-              isNarrow
-                  ? _HeroTextColumn(textTheme: textTheme)
-                  : _HeroTextRow(textTheme: textTheme),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _HeroTextRow extends StatelessWidget {
-  const _HeroTextRow({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 5,
-          child: _HookText(textTheme: textTheme),
-        ),
-        const SizedBox(width: AppSpacing.xxl),
-        Expanded(
-          flex: 4,
-          child: _SprintSummaryText(textTheme: textTheme),
-        ),
-      ],
-    );
-  }
-}
-
-class _HeroTextColumn extends StatelessWidget {
-  const _HeroTextColumn({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _HookText(textTheme: textTheme),
-        const SizedBox(height: AppSpacing.xl),
-        _SprintSummaryText(textTheme: textTheme),
-      ],
-    );
-  }
-}
-
-class _HookText extends StatelessWidget {
-  const _HookText({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'Perro had a genuinely strong product. You could track your dog’s activity, work through enrichment and training content, set things up so the whole household could collaborate, and earn up to £500 of Woof benefits over time. The people who got past the first session tended to like it, which was rather the problem, because a large share of new users never got that far. They were leaving during onboarding, very often before they’d reached anything that showed them what Perro could actually do for them. Would you stick around for a setup flow that asks a lot and hands back nothing first? Most people didn’t, and that was costing real subscriptions.',
-      style: textTheme.titleLarge?.copyWith(
-        color: Colors.white,
-        height: 1.45,
-        fontWeight: FontWeight.w500,
-      ),
-    );
-  }
-}
-
-class _SprintSummaryText extends StatelessWidget {
-  const _SprintSummaryText({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'I had two weeks, part-time, and a tight set of constraints: Flutter only, no backend changes, and nothing that broke the experience for existing users. Rather than redesign on a hunch, I started from the Mixpanel funnels, watched usability sessions to understand the why behind each drop-off, and then redesigned the onboarding and subscription flow and built it directly in Flutter, since I was the developer too. It reduced drop-off, lifted completion, and increased subscription conversion, and the work was later cited as one of the product’s strengths when the company was acquired.',
-      style: textTheme.bodyMedium?.copyWith(
-        color: Colors.white54,
-        height: 1.7,
-      ),
-    );
-  }
-}
-
-// ── HERO IMAGE ────────────────────────────────────────────────────────────────
-class _HeroImageBlock extends StatelessWidget {
-  const _HeroImageBlock({
-    this.imagePath,
-    required this.caption,
-  });
-
-  final String? imagePath;
-  final String caption;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final imageHeight = screenWidth < 600 ? 280.0 : 480.0;
-
-    DecorationImage? decorationImage;
-    if (imagePath != null) {
-      decorationImage = DecorationImage(
-        image: AssetImage(imagePath!),
-        fit: BoxFit.cover,
-        alignment: Alignment.topCenter,
-      );
-    }
-
-    return Container(
-      width: double.infinity,
-      color: AppColors.ink,
-      child: SizedBox(
-        width: double.infinity,
-        height: imageHeight,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: decorationImage,
-                gradient: decorationImage == null
-                    ? const LinearGradient(
-                        colors: [Color(0xFF150F24), Color(0xFF0A0812)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      )
-                    : null,
-              ),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.0, 0.45, 1.0],
-                  colors: [
-                    Color(0x00000000),
-                    Color(0x26000000),
-                    Color(0xCC000000),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              left: 0, top: 0, bottom: 0,
-              child: Container(
-                width: 3,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0x009B7FD4), Color(0x999B7FD4)],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              left: AppSpacing.xl,
-              right: AppSpacing.xl,
-              bottom: AppSpacing.xl,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Text(
-                      caption,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: Colors.white60,
-                        letterSpacing: 0.4,
-                        height: 1.5,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.lg),
-                  if (imagePath == null)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.sm,
-                        vertical: AppSpacing.xxs,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.06),
-                        borderRadius: BorderRadius.circular(AppRadii.sm),
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.12),
-                        ),
-                      ),
-                      child: Text(
-                        'Image placeholder',
-                        style: textTheme.labelSmall?.copyWith(
-                          color: Colors.white38,
-                          letterSpacing: 0.4,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
           ],
         ),
       ),

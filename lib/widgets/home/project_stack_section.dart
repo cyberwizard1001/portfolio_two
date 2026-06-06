@@ -5,17 +5,18 @@ import '../../responsive/responsive_builder.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import '../../utils/home_scroll_memory.dart';
 import '../common/responsive_section.dart';
 
 class ProjectStackSection extends StatelessWidget {
   const ProjectStackSection({
     super.key,
-    this.scrollController,
     this.cursorNotifier,
+    required this.scrollController,
   });
 
-  final ScrollController? scrollController;
   final ValueNotifier<bool>? cursorNotifier;
+  final ScrollController scrollController;
 
   static const projects = [
     _ProjectData(
@@ -84,6 +85,7 @@ class ProjectStackSection extends StatelessWidget {
                 index: index,
                 cursorNotifier: cursorNotifier,
                 onTap: () {
+                  HomeScrollMemory.savedOffset = scrollController.offset;
                   context.goNamed(projects[index].routeName);
                 },
               ),
@@ -165,7 +167,7 @@ class _InteractiveProjectCardState extends State<_InteractiveProjectCard> {
         final pressOffset = _isPressed ? 4.0 : 0.0;
 
         return MouseRegion(
-          cursor: SystemMouseCursors.none,
+          cursor: MouseCursor.defer,
           onEnter: (_) => _setHovered(true),
           onExit: (_) {
             _setHovered(false);
@@ -175,9 +177,7 @@ class _InteractiveProjectCardState extends State<_InteractiveProjectCard> {
             duration: const Duration(milliseconds: 220),
             curve: Curves.easeOutCubic,
             transform: Matrix4.identity()
-              ..translate(0.0, baseOffset + hoverLift + pressOffset)
-              ..scale(_isHovered ? 1.008 : 1.0),
-            transformAlignment: Alignment.center,
+              ..translate(0.0, baseOffset + hoverLift + pressOffset),
             decoration: BoxDecoration(
               color: AppColors.surface,
               borderRadius: BorderRadius.circular(AppRadii.xl),
@@ -212,7 +212,7 @@ class _InteractiveProjectCardState extends State<_InteractiveProjectCard> {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  mouseCursor: SystemMouseCursors.none,
+                  mouseCursor: MouseCursor.defer,
                   onTap: widget.onTap,
                   onHover: _setHovered,
                   onHighlightChanged: _setPressed,
@@ -1376,7 +1376,7 @@ class _ProjectDetails extends StatelessWidget {
       decoration: BoxDecoration(
         color: isHovered
             ? AppColors.accentSoft.withValues(alpha: 0.42)
-            : Colors.transparent,
+            : AppColors.accentSoft.withValues(alpha: 0),
         borderRadius: BorderRadius.circular(AppRadii.lg),
       ),
       child: Column(

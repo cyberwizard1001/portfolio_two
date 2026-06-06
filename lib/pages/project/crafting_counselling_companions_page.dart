@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:portfolio_2/widgets/project/more_projects_block.dart';
 import 'package:portfolio_2/widgets/site/site_footer.dart';
 
-import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
-import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/app_shell.dart';
 import '../../widgets/common/scrollable_page_shell.dart';
 import '../../widgets/project/project_accessibility_audit_block.dart';
+import '../../widgets/project/project_case_study_hero.dart';
+import '../../widgets/project/project_hero_image_block.dart';
 import '../../widgets/project/project_callout_block.dart';
 import '../../widgets/project/project_decision_log_block.dart';
 import '../../widgets/project/project_findings_grid_block.dart';
@@ -37,21 +37,31 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
       mutedColor: Color(0xB3162220),
     );
 
-    return Scaffold(
+    return AppShell(
       backgroundColor: Colors.white,
-      body: ScrollablePageShell(
+      child: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
             // ── 1. HERO ────────────────────────────────────────────────────
-            const _CounsellingHero(),
+            const ProjectCaseStudyHero(
+              eyebrowText: 'MSc Dissertation — Case study 03',
+              eyebrowColor: Color(0xFF3DBFA8),
+              title: 'Crafting Counselling Companions',
+              hookText:
+                  'Mental health practitioners spend 15–20 minutes of every session on admin. This project asked what a tool built specifically for them could do about it.',
+              summaryText:
+                  'My MSc dissertation in Human–Computer Interaction at Newcastle University combined semi-structured interviews with seven practitioners, a low-contact co-design workshop, iterative Figma prototyping, and an RRI ethical review — producing a validated concept for a practitioner-centred practice dashboard and voice assistant.',
+            ),
 
             // ── 1b. HERO IMAGE ─────────────────────────────────────────────
-            const _HeroImageBlock(
+            const ProjectHeroImageBlock(
               imagePath: 'assets/images/counselling/hero_ambient.jpg',
               caption:
-                  'Mental health practitioners carry both the clinical and administrative weight of their practice \u2014 this project asked what digital tools could lift.',
+                  'Mental health practitioners carry both the clinical and administrative weight of their practice — this project asked what digital tools could lift.',
+              gradientColors: [Color(0xFF0D2520), Color(0xFF070E0C)],
+              accentColor: Color(0xFF3DBFA8),
             ),
 
             // ── 2. VITALS ─────────────────────────────────────────────────
@@ -680,290 +690,6 @@ class CraftingCounsellingCompanionsPage extends StatelessWidget {
   }
 }
 
-// ── HERO ──────────────────────────────────────────────────────────────────────
-class _CounsellingHero extends StatelessWidget {
-  const _CounsellingHero();
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isNarrow = screenWidth < 720;
-
-    return Container(
-      width: double.infinity,
-      color: AppColors.ink,
-      child: ResponsiveSection(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: AppSpacing.xl,
-            bottom: AppSpacing.xxl,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextButton.icon(
-                onPressed: () => context.goNamed('home'),
-                icon: const Icon(Icons.arrow_back_rounded, size: 16),
-                label: const Text('Back home'),
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white54,
-                  textStyle: textTheme.bodySmall,
-                  padding: EdgeInsets.zero,
-                  minimumSize: Size.zero,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-              ),
-              SizedBox(height: isNarrow ? AppSpacing.xl : AppSpacing.xxl),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.sm,
-                  vertical: AppSpacing.xxs,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF3DBFA8).withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(AppRadii.sm),
-                  border: Border.all(
-                    color: const Color(0xFF3DBFA8).withValues(alpha: 0.3),
-                  ),
-                ),
-                child: Text(
-                  'MSc Dissertation \u2014 Case study 03',
-                  style: textTheme.labelSmall?.copyWith(
-                    color: const Color(0xFF3DBFA8),
-                    letterSpacing: 0.6,
-                  ),
-                ),
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 820),
-                child: Text(
-                  'Crafting Counselling Companions',
-                  style: (isNarrow
-                          ? textTheme.headlineLarge
-                          : textTheme.displayMedium)
-                      ?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    height: 1.08,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-              ),
-              SizedBox(height: isNarrow ? AppSpacing.lg : AppSpacing.xl),
-              Container(
-                  width: 40,
-                  height: 2,
-                  color: const Color(0xFF3DBFA8)),
-              const SizedBox(height: AppSpacing.xl),
-              isNarrow
-                  ? _HeroTextColumn(textTheme: textTheme)
-                  : _HeroTextRow(textTheme: textTheme),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _HeroTextRow extends StatelessWidget {
-  const _HeroTextRow({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 5,
-          child: _HookText(textTheme: textTheme),
-        ),
-        const SizedBox(width: AppSpacing.xxl),
-        Expanded(
-          flex: 4,
-          child: _SummaryText(textTheme: textTheme),
-        ),
-      ],
-    );
-  }
-}
-
-class _HeroTextColumn extends StatelessWidget {
-  const _HeroTextColumn({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _HookText(textTheme: textTheme),
-        const SizedBox(height: AppSpacing.xl),
-        _SummaryText(textTheme: textTheme),
-      ],
-    );
-  }
-}
-
-class _HookText extends StatelessWidget {
-  const _HookText({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'Mental health practitioners spend 15\u201320 minutes of every session on admin. This project asked what a tool built specifically for them could do about it.',
-      style: textTheme.titleLarge?.copyWith(
-        color: Colors.white,
-        height: 1.45,
-        fontWeight: FontWeight.w500,
-      ),
-    );
-  }
-}
-
-class _SummaryText extends StatelessWidget {
-  const _SummaryText({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'My MSc dissertation in Human\u2013Computer Interaction at Newcastle University combined semi-structured interviews with seven practitioners, a low-contact co-design workshop, iterative Figma prototyping, and an RRI ethical review \u2014 producing a validated concept for a practitioner-centred practice dashboard and voice assistant.',
-      style: textTheme.bodyMedium?.copyWith(
-        color: Colors.white54,
-        height: 1.7,
-      ),
-    );
-  }
-}
-
-// ── HERO IMAGE ────────────────────────────────────────────────────────────────
-class _HeroImageBlock extends StatelessWidget {
-  const _HeroImageBlock({
-    this.imagePath,
-    required this.caption,
-  });
-
-  final String? imagePath;
-  final String caption;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final imageHeight = screenWidth < 600 ? 280.0 : 480.0;
-
-    DecorationImage? decorationImage;
-    if (imagePath != null) {
-      decorationImage = DecorationImage(
-        image: AssetImage(imagePath!),
-        fit: BoxFit.cover,
-        alignment: Alignment.topCenter,
-      );
-    }
-
-    return Container(
-      width: double.infinity,
-      color: AppColors.ink,
-      child: SizedBox(
-        width: double.infinity,
-        height: imageHeight,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: decorationImage,
-                gradient: decorationImage == null
-                    ? const LinearGradient(
-                        colors: [Color(0xFF0D2520), Color(0xFF070E0C)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      )
-                    : null,
-              ),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.0, 0.45, 1.0],
-                  colors: [
-                    Color(0x00000000),
-                    Color(0x26000000),
-                    Color(0xCC000000),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              child: Container(
-                width: 3,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0x003DBFA8), Color(0x993DBFA8)],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              left: AppSpacing.xl,
-              right: AppSpacing.xl,
-              bottom: AppSpacing.xl,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Text(
-                      caption,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: Colors.white60,
-                        letterSpacing: 0.4,
-                        height: 1.5,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.lg),
-                  if (imagePath == null)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.sm,
-                        vertical: AppSpacing.xxs,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.06),
-                        borderRadius: BorderRadius.circular(AppRadii.sm),
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.12),
-                        ),
-                      ),
-                      child: Text(
-                        'Image placeholder',
-                        style: textTheme.labelSmall?.copyWith(
-                          color: Colors.white38,
-                          letterSpacing: 0.4,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 // ── REAL IMAGE CARD ───────────────────────────────────────────────────────────
 class _RealImageCard extends StatelessWidget {

@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:portfolio_2/widgets/site/site_footer.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,7 +9,9 @@ import '../../responsive/responsive_builder.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
+import '../../widgets/common/back_home_button.dart';
 import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/app_shell.dart';
 import '../../widgets/common/scrollable_page_shell.dart';
 
 class ContactPage extends StatelessWidget {
@@ -37,11 +38,9 @@ class ContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Scaffold(
+    return AppShell(
       backgroundColor: AppColors.ink,
-      body: SafeArea(
-        bottom: false,
-        child: ScrollablePageShell(
+      child: ScrollablePageShell(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -55,14 +54,7 @@ class ContactPage extends StatelessWidget {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextButton.icon(
-                            onPressed: () => context.goNamed('home'),
-                            icon: const Icon(Icons.arrow_back_rounded),
-                            label: const Text('Back home'),
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors.white,
-                            ),
-                          ),
+                          const BackHomeButton(),
                           const SizedBox(height: AppSpacing.xl),
                           Text(
                             'Contact',
@@ -132,7 +124,6 @@ class ContactPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }

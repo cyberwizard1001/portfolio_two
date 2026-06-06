@@ -2,9 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../responsive/app_breakpoints.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../common/responsive_section.dart';
+
+const _kCopyright = '© 2026 Nirmal Karthikeyan';
+const _kBuiltWith = 'Designed and built in Flutter by Nirmal Karthikeyan.';
+
+const _kNavLinks = [
+  FooterLinkItem(label: 'Home', routeName: 'home'),
+  FooterLinkItem(label: 'Documentation', routeName: 'documentation'),
+  FooterLinkItem(label: 'Contact', routeName: 'contact'),
+];
+
+const _kProjectLinks = [
+  FooterLinkItem(label: 'Pet Insurance Quote Flow', routeName: 'perfect-pet-quote-flow'),
+  FooterLinkItem(label: 'Perro Onboarding', routeName: 'perro-onboarding'),
+  FooterLinkItem(label: 'Crafting Counselling Companions', routeName: 'crafting-counselling-companions'),
+];
+
+const _kElsewhereLinks = [
+  FooterLinkItem(label: 'LinkedIn', externalUrl: 'https://linkedin.com/in/nirmal-karthikeyan'),
+  FooterLinkItem(label: 'Medium', externalUrl: 'https://nirmalkarthikeyan.medium.com/'),
+  FooterLinkItem(label: 'CV', externalUrl: 'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf'),
+  FooterLinkItem(label: 'Email', externalUrl: 'mailto:hello@cyberwizard.dev'),
+];
 
 class SiteFooter extends StatelessWidget {
   const SiteFooter({super.key});
@@ -21,7 +44,7 @@ class SiteFooter extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: AppSpacing.section),
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final isMobile = constraints.maxWidth < 960;
+              final isMobile = constraints.maxWidth < AppBreakpoints.smallDesktop;
 
               if (isMobile) {
                 return Column(
@@ -107,73 +130,22 @@ class _FooterLinksDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return const Wrap(
       alignment: WrapAlignment.spaceBetween,
       runSpacing: AppSpacing.xl,
       spacing: 48,
-      children: const [
+      children: [
         SizedBox(
           width: 180,
-          child: _FooterLinkGroup(
-            title: 'Navigate',
-            links: [
-              FooterLinkItem(label: 'Home', routeName: 'home'),
-              FooterLinkItem(
-                label: 'Documentation',
-                routeName: 'documentation',
-              ),
-              FooterLinkItem(
-                label: 'Layout Demo',
-                routeName: 'project-layout-demo',
-              ),
-              FooterLinkItem(label: 'Contact', routeName: 'contact'),
-            ],
-          ),
+          child: _FooterLinkGroup(title: 'Navigate', links: _kNavLinks),
         ),
         SizedBox(
           width: 220,
-          child: _FooterLinkGroup(
-            title: 'Projects',
-            links: [
-              FooterLinkItem(
-                label: 'Pet Insurance Quote Flow',
-                routeName: 'perfect-pet-quote-flow',
-              ),
-              FooterLinkItem(
-                label: 'Perro Onboarding',
-                routeName: 'perro-onboarding',
-              ),
-              FooterLinkItem(
-                label: 'Crafting Counselling Companions',
-                routeName: 'crafting-counselling-companions',
-              ),
-            ],
-          ),
+          child: _FooterLinkGroup(title: 'Projects', links: _kProjectLinks),
         ),
         SizedBox(
           width: 160,
-          child: _FooterLinkGroup(
-            title: 'Elsewhere',
-            links: [
-              FooterLinkItem(
-                label: 'LinkedIn',
-                externalUrl: 'https://linkedin.com/in/nirmal-karthikeyan',
-              ),
-              FooterLinkItem(
-                label: 'Medium',
-                externalUrl: 'https://nirmalkarthikeyan.medium.com/',
-              ),
-              FooterLinkItem(
-                label: 'CV',
-                externalUrl:
-                    'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf',
-              ),
-              FooterLinkItem(
-                label: 'Email',
-                externalUrl: 'mailto:hello@cyberwizard.dev',
-              ),
-            ],
-          ),
+          child: _FooterLinkGroup(title: 'Elsewhere', links: _kElsewhereLinks),
         ),
       ],
     );
@@ -188,55 +160,11 @@ class _FooterLinksMobile extends StatelessWidget {
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _FooterLinkGroup(
-          title: 'Navigate',
-          links: [
-            FooterLinkItem(label: 'Home', routeName: 'home'),
-            FooterLinkItem(label: 'Documentation', routeName: 'documentation'),
-            FooterLinkItem(label: 'Contact', routeName: 'contact'),
-          ],
-        ),
+        _FooterLinkGroup(title: 'Navigate', links: _kNavLinks),
         SizedBox(height: AppSpacing.xl),
-        _FooterLinkGroup(
-          title: 'Projects',
-          links: [
-            FooterLinkItem(
-              label: 'Pet Insurance Quote Flow',
-              routeName: 'perfect-pet-quote-flow',
-            ),
-            FooterLinkItem(
-              label: 'Perro Onboarding',
-              routeName: 'perro-onboarding',
-            ),
-            FooterLinkItem(
-              label: 'Crafting Counselling Companions',
-              routeName: 'crafting-counselling-companions',
-            ),
-          ],
-        ),
+        _FooterLinkGroup(title: 'Projects', links: _kProjectLinks),
         SizedBox(height: AppSpacing.xl),
-        _FooterLinkGroup(
-          title: 'Elsewhere',
-          links: [
-            FooterLinkItem(
-              label: 'LinkedIn',
-              externalUrl: 'https://linkedin.com/in/nirmal-karthikeyan',
-            ),
-            FooterLinkItem(
-              label: 'Medium',
-              externalUrl: 'https://nirmalkarthikeyan.medium.com/',
-            ),
-            FooterLinkItem(
-              label: 'CV',
-              externalUrl:
-                  'https://cyberwizard1001.github.io/portfolio_two/Nirmal_K_CV.pdf',
-            ),
-            FooterLinkItem(
-              label: 'Email',
-              externalUrl: 'mailto:hello@cyberwizard.dev',
-            ),
-          ],
-        ),
+        _FooterLinkGroup(title: 'Elsewhere', links: _kElsewhereLinks),
       ],
     );
   }
@@ -314,7 +242,7 @@ class _FooterLinkState extends State<_FooterLink> {
         widget.item.routeName != null || widget.item.externalUrl != null;
 
     return MouseRegion(
-      cursor: SystemMouseCursors.none,
+      cursor: MouseCursor.defer,
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
@@ -325,7 +253,7 @@ class _FooterLinkState extends State<_FooterLink> {
             color: _isHovered && isInteractive
                 ? AppColors.accentOnDark
                 : Colors.white70,
-            height: 1,
+            height: 1.4,
           ),
           child: Text(widget.item.label),
         ),
@@ -354,36 +282,24 @@ class _FooterBottomRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 700;
+    final isMobile = MediaQuery.of(context).size.width < AppBreakpoints.tablet;
 
     if (isMobile) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '© 2026 Nirmal Karthikeyan',
-            style: textTheme.bodyMedium?.copyWith(color: Colors.white54),
-          ),
+          Text(_kCopyright, style: textTheme.bodyMedium?.copyWith(color: Colors.white54)),
           const SizedBox(height: AppSpacing.xs),
-          Text(
-            'Designed and built in Flutter by Nirmal Karthikeyan.',
-            style: textTheme.bodyMedium?.copyWith(color: Colors.white54),
-          ),
+          Text(_kBuiltWith, style: textTheme.bodyMedium?.copyWith(color: Colors.white54)),
         ],
       );
     }
 
     return Row(
       children: [
-        Text(
-          '© 2026 Nirmal Karthikeyan',
-          style: textTheme.bodyMedium?.copyWith(color: Colors.white54),
-        ),
+        Text(_kCopyright, style: textTheme.bodyMedium?.copyWith(color: Colors.white54)),
         const Spacer(),
-        Text(
-          'Designed and built in Flutter by Nirmal Karthikeyan.',
-          style: textTheme.bodyMedium?.copyWith(color: Colors.white54),
-        ),
+        Text(_kBuiltWith, style: textTheme.bodyMedium?.copyWith(color: Colors.white54)),
       ],
     );
   }

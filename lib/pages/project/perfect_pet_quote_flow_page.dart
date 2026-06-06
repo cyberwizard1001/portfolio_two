@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:portfolio_2/widgets/project/more_projects_block.dart';
 import 'package:portfolio_2/widgets/site/site_footer.dart';
 
-import '../../theme/app_colors.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_spacing.dart';
-import '../../widgets/common/responsive_section.dart';
+import '../../widgets/common/app_shell.dart';
 import '../../widgets/common/scrollable_page_shell.dart';
 import '../../widgets/project/project_before_after_block.dart';
+import '../../widgets/project/project_case_study_hero.dart';
+import '../../widgets/project/project_hero_image_block.dart';
 import '../../widgets/project/project_callout_block.dart';
 import '../../widgets/project/project_decision_log_block.dart';
 import '../../widgets/project/project_findings_grid_block.dart';
@@ -37,20 +37,30 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
       mutedColor: Color(0xB31A1816),
     );
 
-    return Scaffold(
+    return AppShell(
       backgroundColor: Colors.white,
-      body: ScrollablePageShell(
+      child: ScrollablePageShell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
             // ── 1. HERO ───────────────────────────────────────────────────────
-            const _CaseStudyHero(),
+            const ProjectCaseStudyHero(
+              eyebrowText: 'Perfect Pet Insurance — Case study 01',
+              eyebrowColor: Color(0xFFFB6000),
+              title: 'Pet insurance checkout page redesign',
+              hookText:
+                  'Insuring your pet is an emotional exercise. You hand over a fair bit of money every month hoping the insurer takes the financial — and mental — stress off your hands when your pet isn\'t at its best. So when you\'ve never heard of a brand and the first thing it shows you is a wall of policy text, would you buy? I probably wouldn\'t. This is what customers were faced with when they landed on Perfect Pet\'s \'Review Quote\' page: they\'d come through aggregators like Compare the Market and Money Super Market, and were met with the exact same wall of text. Given that aggregators are our main source of sales, getting this right could make a genuine difference for customers as well as the business.',
+              summaryText:
+                  'I was allocated one sprint - 2 weeks. I went in thinking it was a tidy-up job — make a dated page look like it belonged in the modern world, no copy changes. I decided to begin with a competitor review, went through Hotjar recordings of the existing page, came up with a redesign and then sat down with eleven colleagues from claims, complaints, finance and renewals for testing. Recruiting internally was a time-crunch call, and yes, conventional wisdom states that people who deal with pet insurance all day make poor stand-in users, but halfway through the first interview, I realised I should go down a different angle. It was obvious they knew exactly what happens when this page doesn\'t do its job — and the interviews quietly turned a visual refresh into something more interesting.',
+            ),
 
             // ── 1b. HERO IMAGE ────────────────────────────────────────────────
-            const _CaseStudyHeroImage(
+            const ProjectHeroImageBlock(
               caption:
-              'The Review Details page — where most users were quietly giving up',
+                  'The Review Details page — where most users were quietly giving up',
+              gradientColors: [Color(0xFF1C1814), Color(0xFF0E0C0A)],
+              accentColor: Color(0xFFFB6000),
             ),
 
             // ── 2. VITALS ─────────────────────────────────────────────────────
@@ -413,299 +423,6 @@ class PerfectPetQuoteFlowPage extends StatelessWidget {
               ],
             ),
             const SiteFooter(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ── HERO ──────────────────────────────────────────────────────────────────────
-class _CaseStudyHero extends StatelessWidget {
-  const _CaseStudyHero();
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isNarrow = screenWidth < 720;
-
-    return Container(
-      width: double.infinity,
-      color: AppColors.ink,
-      child: ResponsiveSection(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: AppSpacing.xl,
-            bottom: AppSpacing.xxl,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextButton.icon(
-                onPressed: () => context.goNamed('home'),
-                icon: const Icon(Icons.arrow_back_rounded, size: 16),
-                label: const Text('Back home'),
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white54,
-                  textStyle: textTheme.bodySmall,
-                  padding: EdgeInsets.zero,
-                  minimumSize: Size.zero,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-              ),
-
-              SizedBox(height: isNarrow ? AppSpacing.xl : AppSpacing.xxl),
-
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.sm,
-                  vertical: AppSpacing.xxs,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFB6000).withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(AppRadii.sm),
-                  border: Border.all(
-                    color: const Color(0xFFFB6000).withValues(alpha: 0.3),
-                  ),
-                ),
-                child: Text(
-                  'Perfect Pet Insurance — Case study 01',
-                  style: textTheme.labelSmall?.copyWith(
-                    color: const Color(0xFFFB6000),
-                    letterSpacing: 0.6,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: AppSpacing.lg),
-
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 820),
-                child: Text(
-                  'Pet insurance checkout page redesign',
-                  style: (isNarrow
-                      ? textTheme.headlineLarge
-                      : textTheme.displayMedium)
-                      ?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    height: 1.08,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-              ),
-
-              SizedBox(height: isNarrow ? AppSpacing.lg : AppSpacing.xl),
-
-              Container(width: 40, height: 2, color: const Color(0xFFFB6000)),
-
-              const SizedBox(height: AppSpacing.xl),
-
-              isNarrow
-                  ? _HeroTextColumn(textTheme: textTheme)
-                  : _HeroTextRow(textTheme: textTheme),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _HeroTextRow extends StatelessWidget {
-  const _HeroTextRow({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 5,
-          child: _HookText(textTheme: textTheme),
-        ),
-        const SizedBox(width: AppSpacing.xxl),
-        Expanded(
-          flex: 4,
-          child: _SprintSummaryText(textTheme: textTheme),
-        ),
-      ],
-    );
-  }
-}
-
-class _HeroTextColumn extends StatelessWidget {
-  const _HeroTextColumn({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _HookText(textTheme: textTheme),
-        const SizedBox(height: AppSpacing.xl),
-        _SprintSummaryText(textTheme: textTheme),
-      ],
-    );
-  }
-}
-
-class _HookText extends StatelessWidget {
-  const _HookText({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'Insuring your pet is an emotional exercise. You hand over a fair bit of money every month hoping the insurer takes the financial — and mental — stress off your hands when your pet isn\'t at its best. So when you\'ve never heard of a brand and the first thing it shows you is a wall of policy text, would you buy? I probably wouldn\'t. This is what customers were faced with when they landed on Perfect Pet\'s \'Review Quote\' page: they\'d come through aggregators like Compare the Market and Money Super Market, and were met with the exact same wall of text. Given that aggregators are our main source of sales, getting this right could make a genuine difference for customers as well as the business.',
-      style: textTheme.titleLarge?.copyWith(
-        color: Colors.white,
-        height: 1.45,
-        fontWeight: FontWeight.w500,
-      ),
-    );
-  }
-}
-
-class _SprintSummaryText extends StatelessWidget {
-  const _SprintSummaryText({required this.textTheme});
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'I was allocated one sprint - 2 weeks. I went in thinking it was a tidy-up job — make a dated page look like it belonged in the modern world, no copy changes. I decided to begin with a competitor review, went through Hotjar recordings of the existing page, came up with a redesign and then sat down with eleven colleagues from claims, complaints, finance and renewals for testing. Recruiting internally was a time-crunch call, and yes, conventional wisdom states that people who deal with pet insurance all day make poor stand-in users, but halfway through the first interview, I realised I should go down a different angle. It was obvious they knew exactly what happens when this page doesn\'t do its job — and the interviews quietly turned a visual refresh into something more interesting.',
-      style: textTheme.bodyMedium?.copyWith(
-        color: Colors.white54,
-        height: 1.7,
-      ),
-    );
-  }
-}
-
-// ── HERO IMAGE BLOCK ──────────────────────────────────────────────────────────
-class _CaseStudyHeroImage extends StatelessWidget {
-  const _CaseStudyHeroImage({
-    this.imagePath,
-    required this.caption,
-  });
-
-  final String? imagePath;
-  final String caption;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final imageHeight = screenWidth < 600 ? 280.0 : 480.0;
-
-    DecorationImage? decorationImage;
-    if (imagePath != null) {
-      decorationImage = DecorationImage(
-        image: AssetImage(imagePath!),
-        fit: BoxFit.cover,
-        alignment: Alignment.topCenter,
-      );
-    }
-
-    return Container(
-      width: double.infinity,
-      color: AppColors.ink,
-      child: SizedBox(
-        width: double.infinity,
-        height: imageHeight,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: decorationImage,
-                gradient: decorationImage == null
-                    ? const LinearGradient(
-                        colors: [
-                          Color(0xFF1C1814),
-                          Color(0xFF0E0C0A),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      )
-                    : null,
-              ),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.0, 0.45, 1.0],
-                  colors: [
-                    Color(0x00000000),
-                    Color(0x26000000),
-                    Color(0xCC000000),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              child: Container(
-                width: 3,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0x00FB6000), Color(0x99FB6000)],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              left: AppSpacing.xl,
-              right: AppSpacing.xl,
-              bottom: AppSpacing.xl,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Text(
-                      caption,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: Colors.white60,
-                        letterSpacing: 0.4,
-                        height: 1.5,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.lg),
-                  if (imagePath == null)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.sm,
-                        vertical: AppSpacing.xxs,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.06),
-                        borderRadius: BorderRadius.circular(AppRadii.sm),
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.12),
-                        ),
-                      ),
-                      child: Text(
-                        'Image placeholder',
-                        style: textTheme.labelSmall?.copyWith(
-                          color: Colors.white38,
-                          letterSpacing: 0.4,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
